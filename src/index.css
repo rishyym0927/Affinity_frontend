@@ -21,3 +21,27 @@ body {
   font-style: normal;
 }
 
+.parent {
+  position: relative; /* This makes the parent a positioning context */
+  /* Set a height for the parent div */
+  /* background-color: lightgray;  */
+}
+
+.child1 {
+  position: absolute; /* Absolute positioning */
+  top: 40%;
+  left: 40%; 
+  transform: translate(-50%, -50%);
+  rotate: -6deg;
+ 
+}
+
+.child2 {
+  position: absolute; /* Absolute positioning */
+  top: 60%;
+  left: 60%; 
+  transform: translate(-50%, -50%);
+  rotate: 12deg;
+ 
+ 
+}

@@ -5,6 +5,7 @@ import img2 from "../assets/img2.jpg";
 import { motion } from 'framer-motion';
 import { Typewriter } from 'react-simple-typewriter';
 
+
 const Landing = () => {
   return (
     <div className="bg-black text-gray-200 w-full h-screen flex flex-col px-6 py-4">
@@ -17,7 +18,7 @@ const Landing = () => {
       </div>
       <div className="flex flex-row h-full">
         <div className="w-1/2 pr-12 flex flex-col h-[100%] justify-center text-gray-100 gap-5">
-          <h1 className="text-4xl font-extrabold">
+          <h1 className="text-5xl font-extrabold">
             <Typewriter
               words={[
                 "Find love in the dark... it’s less awkward that way.",
@@ -29,32 +30,32 @@ const Landing = () => {
               loop={true}
               cursor
               cursorStyle="|"
-              typeSpeed={60}
-              deleteSpeed={40}
+              typeSpeed={50}
+              deleteSpeed={20}
               delaySpeed={1500}
             />
           </h1>
-          <p className="text-gray-400">Meet your match in a world that understands you.</p>
+          <p className="text-gray-400 text-xl">Meet your match in a world that understands you.</p>
           <button className="w-1/3 bg-[#ff0059] hover:bg-red-500 text-white px-4 py-2 rounded-md mt-4">Get Started</button>
         </div>
 
         <motion.div
-  className="w-1/2 h-full relative flex items-center justify-center"
+  className="w-1/2 h-full relative flex items-center justify-center parent "
   initial={{ opacity: 0, scale: 0.8 }}
   animate={{ opacity: 1, scale: 1 }}
   transition={{ duration: 1 }}
 >
   <motion.div
-    className="w-64 h-80 absolute z-20 transform -rotate-12"
-    style={{ left: '-10%', top: '-10%' }}
+    className="max-w-[22rem] max-h-[28rem] w-[22rem] h-[28rem] z-20 transform -rotate-12 child1 "
+ 
     transition={{ type: "spring", stiffness: 300, damping: 20 }}
   >
     <Card image={img1} name={"Emily"} age={25} />
   </motion.div>
 
   <motion.div
-    className="w-64 h-80 absolute z-10 transform rotate-6"
-    style={{ left: '10%', top: '10%' }}
+    className="max-w-[22rem] max-h-[28rem]  w-[22rem] h-[28rem] z-10 transform rotate-6 child2"
+   
     transition={{ type: "spring", stiffness: 300, damping: 20 }}
   >
     <Card image={img2} />

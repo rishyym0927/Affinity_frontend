@@ -5,7 +5,7 @@ const Card = ({ image, name, age }) => {
   return (
     <motion.div
       style={{ backgroundImage: `url(${image})` }}
-      className="w-[17rem] h-[22rem] bg-cover bg-center relative rounded-2xl shadow-lg overflow-hidden"
+      className="w-[100%] h-[100%] bg-cover bg-center relative rounded-2xl shadow-lg overflow-hidden"
       whileHover={{ scale: 1.05, }}
       whileTap={{ scale: 0.95 }}
       animate={{ y: [0, 8, 0] ,}}
