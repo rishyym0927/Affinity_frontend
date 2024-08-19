@@ -33,23 +33,50 @@ export const AuthContextProvider = ({ children }) => {
       setLoginError(null);
 
       // Make sure postRequst and baseURL are defined/imported correctly
-    //   const response = await postRequst(`${baseURL}/users/login`, loginInfo);
+      fetch("http://localhost:3001/login", {
+        method: "POST", 
+        headers: {
+          "Content-Type": "application/json", // Specify the content type as JSON
+        },
+        credentials: 'include',
+        body: JSON.stringify(loginInfo), 
+      })
+        .then((response) => {
+          console.log("Response received");
 
-    //   if (response.error) {
-    //     setLoginError(response);
-    //     setUser(null);
-    //   } else {
-    //     localStorage.setItem("User", JSON.stringify(response));
-    //     setUser(response);
-    //   }
-      console.log(loginInfo)
+          // Check if the response was successful
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+
+          // Log the headers
+          console.log([...response.headers]);
+
+                  })
+        .then((data) => {
+          console.log("Response data:", data);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+
+      
+
+      //   if (response.error) {
+      //     setLoginError(response);
+      //     setUser(null);
+      //   } else {
+      //     localStorage.setItem("User", JSON.stringify(response));
+      //     setUser(response);
+      //   }
+      console.log(loginInfo);
       setIsLoginLoading(false);
     },
     [loginInfo]
   );
 
   // Update login information
-  console.log(loginInfo)
+  console.log(loginInfo);
   const updateLoginInfo = useCallback((info) => {
     setLoginInfo(info);
   }, []);
