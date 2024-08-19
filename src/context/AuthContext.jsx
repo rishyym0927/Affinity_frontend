@@ -34,12 +34,12 @@ export const AuthContextProvider = ({ children }) => {
 
       // Make sure postRequst and baseURL are defined/imported correctly
       fetch("http://localhost:3001/login", {
-        method: "POST", 
+        method: "POST",
         headers: {
           "Content-Type": "application/json", // Specify the content type as JSON
         },
-        credentials: 'include',
-        body: JSON.stringify(loginInfo), 
+        credentials: "include",
+        body: JSON.stringify(loginInfo),
       })
         .then((response) => {
           console.log("Response received");
@@ -51,16 +51,13 @@ export const AuthContextProvider = ({ children }) => {
 
           // Log the headers
           console.log([...response.headers]);
-
-                  })
+        })
         .then((data) => {
           console.log("Response data:", data);
         })
         .catch((error) => {
           console.error("Error:", error);
         });
-
-      
 
       //   if (response.error) {
       //     setLoginError(response);
@@ -81,6 +78,55 @@ export const AuthContextProvider = ({ children }) => {
     setLoginInfo(info);
   }, []);
 
+  //registration
+  const [registerError, setRegisterError] = useState(null);
+  const [isRegisterLoading, setIsRegisterLoading] = useState(null);
+
+  const [registerInfo, setRegisterInfo] = useState({
+    firstName: " ",
+    lastName: " ",
+    email: " ",
+    username: " ",
+    gender: " ",
+    age: " ",
+    location: " ",
+    openess: " ",
+    relation: " ",
+    interest: " ",
+    expectations: " ",
+    socialHabits: " ",
+    pastRelation: " ",
+
+  });
+
+  console.log("registerInfo", registerInfo);
+  const updateRegisterInfo = useCallback((info) => {
+    setRegisterInfo(info);
+  }, []);
+
+  const registerUser = useCallback(
+    async (e) => {
+      //to stop refreshing
+      e.preventDefault();
+      setIsRegisterLoading(true);
+      setRegisterError(null);
+      //   console.log("main 2", registerInfo);
+    //   const response = await postRequst(
+    //     `${baseURL}/users/register`,
+    //     JSON.stringify(registerInfo)
+    //   );
+    //   if (response.error) {
+    //     setRegisterError(response);
+    //   }
+      setIsRegisterLoading(false);
+
+    //   localStorage.setItem("User", JSON.stringify(response));
+    //   setUser(response);
+      console.log("registerUser response", registerInfo);
+    },
+    [registerInfo]
+  );
+
   return (
     <AuthContext.Provider
       value={{
@@ -92,6 +138,14 @@ export const AuthContextProvider = ({ children }) => {
         updateLoginInfo,
         isLoginLoading,
         setLoginError,
+
+        registerInfo,
+        setRegisterInfo,
+        updateRegisterInfo,
+        registerUser,
+        registerError,
+        isRegisterLoading,
+        setRegisterError,
       }}
     >
       {children}

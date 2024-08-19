@@ -62,19 +62,7 @@ body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-button {
-  margin-top: 10px;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 4px;
-  background-color: #007bff;
-  color: #fff;
-  cursor: pointer;
-}
 
-button:hover {
-  background-color: #0056b3;
-}
 
 
 /* src/components/Card.css */
