@@ -1,5 +1,6 @@
 import { createContext, useCallback, useEffect, useState } from "react";
 import axios from 'axios';
+
 export const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
@@ -10,135 +11,116 @@ export const AuthContextProvider = ({ children }) => {
   });
 
   const [loginError, setLoginError] = useState(null);
-  const [isLoginLoading, setIsLoginLoading] = useState(false); // Initialized to false
+  const [isLoginLoading, setIsLoginLoading] = useState(false);
 
-
-  //to check users
+  // Check for stored user data in local storage
   useEffect(() => {
-    const userss = localStorage.getItem("User");
-    if (userss) {
-      setUser(JSON.parse(userss));
+    const storedUser = localStorage.getItem("User");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
     }
-  }, []);
+  }, []); // Empty dependency array ensures this runs only once after initial render
 
-
-
-  // Logout
+  // Logout function
   const logoutUser = useCallback(() => {
     localStorage.removeItem("User");
     setUser(null);
   }, []);
 
-  // Login
+  // Login function
   const loginUser = useCallback(
     async (e) => {
       e.preventDefault();
       setIsLoginLoading(true);
       setLoginError(null);
 
-      // Make sure postRequst and baseURL are defined/imported correctly
-      fetch("http://localhost:3001/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json", // Specify the content type as JSON
-        },
-        credentials: "include",
-        body: JSON.stringify(loginInfo),
-      })
-        .then((response) => {
-          console.log("Response received");
-
-          // Check if the response was successful
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-          }
-
-          // Log the headers
-          console.log([...response.headers]);
-        })
-        .then((data) => {
-          console.log("Response data:", data);
-        })
-        .catch((error) => {
-          console.error("Error:", error);
+      try {
+        const response = await fetch("http://localhost:3001/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify(loginInfo),
         });
 
-        if (response.error) {
-          setLoginError(response);
-          setUser(null);
-        } else {
-          localStorage.setItem("User", JSON.stringify(response));
-          setUser(response);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
         }
-      console.log(loginInfo);
-      setIsLoginLoading(false);
+
+        const data = await response.json();
+        localStorage.setItem("User", JSON.stringify(data));
+        setUser(data);
+        
+        console.log("User successfully logged in:", data); // Log success message
+
+      } catch (error) {
+        setLoginError(error.message);
+        setUser(null);
+        console.error("Login error:", error.message); // Log error message
+      } finally {
+        setIsLoginLoading(false);
+      }
     },
     [loginInfo]
   );
 
   // Update login information
-  console.log(loginInfo);
   const updateLoginInfo = useCallback((info) => {
     setLoginInfo(info);
   }, []);
 
-  //registration
+  // Registration state and functions
   const [registerError, setRegisterError] = useState(null);
-  const [isRegisterLoading, setIsRegisterLoading] = useState(null);
+  const [isRegisterLoading, setIsRegisterLoading] = useState(false);
 
   const [registerInfo, setRegisterInfo] = useState({
-    first_name: " ",
-    last_name: " ",
-    email: " ",
-    username: " ",
-    gender: " ",
-    age:Number,
-    location: " ",
-    openness: " ",
-    relation_type: " ",
-    interest: " ",
-    exp_qual: " ",
-    social_habits: " ",
-    past_relations: " ",
-    password:" ",
+    first_name: "",
+    last_name: "",
+    email: "",
+    username: "",
+    gender: "",
+    age: null,
+    location: "",
+    openness: "",
+    relation_type: "",
+    interest: "",
+    exp_qual: "",
+    social_habits: "",
+    past_relations: "",
+    password: "",
     image_url: "",
     score: 0,
   });
 
-  console.log("registerInfo", registerInfo);
   const updateRegisterInfo = useCallback((info) => {
     setRegisterInfo(info);
   }, []);
 
+  // Register function
   const registerUser = useCallback(
     async (e) => {
-      //to stop refreshing
       e.preventDefault();
       setIsRegisterLoading(true);
       setRegisterError(null);
-      //   console.log("main 2", registerInfo);
 
-      //making the post request to the backend for the registration
+      try {
+        const response = await axios.post(
+          "http://localhost:3001/signup",
+          registerInfo
+        );
 
-      let response = await axios.post(
-        "http://localhost:3001/signup",
-        registerInfo
-      );
+        localStorage.setItem("User", JSON.stringify(response.data));
+        setUser(response.data);
 
-      console.log(response);
+        console.log("User successfully registered:", response.data); // Log success message
 
-      //   const response = await postRequst(
-      //     `${baseURL}/users/register`,
-      //     JSON.stringify(registerInfo)
-      //   );
-        if (response.error) {
-          setRegisterError(response);
-        }
-      setIsRegisterLoading(false);
-
-        localStorage.setItem("User", JSON.stringify(response));
-        setUser(response);
-      console.log("registerUser response", registerInfo);
+      } catch (error) {
+        setRegisterError(error.response?.data?.message || error.message);
+        console.error("Registration error:", error.response?.data?.message || error.message); // Log error message
+      } finally {
+        setIsRegisterLoading(false);
+      }
     },
     [registerInfo]
   );

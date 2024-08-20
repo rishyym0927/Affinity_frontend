@@ -1,4 +1,3 @@
-// src/components/Carousel.js
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Card1 from './Card1';
@@ -8,10 +7,11 @@ const Carousel = () => {
   const [isHovered, setIsHovered] = useState(false);
   const carouselRef = useRef(null);
 
+  // Use direct image URLs
   const cards = [
-    { id: 1, front: <img src="https://www.pexels.com/photo/woman-in-brown-button-up-shirt-and-blue-denim-jeans-standing-near-brown-wooden-table-4107104/" alt="Card 1" />, back: <div>Back 1</div> },
-    { id: 2, front: <img src="https://www.pexels.com/photo/woman-in-white-crew-neck-shirt-under-white-clouds-4919373/" alt="Card 2" />, back: <div>Back 2</div> },
-    { id: 3, front: <img src="https://www.pexels.com/photo/woman-in-white-crew-neck-shirt-sitting-on-brown-wooden-bench-4917824/" alt="Card 3" />, back: <div>Back 3</div> }
+    { id: 1, front: <img src="https://images.pexels.com/photos/4107104/pexels-photo-4107104.jpeg" alt="Card 1" />, back: <div>Back 1</div> },
+    { id: 2, front: <img src="https://images.pexels.com/photos/4919373/pexels-photo-4919373.jpeg" alt="Card 2" />, back: <div>Back 2</div> },
+    { id: 3, front: <img src="https://images.pexels.com/photos/4917824/pexels-photo-4917824.jpeg" alt="Card 3" />, back: <div>Back 3</div> }
   ];
 
   useEffect(() => {
