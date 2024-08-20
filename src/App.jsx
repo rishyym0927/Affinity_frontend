@@ -1,21 +1,45 @@
-import React, { useContext } from 'react'
-import { AuthContext } from './context/AuthContext'
-import { Route, Routes } from 'react-router-dom'
-import Landing from './pages/Landing'
-import Login from './pages/Login'
-import Register from './pages/Register'
+// App.js
+import React, { useContext } from "react";
+import { AuthContext } from "./context/AuthContext";
+import { Route, Routes } from "react-router-dom";
+import Landing from "./pages/Landing";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Dashboard from "./pages/Dashboard";
+import Layout1 from "./Layout1";
+import Search from "./pages/Search";
 
 const App = () => {
-  const {user} =useContext(AuthContext)
+  const { user } = useContext(AuthContext);
+
   return (
     <>
-    <Routes>
-      <Route path="/" element={<Landing />}/>
-      <Route path="/login" element={<Login />}/>
-      <Route path="/register" element={<Register />}/>
-    </Routes>
-    </>
-  )
-}
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        
+        {/* Protected Route for Dashboard */}
+        <Route 
+          path="/dashboard" 
+          element={
+            <Layout1>
+              <Dashboard />
+            </Layout1>
+          } 
+        />
+        <Route
+        path="/search"
+        element={
+          <Layout1>
+            <Search />
+          </Layout1>
+        }
+      />
 
-export default App
+      </Routes>
+    </>
+  );
+};
+
+export default App;
