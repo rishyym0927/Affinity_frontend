@@ -9,7 +9,7 @@ const Layout1 = ({ children }) => {
       <Sidebar />
 
       {/* Content area */}
-      <div className="flex-1 ml-64 p-6">
+      <div className="flex-1 ml-64 ">
         {children}
       </div>
     </div>

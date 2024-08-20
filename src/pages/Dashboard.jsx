@@ -10,7 +10,7 @@ import InfoCard from '../components/InfoCard';
 
 const Dashboard = () => {
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex h-screen bg-black">
       <Sidebar />
       <div className="flex-1 flex p-6">
         <Routes>
