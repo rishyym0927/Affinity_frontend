@@ -1,88 +1,60 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
-
+import { motion } from 'framer-motion';
+import Carousel from '../components/Carousel';
 const Login = () => {
     const { loginUser, loginError, loginInfo, updateLoginInfo, isLoginLoading } = useContext(AuthContext);
 
     return (
-        <form onSubmit={loginUser} style={styles.form}>
-            <div style={styles.container}>
-                <div style={styles.card}>
-                    <h2>Login</h2>
-
+        <div className="bg-black text-gray-200 gap-4 w-full h-screen flex flex-row items-center justify-center">
+            <div className='bg-red-200 h-[25rem]'>
+                <Carousel />
+            </div>
+            <motion.div 
+                className="bg-neutral-800 p-8 h-[25rem] rounded-lg shadow-lg max-w-sm w-full"
+                initial={{ opacity: 0, y: -50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, ease: 'easeOut' }}
+            >
+                <h2 className="text-3xl font-extrabold text-center mb-6 text-stone-200">Login</h2>
+                <form onSubmit={loginUser} className="space-y-6">
                     <input
                         type="email"
-                        placeholder="email"
+                        placeholder="Email"
                         value={loginInfo.email || ''}
                         onChange={(e) => updateLoginInfo({ ...loginInfo, email: e.target.value })}
-                        style={styles.input}
+                        className="w-full px-4 py-2 rounded-md bg-stone-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-[#ff0059] text-gray-200"
                     />
                     <input
                         type="password"
-                        placeholder="password"
+                        placeholder="Password"
                         value={loginInfo.password || ''}
                         onChange={(e) => updateLoginInfo({ ...loginInfo, password: e.target.value })}
-                        style={styles.input}
+                        className="w-full px-4 py-2 rounded-md bg-stone-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-[#ff0059] text-gray-200"
                     />
-
-                    <button type="submit" style={styles.button}>
+                    <motion.button 
+                        type="submit"
+                        className="w-full px-4 py-2 bg-[#ff0059] hover:bg-red-500 rounded-md text-white font-bold"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                    >
                         {isLoginLoading ? 'Loading...' : 'Login'}
-                    </button>
-
+                    </motion.button>
                     {loginError?.error && (
-                        <div style={styles.alert}>
+                        <motion.div 
+                            className="p-4 mt-4 rounded-md bg-red-500 text-white text-center"
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5 }}
+                        >
                             <p>{loginError?.message}</p>
-                        </div>
+                        </motion.div>
                     )}
-                </div>
-            </div>
-        </form>
+                </form>
+            </motion.div>
+        </div>
     );
-};
-
-const styles = {
-    form: {
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: '10%',
-        margin: 0,
-    },
-    container: {
-        width: '100%',
-        maxWidth: '600px',
-    },
-    card: {
-        padding: '20px',
-        borderRadius: '8px',
-        boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-        backgroundColor: '#fff',
-    },
-    input: {
-        display: 'block',
-        width: '100%',
-        padding: '10px',
-        margin: '10px 0',
-        border: '1px solid #ccc',
-        borderRadius: '4px',
-    },
-    button: {
-        padding: '10px 20px',
-        border: 'none',
-        borderRadius: '4px',
-        backgroundColor: '#007bff',
-        color: '#fff',
-        fontSize: '16px',
-        cursor: 'pointer',
-    },
-    alert: {
-        padding: '10px',
-        marginTop: '10px',
-        borderRadius: '4px',
-        backgroundColor: '#f8d7da',
-        color: '#721c24',
-    },
 };
 
 export default Login;
