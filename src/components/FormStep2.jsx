@@ -40,12 +40,12 @@ const FormStep2 = ({ onNext, onBack }) => {
               type="number" 
               name="age" 
               value={registerInfo.age}
-              onChange={(e) => updateRegisterInfo({ ...registerInfo, age: e.target.value })}
+              onChange={(e) => updateRegisterInfo({ ...registerInfo, age: Number(e.target.value) })}
               className="mt-1 block w-full p-2 rounded-md bg-gray-700 text-white border border-gray-600" 
             />
           </label>
         </div>
-       
+
         <label className="block">
           <span className="text-gray-400">Location:</span>
           <input 
@@ -58,11 +58,11 @@ const FormStep2 = ({ onNext, onBack }) => {
         </label>
         <div className='flex flex-row w-full gap-4'>
           <label className="block w-full">
-            <span className="text-gray-400">Openess:</span>
+            <span className="text-gray-400">openness:</span>
             <select 
-              name="openess" 
-              value={registerInfo.openess}
-              onChange={(e) => updateRegisterInfo({ ...registerInfo, openess: e.target.value })}
+              name="openness" 
+              value={registerInfo.openness}
+              onChange={(e) => updateRegisterInfo({ ...registerInfo, openness: e.target.value })}
               className="mt-1 block w-full p-2 rounded-md bg-gray-700 text-white border border-gray-600"
             >
               <option value="">Select</option>
@@ -71,12 +71,12 @@ const FormStep2 = ({ onNext, onBack }) => {
               <option value="ambivert">Ambivert</option>
             </select>
           </label>
-          <label className="block w-full">
-            <span className="text-gray-400">Relation:</span>
+          <label className="block w-full">  
+            <span className="text-gray-400">Relation Type:</span>
             <select 
-              name="relation" 
-              value={registerInfo.relation}
-              onChange={(e) => updateRegisterInfo({ ...registerInfo, relation: e.target.value })}
+              name="relation_type" 
+              value={registerInfo.relation_type}
+              onChange={(e) => updateRegisterInfo({ ...registerInfo, relation_type: e.target.value })}
               className="mt-1 block w-full p-2 rounded-md bg-gray-700 text-white border border-gray-600"
             >
               <option value="">Select</option>

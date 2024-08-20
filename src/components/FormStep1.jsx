@@ -19,9 +19,9 @@ const FormStep1 = ({ onNext }) => {
           <span className="text-gray-400">First Name:</span>
           <input 
             type="text" 
-            name="firstName" 
-            value={registerInfo.firstName}
-            onChange={(e) => updateRegisterInfo({ ...registerInfo, firstName: e.target.value })}
+            name="first_name" 
+            value={registerInfo.first_name}
+            onChange={(e) => updateRegisterInfo({ ...registerInfo, first_name: e.target.value })}
             className="mt-1 block w-full p-2 rounded-md bg-gray-700 text-white border border-gray-600" 
           />
         </label>
@@ -29,9 +29,9 @@ const FormStep1 = ({ onNext }) => {
           <span className="text-gray-400">Last Name:</span>
           <input 
             type="text" 
-            name="lastName" 
-            value={registerInfo.lastName}
-            onChange={(e) => updateRegisterInfo({ ...registerInfo, lastName: e.target.value })}
+            name="last_name" 
+            value={registerInfo.last_name}
+            onChange={(e) => updateRegisterInfo({ ...registerInfo, last_name: e.target.value })}
             className="mt-1 block w-full p-2 rounded-md bg-gray-700 text-white border border-gray-600" 
           />
         </label>
@@ -55,7 +55,18 @@ const FormStep1 = ({ onNext }) => {
             className="mt-1 block w-full p-2 rounded-md bg-gray-700 text-white border border-gray-600" 
           />
         </label>
-       
+
+        <label className="block">
+          <span className="text-gray-400">Password:</span>
+          <input 
+            type="password" 
+            name="password" 
+            value={registerInfo.password}
+            onChange={(e) => updateRegisterInfo({ ...registerInfo, password: e.target.value })}
+            className="mt-1 block w-full p-2 rounded-md bg-gray-700 text-white border border-gray-600" 
+          />
+        </label>
+
         <button 
           type="button" 
           onClick={onNext} 

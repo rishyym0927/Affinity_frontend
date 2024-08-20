@@ -1,5 +1,5 @@
 import { createContext, useCallback, useEffect, useState } from "react";
-
+import axios from 'axios';
 export const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
@@ -83,20 +83,22 @@ export const AuthContextProvider = ({ children }) => {
   const [isRegisterLoading, setIsRegisterLoading] = useState(null);
 
   const [registerInfo, setRegisterInfo] = useState({
-    firstName: " ",
-    lastName: " ",
+    first_name: " ",
+    last_name: " ",
     email: " ",
     username: " ",
     gender: " ",
-    age: " ",
+    age:Number,
     location: " ",
-    openess: " ",
-    relation: " ",
+    openness: " ",
+    relation_type: " ",
     interest: " ",
-    expectations: " ",
-    socialHabits: " ",
-    pastRelation: " ",
-
+    exp_qual: " ",
+    social_habits: " ",
+    past_relations: " ",
+    password:" ",
+    image_url: "xyz",
+    score: 0,
   });
 
   console.log("registerInfo", registerInfo);
@@ -111,17 +113,27 @@ export const AuthContextProvider = ({ children }) => {
       setIsRegisterLoading(true);
       setRegisterError(null);
       //   console.log("main 2", registerInfo);
-    //   const response = await postRequst(
-    //     `${baseURL}/users/register`,
-    //     JSON.stringify(registerInfo)
-    //   );
-    //   if (response.error) {
-    //     setRegisterError(response);
-    //   }
+
+      //making the post request to the backend for the registration
+
+      let response = await axios.post(
+        "http://localhost:3001/signup",
+        registerInfo
+      );
+
+      console.log(response);
+
+      //   const response = await postRequst(
+      //     `${baseURL}/users/register`,
+      //     JSON.stringify(registerInfo)
+      //   );
+      //   if (response.error) {
+      //     setRegisterError(response);
+      //   }
       setIsRegisterLoading(false);
 
-    //   localStorage.setItem("User", JSON.stringify(response));
-    //   setUser(response);
+      //   localStorage.setItem("User", JSON.stringify(response));
+      //   setUser(response);
       console.log("registerUser response", registerInfo);
     },
     [registerInfo]
