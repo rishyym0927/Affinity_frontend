@@ -12,12 +12,16 @@ export const AuthContextProvider = ({ children }) => {
   const [loginError, setLoginError] = useState(null);
   const [isLoginLoading, setIsLoginLoading] = useState(false); // Initialized to false
 
+
+  //to check users
   useEffect(() => {
     const userss = localStorage.getItem("User");
     if (userss) {
       setUser(JSON.parse(userss));
     }
   }, []);
+
+
 
   // Logout
   const logoutUser = useCallback(() => {
@@ -59,13 +63,13 @@ export const AuthContextProvider = ({ children }) => {
           console.error("Error:", error);
         });
 
-      //   if (response.error) {
-      //     setLoginError(response);
-      //     setUser(null);
-      //   } else {
-      //     localStorage.setItem("User", JSON.stringify(response));
-      //     setUser(response);
-      //   }
+        if (response.error) {
+          setLoginError(response);
+          setUser(null);
+        } else {
+          localStorage.setItem("User", JSON.stringify(response));
+          setUser(response);
+        }
       console.log(loginInfo);
       setIsLoginLoading(false);
     },
@@ -127,13 +131,13 @@ export const AuthContextProvider = ({ children }) => {
       //     `${baseURL}/users/register`,
       //     JSON.stringify(registerInfo)
       //   );
-      //   if (response.error) {
-      //     setRegisterError(response);
-      //   }
+        if (response.error) {
+          setRegisterError(response);
+        }
       setIsRegisterLoading(false);
 
-      //   localStorage.setItem("User", JSON.stringify(response));
-      //   setUser(response);
+        localStorage.setItem("User", JSON.stringify(response));
+        setUser(response);
       console.log("registerUser response", registerInfo);
     },
     [registerInfo]
