@@ -97,7 +97,7 @@ export const AuthContextProvider = ({ children }) => {
     social_habits: " ",
     past_relations: " ",
     password:" ",
-    image_url: "xyz",
+    image_url: "",
     score: 0,
   });
 
