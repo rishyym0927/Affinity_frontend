@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { motion } from 'framer-motion';
 import { AuthContext } from '../context/AuthContext';
-
+import { Link } from 'react-router-dom';
 const FormStep1 = ({ onNext }) => {
   const { updateRegisterInfo, registerInfo } = useContext(AuthContext);
 
@@ -11,30 +11,34 @@ const FormStep1 = ({ onNext }) => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 20 }}
       transition={{ duration: 0.5 }}
-      className="p-6 bg-gray-800 rounded-lg shadow-lg"
+      className="p-6 rounded-lg shadow-lg h-full "
     >
-      <h2 className="text-2xl font-bold text-[#ff0059] mb-4">Let's get to know you better</h2>
+      <h2 className="text-lg font-bold text-[#ff0059] text-neutral-700 mb-4">START FOR FREE</h2>
+      <h1 className='text-white text-5xl font-bold mb-6'>Create your account</h1>
+      <p className='text-neutral-400 font-bold mb-14'>Already a member ? <span className='text-yellow-500'><Link>Log in</Link></span></p>
       <form className="space-y-4">
-        <label className="block">
+        <div className='flex flex-row gap-10'>
+        <label className="w-1/2">
           <span className="text-gray-400">First Name:</span>
           <input 
             type="text" 
             name="first_name" 
             value={registerInfo.first_name}
             onChange={(e) => updateRegisterInfo({ ...registerInfo, first_name: e.target.value })}
-            className="mt-1 block w-full p-2 rounded-md bg-gray-700 text-white border border-gray-600" 
+            className="mt-1 block w-full p-2 rounded-md bg-neutral-800 outline-none text-white border border-gray-600" 
           />
         </label>
-        <label className="block">
+        <label className="w-1/2">
           <span className="text-gray-400">Last Name:</span>
           <input 
             type="text" 
             name="last_name" 
             value={registerInfo.last_name}
             onChange={(e) => updateRegisterInfo({ ...registerInfo, last_name: e.target.value })}
-            className="mt-1 block w-full p-2 rounded-md bg-gray-700 text-white border border-gray-600" 
+            className="mt-1 block w-full p-2 rounded-md bg-neutral-800 outline-none text-white border border-gray-600" 
           />
         </label>
+        </div>
         <label className="block">
           <span className="text-gray-400">Email:</span>
           <input 
@@ -42,39 +46,31 @@ const FormStep1 = ({ onNext }) => {
             name="email" 
             value={registerInfo.email}
             onChange={(e) => updateRegisterInfo({ ...registerInfo, email: e.target.value })}
-            className="mt-1 block w-full p-2 rounded-md bg-gray-700 text-white border border-gray-600" 
+            className="mt-1 block w-full p-2 rounded-md bg-neutral-800 outline-none text-white border border-gray-600" 
           />
         </label>
-        <label className="block">
-          <span className="text-gray-400">Username:</span>
-          <input 
-            type="text" 
-            name="username" 
-            value={registerInfo.username}
-            onChange={(e) => updateRegisterInfo({ ...registerInfo, username: e.target.value })}
-            className="mt-1 block w-full p-2 rounded-md bg-gray-700 text-white border border-gray-600" 
-          />
-        </label>
+       
 
-        <label className="block">
+        <label className="block ">
           <span className="text-gray-400">Password:</span>
           <input 
             type="password" 
             name="password" 
             value={registerInfo.password}
             onChange={(e) => updateRegisterInfo({ ...registerInfo, password: e.target.value })}
-            className="mt-1 block w-full p-2 rounded-md bg-gray-700 text-white border border-gray-600" 
+            className="mt-1 block w-full p-2 rounded-md bg-neutral-800 outline-none text-white border border-gray-600" 
           />
         </label>
 
-        <button 
+        
+      </form>
+      <button 
           type="button" 
           onClick={onNext} 
-          className="w-full bg-[#ff0059] hover:bg-red-500 text-white py-2 rounded-md"
+          className="w-1/3 mt-14 mb-10 bg-[#ff0059] hover:bg-red-500 text-white py-4 rounded-md"
         >
-          Next
+          Lets Move to Next
         </button>
-      </form>
     </motion.div>
   );
 };

@@ -10,8 +10,10 @@ const Carousel = () => {
   // Use direct image URLs
   const cards = [
     { id: 1, front: <img src="https://images.pexels.com/photos/4107104/pexels-photo-4107104.jpeg" alt="Card 1" />, back: <div>Back 1</div> },
-    { id: 2, front: <img src="https://images.pexels.com/photos/4919373/pexels-photo-4919373.jpeg" alt="Card 2" />, back: <div>Back 2</div> },
-    { id: 3, front: <img src="https://images.pexels.com/photos/4917824/pexels-photo-4917824.jpeg" alt="Card 3" />, back: <div>Back 3</div> }
+    { id: 2, front: <img src="https://images.pexels.com/photos/1547971/pexels-photo-1547971.jpeg" alt="Card 2" />, back: <div>Back 2</div> },
+    { id: 3, front: <img src="https://images.pexels.com/photos/1031081/pexels-photo-1031081.jpeg" alt="Card 3" />, back: <div>Back 3</div> },
+    // Add more cards here...
+    { id: 4, front: <img src="https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg" alt="Card 4" />, back: <div>Back 4</div> },
   ];
 
   useEffect(() => {
@@ -31,7 +33,7 @@ const Carousel = () => {
       onMouseLeave={() => setIsHovered(false)}
       ref={carouselRef}
     >
-      <div className="carousel">
+      <div className="carousel w-full h-full">
         <AnimatePresence mode='wait'>
           <motion.div
             key={cards[currentIndex].id}

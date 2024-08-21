@@ -45,7 +45,16 @@ const FormStep2 = ({ onNext, onBack }) => {
             />
           </label>
         </div>
-
+        <label className="block">
+          <span className="text-gray-400">Username:</span>
+          <input 
+            type="text" 
+            name="username" 
+            value={registerInfo.username}
+            onChange={(e) => updateRegisterInfo({ ...registerInfo, username: e.target.value })}
+            className="mt-1 block w-full p-2 rounded-md bg-neutral-800 outline-none text-white border border-gray-600" 
+          />
+        </label>
         <label className="block">
           <span className="text-gray-400">Location:</span>
           <input 

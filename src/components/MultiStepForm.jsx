@@ -13,7 +13,7 @@ const MultiStepForm = () => {
   const handleBack = () => setStep(step - 1);
 
   return (
-    <div className="w-full max-w-md mx-auto mt-10">
+    <div className="w-full h-full ">
       <AnimatePresence>
         {step === 1 && <FormStep1 onNext={handleNext} />}
         {step === 2 && <FormStep2 onNext={handleNext} onBack={handleBack} />}

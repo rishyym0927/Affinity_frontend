@@ -12,7 +12,7 @@ const Card = ({ front, back }) => {
         whileHover={{ rotateY: 180 }}
         transition={{ duration: 0.1 }}
       >
-        <div className="card-front">
+        <div className="card-front object-center">
           {front}
         </div>
         <div className="card-back">
