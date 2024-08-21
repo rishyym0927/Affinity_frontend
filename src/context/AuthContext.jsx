@@ -17,7 +17,11 @@ export const AuthContextProvider = ({ children }) => {
   useEffect(() => {
     const storedUser = localStorage.getItem("User");
     if (storedUser) {
-      setUser(JSON.parse(storedUser));
+      try {
+        setUser(JSON.parse(storedUser)); // Safely parse the stored user
+      } catch (error) {
+        console.error("Failed to parse stored user:", error);
+      }
     }
   }, []); // Empty dependency array ensures this runs only once after initial render
 
@@ -35,7 +39,7 @@ export const AuthContextProvider = ({ children }) => {
       setLoginError(null);
 
       try {
-        const response = await fetch("https://9a71-117-219-22-193.ngrok-free.app/login", {
+        const response = await fetch("http://ec2-3-7-69-234.ap-south-1.compute.amazonaws.com:3001/login", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -49,14 +53,13 @@ export const AuthContextProvider = ({ children }) => {
         }
 
         const data = await response.json();
-        localStorage.setItem("User", JSON.stringify(data));
-        setUser(data);
-        
-        console.log("User successfully logged in:", data); // Log success message
+        localStorage.setItem("User", JSON.stringify(data)); // Store user data in local storage
+        setUser(data); // Update state with user data
 
+        console.log("User successfully logged in:", data); // Log success message
       } catch (error) {
         setLoginError(error.message);
-        setUser(null);
+        setUser(null); // Reset user state in case of error
         console.error("Login error:", error.message); // Log error message
       } finally {
         setIsLoginLoading(false);
@@ -105,16 +108,12 @@ export const AuthContextProvider = ({ children }) => {
       setRegisterError(null);
 
       try {
-        const response = await axios.post(
-          "http://localhost:3001/signup",
-          registerInfo
-        );
+        const response = await axios.post("http://localhost:3001/signup", registerInfo);
 
-        localStorage.setItem("User", JSON.stringify(response.data));
-        setUser(response.data);
+        localStorage.setItem("User", JSON.stringify(response.data)); // Store user data in local storage
+        setUser(response.data); // Update state with user data
 
         console.log("User successfully registered:", response.data); // Log success message
-
       } catch (error) {
         setRegisterError(error.response?.data?.message || error.message);
         console.error("Registration error:", error.response?.data?.message || error.message); // Log error message

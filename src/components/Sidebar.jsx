@@ -53,12 +53,21 @@ const Sidebar = () => {
                         </Link>
                     </motion.li>
                     <motion.li 
-                        className="w-full bg-neutral-700 p-3 rounded-lg text-lg md:text-xl lg:text-2xl font-bold cursor-pointer"
+                        className="mb-6 w-full bg-neutral-700 p-3 rounded-lg text-lg md:text-xl lg:text-2xl font-bold cursor-pointer"
                         variants={menuItemVariants}
                         whileHover="hover"
                     >
                         <Link to="/matches" className="block text-lg md:text-xl lg:text-2xl hover:text-gray-400">
                             Matches
+                        </Link>
+                    </motion.li>
+                    <motion.li 
+                        className="w-full bg-neutral-700 p-3 rounded-lg text-lg md:text-xl lg:text-2xl font-bold cursor-pointer"
+                        variants={menuItemVariants}
+                        whileHover="hover"
+                    >
+                        <Link to="/chatbot" className="block text-lg md:text-xl lg:text-2xl hover:text-gray-400">
+                            ChatBot
                         </Link>
                     </motion.li>
                 </ul>

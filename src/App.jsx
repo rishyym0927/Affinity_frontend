@@ -9,6 +9,8 @@ import Dashboard from "./pages/Dashboard";
 import Layout1 from "./Layout1";
 import Search from "./pages/Search";
 import Queue from "./pages/Queue";
+import Chatbot from "./pages/Chatbot";
+import { AIChatContext, AIChatContextProvider } from "./context/AIChatContext";
 
 const App = () => {
   const { user } = useContext(AuthContext);
@@ -16,41 +18,65 @@ const App = () => {
 
   return (
     <>
-      <Routes>
+    <AIChatContextProvider userss={user}>
+    <Routes>
         <Route path="/" element={<Landing />} />
-        <Route path="/login" element={ <Login />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        
+
         {/* Protected Route for Dashboard */}
-        <Route 
-          path="/dashboard" 
-          element={user ?
-            <Layout1>
-              <Dashboard />
-            </Layout1> :<Landing />
-          } 
+        <Route
+          path="/dashboard"
+          element={
+            user ? (
+              <Layout1>
+                <Dashboard />
+              </Layout1>
+            ) : (
+              <Landing />
+            )
+          }
         />
         <Route
-        path="/search"
-        element={
-          user ?
-          <Layout1>
-            <Search />
-          </Layout1> :<Landing />
-        }
-      />
+          path="/search"
+          element={
+            user ? (
+              <Layout1>
+                <Search />
+              </Layout1>
+            ) : (
+              <Landing />
+            )
+          }
+        />
 
-<Route
-        path="/queue"
-        element={
-          user ?
-          <Layout1>
-            <Queue />
-          </Layout1> :<Landing />
-        }
-      />
-
+        <Route
+          path="/queue"
+          element={
+            user ? (
+              <Layout1>
+                <Queue />
+              </Layout1>
+            ) : (
+              <Landing />
+            )
+          }
+        />
+        <Route
+          path="/chatbot"
+          element={
+            user ? (
+              <Layout1>
+               <Chatbot />
+              </Layout1>
+            ) : (
+              <Landing />
+            )
+          }
+        />
       </Routes>
+    </AIChatContextProvider>
+     
     </>
   );
 };

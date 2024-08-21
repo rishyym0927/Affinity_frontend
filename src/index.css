@@ -103,6 +103,7 @@ body {
 .carousel-container {
   width: 100%;
   height: 100%;
+  border-radius: 20px;
   object-position: center;
   display: flex;
   align-items: center;
@@ -111,7 +112,7 @@ body {
 }
 
 .carousel {
-  
+  border-radius: 20px;
   object-position: center;
   display: flex;
   align-items: center;

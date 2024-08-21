@@ -10,7 +10,7 @@ function Register() {
         <div className="w-3/5 h-full   ">
           <MultiStepForm />
         </div>
-        <div className="w-2/5 bg-green-200 ">
+        <div className="w-2/5  ">
           <Carousel />
         </div>
       </div>
