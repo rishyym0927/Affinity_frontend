@@ -11,7 +11,7 @@ const ChatBox = () => {
 
   const {mUser, setMUser} = useContext(AIChatContext)
   const [userChatID, setUserChatID] = useState(null);
-  const { setUserAIChatID, textMessage, setTextMessage, sendTextMessage } = useContext(AIChatContext);
+  const { setUserAIChatID, textMessage, setTextMessage, sendTextMessage, setMessages } = useContext(AIChatContext);
 
   useEffect(() => {
     const registerUser = async () => {
@@ -101,7 +101,20 @@ const ChatBox = () => {
 
     getChats(); // Call the function
   }, [userChatID]);
+  useEffect(() => {
+    const interval = setInterval(async () => {
+      if (userChatID) {
+        try {
+          const response = await axios.get(`http://localhost:5000/api/messages/${userChatID}`);
+          setMessages(response.data);
+        } catch (e) {
+          console.error("Error getting chat messages:", e);
+        }
+      }
+    }, 1000); // Check for new messages every 2 seconds
 
+    return () => clearInterval(interval); // Clean up the interval when the component unmounts
+  }, [userChatID, setMessages]);
   useEffect(() => {
     scroll.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
