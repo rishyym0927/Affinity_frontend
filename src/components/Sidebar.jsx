@@ -39,7 +39,7 @@ const Sidebar = () => {
                         variants={menuItemVariants}
                         whileHover="hover"
                     >
-                        <Link to="/search" className="block text-lg md:text-xl lg:text-2xl hover:text-gray-400">
+                        <Link to="/dashboard" className="block text-lg md:text-xl lg:text-2xl hover:text-gray-400">
                             Search
                         </Link>
                     </motion.li>

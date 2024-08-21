@@ -4,12 +4,15 @@ import Sidebar from './components/Sidebar';
 
 const Layout1 = ({ children }) => {
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen flex-row">
       {/* Sidebar */}
+      <div className='flex-0 w-full md:w-80 lg:w-96'>
       <Sidebar />
+      </div>
+    
 
       {/* Content area */}
-      <div className="flex-1 ml-64 ">
+      <div className="flex-1 w-1/6 p-20 ">
         {children}
       </div>
     </div>

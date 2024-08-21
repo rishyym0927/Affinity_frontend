@@ -8,6 +8,7 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import Layout1 from "./Layout1";
 import Search from "./pages/Search";
+import Queue from "./pages/Queue";
 
 const App = () => {
   const { user } = useContext(AuthContext);
@@ -35,6 +36,16 @@ const App = () => {
           user ?
           <Layout1>
             <Search />
+          </Layout1> :<Landing />
+        }
+      />
+
+<Route
+        path="/queue"
+        element={
+          user ?
+          <Layout1>
+            <Queue />
           </Layout1> :<Landing />
         }
       />
