@@ -11,29 +11,31 @@ import Search from "./pages/Search";
 
 const App = () => {
   const { user } = useContext(AuthContext);
+  console.log(user);
 
   return (
     <>
       <Routes>
         <Route path="/" element={<Landing />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={ <Login />} />
         <Route path="/register" element={<Register />} />
         
         {/* Protected Route for Dashboard */}
         <Route 
           path="/dashboard" 
-          element={
+          element={user ?
             <Layout1>
               <Dashboard />
-            </Layout1>
+            </Layout1> :<Landing />
           } 
         />
         <Route
         path="/search"
         element={
+          user ?
           <Layout1>
             <Search />
-          </Layout1>
+          </Layout1> :<Landing />
         }
       />
 
