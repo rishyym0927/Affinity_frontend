@@ -117,9 +117,10 @@ const ChatBox = () => {
   }, [messages]);
 
   return (
-    <div className="flex flex-col justify-between bg-gray-900 rounded-lg h-full">
-      <div className="flex justify-center items-center p-3 bg-gray-800 text-white">
-        <strong>Username</strong>
+    <div className="flex flex-col justify-between bg-black rounded-[16px] h-full overflow-hidden">
+      <div className="flex justify-start items-center p-5 gap-4  bg-black  over text-white ">
+        <img src="https://images.pexels.com/photos/2599244/pexels-photo-2599244.jpeg"  className="h-10 w-10 rounded-full"/>
+        <strong className="text-xl font-bold">AI Chatbot</strong>
       </div>
       <div className="flex flex-col gap-3 px-8 overflow-y-auto flex-grow">
         {messages.map((message, index) => (
@@ -127,8 +128,8 @@ const ChatBox = () => {
             key={index}
             className={`${
               message.senderId === "66c5e5a825f42519a77afa5f"
-                ? "self-start bg-gray-700 text-left"
-                : "self-end bg-teal-500 text-right"
+                ? "self-start bg-neutral-700 text-left text-white"
+                : "self-end bg-[#ff0059] text-white  text-right"
             } p-3 rounded-md max-w-[50%]`}
             ref={scroll}
           >
@@ -139,12 +140,13 @@ const ChatBox = () => {
           </div>
         ))}
       </div>
-      <div className="flex items-center gap-3 p-4 bg-gray-800">
+      <div className="flex items-center gap-6 p-7 mt-3  bg-black">
         <input
           type="text"
           value={textMessage}
           onChange={(e) => setTextMessage(e.target.value)}
-          className="w-full p-2 rounded-md bg-neutral-800 outline-none text-white border border-gray-600"
+          className="w-full p-2 rounded-md text-white bg-neutral-800 outline-none border-1 hover:outline-[#ff0059]"
+          placeholder="Enter your message here"
         />
         <button
           className="bg-[#ff0059] hover:bg-red-500 text-white py-2 px-4 rounded-md"
