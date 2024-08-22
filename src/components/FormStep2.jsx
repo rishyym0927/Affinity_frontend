@@ -11,15 +11,18 @@ const FormStep2 = ({ onNext, onBack }) => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 20 }}
       transition={{ duration: 0.5 }}
-      className="p-6 rounded-lg shadow-lg h-full"
+      className="p-6 rounded-lg shadow-lg h-full flex flex-col justify-around"
     >
+      <div>
       <h2 className="text-4xl text-white  font-bold text-[#ff0059] text-neutral-700 mb-4">Contact Information</h2>
       <p className='text-neutral-400  font-bold mb-8'>Don't worry we will keep it to  <span className='text-yellow-600'>ourselves</span> only !</p>
+      </div>
+      
       <form className="space-y-4">
-        <div className='flex flex-row '>
+        <div className='flex flex-row gap-4 '>
           <label className="w-1/3">
             <span className="text-gray-400">Gender:</span>
-            <div className="flex mt-1">
+            <div className="flex mt-1 flex-row gap-4">
               {['male', 'female'].map(gender => (
                 <button
                   key={gender}
@@ -95,8 +98,23 @@ const FormStep2 = ({ onNext, onBack }) => {
               <option value="longTerm">Long Term</option>
             </select>
           </label>
+          
         </div>
-        <div className="flex justify-between">
+         <label className="block">
+          <span className="text-gray-400">Expected Qualities</span>
+          <input
+            type="text"
+            name="exp_qual"
+            value={registerInfo.exp_qual}
+            onChange={(e) =>
+              updateRegisterInfo({ ...registerInfo, exp_qual: e.target.value })
+            }
+            className="mt-1 block w-full p-2 rounded-md bg-neutral-800 outline-none text-white border border-gray-600"
+          />
+        </label>
+       
+      </form>
+      <div className="flex justify-start  gap-4 items-end mt-10">
           <button type="button" onClick={onBack} className="bg-neutral-800 hover:bg-gray-600 text-white py-2 px-4 rounded-md">
             Back
           </button>
@@ -104,7 +122,6 @@ const FormStep2 = ({ onNext, onBack }) => {
             Next
           </button>
         </div>
-      </form>
     </motion.div>
   );
 };

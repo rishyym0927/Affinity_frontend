@@ -15,7 +15,7 @@ const FormStep1 = ({ onNext }) => {
     >
       <h2 className="text-lg font-bold text-[#ff0059] text-neutral-700 mb-4">START FOR FREE</h2>
       <h1 className='text-white text-5xl font-bold mb-6'>Create your account</h1>
-      <p className='text-neutral-400 font-bold mb-14'>Already a member ? <span className='text-yellow-500'><Link>Log in</Link></span></p>
+      <p className='text-neutral-400 font-bold mb-14'>Already a member ? <span className='text-yellow-500'><Link to="/login">Log in</Link></span></p>
       <form className="space-y-4">
         <div className='flex flex-row gap-10'>
         <label className="w-1/2">

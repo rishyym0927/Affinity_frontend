@@ -22,16 +22,16 @@ const Sidebar = () => {
   return (
     <div className="w-full md:w-80 lg:w-96 h-full bg-black text-white flex flex-col fixed top-0 left-0">
       <motion.div
-        className="p-6 flex flex-row items-center bg-[#ff0059] hover:bg-red-500 m-5 rounded-lg gap-4 cursor-pointer"
+        className="p-3 flex gap-2 flex-row items-center bg-[#ff0059] hover:bg-red-500 m-5 rounded-lg justify-around  cursor-pointer"
         whileHover={{ scale: 1.05 }}
       >
         <img
           src={user?.image || profile_svg}
           alt="Profile"
-          className="w-16 h-16 rounded-full border border-2 border-white"
+          className="w-14 h-14 rounded-full bg-black "
         />
-        <h3 className="text-xl md:text-2xl lg:text-3xl font-semibold">
-          {user?.user_name || "John Doe"}
+        <h3 className="text-3xl font-semibold">
+          @{user?.user_name || "John Doe"}
         </h3>
       </motion.div>
       <nav className="flex-1 p-6 w-full">

@@ -8,39 +8,26 @@ const FormStep21 = ({ onNext, onBack }) => {
 
   async function onFileSelect(e) {
     try {
-      console.log("HEELO");
-      console.log(e.target.files[0]);
       const file = e.target.files[0];
       const filename = file.name;
       
-      console.log("token is ", localStorage.getItem("token"));
-
       const response = await axios.post(`http://localhost:4000/v1/user/presignedURL`, {
         filename,
       });
-      console.log("preResponse is ", response);
 
       const presignedUrl = response.data.preSignedUrl;
       const fields = response.data.fields;
       const formData = new FormData();
-      formData.append("bucket", fields.bucket);
-      formData.append("X-Amz-Algorithm", fields["X-Amz-Algorithm"]);
-      formData.append("X-Amz-Credential", fields["X-Amz-Credential"]);
-      formData.append("X-Amz-Date", fields["X-Amz-Date"]);
-      formData.append("key", fields.key);
-      formData.append("Policy", fields.Policy);
-      formData.append("X-Amz-Signature", fields["X-Amz-Signature"]);
+      Object.entries(fields).forEach(([key, value]) => {
+        formData.append(key, value);
+      });
       formData.append("file", file);
 
       const awsResponse = await axios.post(presignedUrl, formData);
       console.log(awsResponse);
-      // console.log(response.data.key);
 
-      // updateFileURL([`https://soundscorebucket.s3.ap-south-1.amazonaws.com/${response.data.fields["key"]}`]);
-      console.log(
-        `https://soundscorebucket.s3.ap-south-1.amazonaws.com/${response.data.fields["key"]}`
-      );
-      updateRegisterInfo({ ...registerInfo, image_url:  `https://soundscorebucket.s3.ap-south-1.amazonaws.com/${response.data.fields["key"]}` })
+      const imageUrl = `https://soundscorebucket.s3.ap-south-1.amazonaws.com/${fields["key"]}`;
+      updateRegisterInfo({ ...registerInfo, image_url: imageUrl });
 
     } catch (e) {
       console.log(e);
@@ -53,35 +40,22 @@ const FormStep21 = ({ onNext, onBack }) => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 20 }}
       transition={{ duration: 0.5 }}
-      className="p-6 bg-gray-800 rounded-lg shadow-lg"
+      className="p-6 rounded-lg shadow-lg h-full flex flex-col justify-around"
     >
-      <h2 className="text-2xl font-bold text-[#ff0059] mb-4">
-        Step 2: Contact Information
-      </h2>
-      <form className="space-y-4">
+      <div>
+        <h2 className="text-4xl text-white font-bold text-[#ff0059] mb-4">More About You</h2>
+        <p className='text-neutral-400 font-bold mb-8'>Let's get to know you better <span className='text-yellow-600'>!</span></p>
+      </div>
+      
+      <form className="space">
         <label className="block">
           <span className="text-gray-400">Interests:</span>
           <input
             type="text"
             name="interests"
             value={registerInfo.interest}
-            onChange={(e) =>
-              updateRegisterInfo({ ...registerInfo, interest: e.target.value })
-            }
-            className="mt-1 block w-full p-2 rounded-md bg-gray-700 text-white border border-gray-600"
-          />
-        </label>
-
-        <label className="block">
-          <span className="text-gray-400">exp_qual:</span>
-          <input
-            type="text"
-            name="exp_qual"
-            value={registerInfo.exp_qual}
-            onChange={(e) =>
-              updateRegisterInfo({ ...registerInfo, exp_qual: e.target.value })
-            }
-            className="mt-1 block w-full p-2 rounded-md bg-gray-700 text-white border border-gray-600"
+            onChange={(e) => updateRegisterInfo({ ...registerInfo, interest: e.target.value })}
+            className="mt-1 block w-full p-2 rounded-md bg-neutral-800 outline-none text-white border border-gray-600"
           />
         </label>
 
@@ -91,13 +65,8 @@ const FormStep21 = ({ onNext, onBack }) => {
             type="text"
             name="social_habits"
             value={registerInfo.social_habits}
-            onChange={(e) =>
-              updateRegisterInfo({
-                ...registerInfo,
-                social_habits: e.target.value,
-              })
-            }
-            className="mt-1 block w-full p-2 rounded-md bg-gray-700 text-white border border-gray-600"
+            onChange={(e) => updateRegisterInfo({ ...registerInfo, social_habits: e.target.value })}
+            className="mt-1 block w-full p-2 rounded-md bg-neutral-800 outline-none text-white border border-gray-600"
           />
         </label>
 
@@ -110,9 +79,7 @@ const FormStep21 = ({ onNext, onBack }) => {
                 name="past_relationships"
                 value="yes"
                 checked={registerInfo.past_relations === "yes"}
-                onChange={() =>
-                  updateRegisterInfo({ ...registerInfo, past_relations: "yes" })
-                }
+                onChange={() => updateRegisterInfo({ ...registerInfo, past_relations: "yes" })}
                 className="form-radio text-[#ff0059]"
               />
               <span className="ml-2 text-gray-400">Yes</span>
@@ -123,48 +90,42 @@ const FormStep21 = ({ onNext, onBack }) => {
                 name="past_relationships"
                 value="no"
                 checked={registerInfo.past_relations === "no"}
-                onChange={() =>
-                  updateRegisterInfo({ ...registerInfo, past_relations: "no" })
-                }
+                onChange={() => updateRegisterInfo({ ...registerInfo, past_relations: "no" })}
                 className="form-radio text-[#ff0059]"
               />
               <span className="ml-2 text-gray-400">No</span>
             </label>
-              
-            <div className='w-full relative h-1/2 flex flex-col items-center  justify-center bg-[#374151] border border-[#4a4949]  '>
-            <input
-                type="file"
-                onChange={onFileSelect}
-                id="fileInput"
-                className=' relative h-full w-full  opacity-0  cursor-pointer'
-            />
-            <div className='text-white text-xl font-bold'>
-            Upload Image
-            </div>
-
-        </div>
-        
-
           </div>
         </div>
 
-        <div className="flex justify-between mt-4">
-          <button
-            type="button"
-            onClick={onBack}
-            className="bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded-md"
-          >
-            Back
-          </button>
-          <button
-            type="button"
-            onClick={onNext}
-            className="bg-[#ff0059] hover:bg-red-500 text-white py-2 px-4 rounded-md"
-          >
-            Next
-          </button>
+        <div className="mt-4">
+          <span className="text-gray-400">Profile Picture:</span>
+          <div className='mt-2 relative h-28 flex flex-col items-center justify-center bg-neutral-800 border border-gray-600 rounded-md overflow-hidden'>
+            <input
+              type="file"
+              onChange={onFileSelect}
+              id="fileInput"
+              className='absolute h-full w-full opacity-0 cursor-pointer'
+            />
+            {registerInfo.image_url ? (
+              <img src={registerInfo.image_url} alt="Profile" className="h-full w-full object-cover" />
+            ) : (
+              <div className='text-white text-xl font-bold'>
+                Upload Image
+              </div>
+            )}
+          </div>
         </div>
       </form>
+
+      <div className="flex justify-start gap-4 items-end mt-10">
+        <button type="button" onClick={onBack} className="bg-neutral-800 hover:bg-gray-600 text-white py-2 px-4 rounded-md">
+          Back
+        </button>
+        <button type="button" onClick={onNext} className="bg-[#ff0059] hover:bg-red-500 text-white py-2 px-4 rounded-md">
+          Next
+        </button>
+      </div>
     </motion.div>
   );
 };

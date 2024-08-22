@@ -3,20 +3,20 @@ import moment from "moment";
 import InputEmoji from "react-input-emoji";
 import axios from "axios";
 import { AIChatContext } from "../context/AIChatContext";
+import { AI_CHATBOT_URL } from "../utils/constant";
 
 const ChatBox = () => {
   const scroll = useRef();
 
   const { messages } = useContext(AIChatContext);
-
-  const {mUser, setMUser} = useContext(AIChatContext)
+  const { mUser, setMUser } = useContext(AIChatContext);
   const [userChatID, setUserChatID] = useState(null);
   const { setUserAIChatID, textMessage, setTextMessage, sendTextMessage, setMessages } = useContext(AIChatContext);
 
   useEffect(() => {
     const registerUser = async () => {
       try {
-        const storedUser = await JSON.parse(localStorage.getItem("User")); // Parse the stored user string
+        const storedUser = JSON.parse(localStorage.getItem("User"));
 
         if (storedUser && storedUser.user_name) {
           console.log(storedUser);
@@ -24,7 +24,7 @@ const ChatBox = () => {
           const response = await axios.post("http://localhost:5000/api/users/register", {
             username: storedUser.user_name,
           });
-          setMUser(response.data); // Store the user in state for future use
+          setMUser(response.data);
 
           console.log(response.data);
         } else {
@@ -38,7 +38,6 @@ const ChatBox = () => {
     registerUser();
   }, []);
 
-  // Second useEffect to handle chat creation when mUser is set
   useEffect(() => {
     const createChat = async () => {
       if (mUser) {
@@ -48,8 +47,8 @@ const ChatBox = () => {
             secondId: mUser._id,
           });
           console.log(response2.data);
-          setUserChatID(response2.data._id); // Store the chat ID for future use
-          setUserAIChatID(response2.data._id); // Store the AI chat ID for future use
+          setUserChatID(response2.data._id);
+          setUserAIChatID(response2.data._id);
         } catch (error) {
           console.error("Error during chat creation:", error);
         }
@@ -57,7 +56,7 @@ const ChatBox = () => {
     };
 
     createChat();
-  }, [mUser]); // This effect runs whenever mUser changes
+  }, [mUser]);
 
   useEffect(() => {
     const getChats = async () => {
@@ -65,23 +64,19 @@ const ChatBox = () => {
         console.log("userChatID is available:", userChatID);
 
         try {
-          // Get chat messages
           const response = await axios.get(`http://localhost:5000/api/messages/${userChatID}`);
           console.log("Chat messages response:", response.data);
 
-          // Check if the messages array is empty
           if (response.data.length === 0) {
             console.log("No messages found, fetching AI message...");
 
-            // Fetch a message from the AI API
-            const aiResponse = await axios.post(`https://39c4-117-219-22-193.ngrok-free.app/chat`, {
-              user_id: mUser._id,
+            const aiResponse = await axios.post(AI_CHATBOT_URL, {
+              user_id: mUser._id
             });
             console.log("AI response received:", aiResponse.data);
 
             const messageFromAI = aiResponse.data.response;
 
-            // Send AI message to the chat
             const sendResponse = await axios.post(`http://localhost:5000/api/messages`, {
               chatId: userChatID,
               senderId: "66c5e5a825f42519a77afa5f",
@@ -99,8 +94,9 @@ const ChatBox = () => {
       }
     };
 
-    getChats(); // Call the function
+    getChats();
   }, [userChatID]);
+
   useEffect(() => {
     const interval = setInterval(async () => {
       if (userChatID) {
@@ -111,10 +107,11 @@ const ChatBox = () => {
           console.error("Error getting chat messages:", e);
         }
       }
-    }, 1000); // Check for new messages every 2 seconds
+    }, 1000);
 
-    return () => clearInterval(interval); // Clean up the interval when the component unmounts
+    return () => clearInterval(interval);
   }, [userChatID, setMessages]);
+
   useEffect(() => {
     scroll.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
@@ -129,12 +126,14 @@ const ChatBox = () => {
           <div
             key={index}
             className={`${
-              message.senderId === 1 ? "self-end bg-teal-500" : "self-start bg-gray-700"
+              message.senderId === "66c5e5a825f42519a77afa5f"
+                ? "self-start bg-gray-700 text-left"
+                : "self-end bg-teal-500 text-right"
             } p-3 rounded-md max-w-[50%]`}
             ref={scroll}
           >
             <span>{message.text}</span>
-            <span className="text-sm font-light text-right block">
+            <span className="text-sm font-light block">
               {moment(message.createdAt).calendar()}
             </span>
           </div>
@@ -149,7 +148,7 @@ const ChatBox = () => {
         />
         <button
           className="bg-[#ff0059] hover:bg-red-500 text-white py-2 px-4 rounded-md"
-          onClick={() => sendTextMessage(textMessage, setTextMessage)}
+          onClick={() => sendTextMessage(textMessage)}
         >
           Send
         </button>

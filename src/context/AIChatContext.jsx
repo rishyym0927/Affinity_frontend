@@ -1,6 +1,7 @@
 import React, { createContext, useCallback, useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "./AuthContext";
+import { AI_CHATBOT_URL } from "../utils/constant";
 
 export const AIChatContext = createContext();
 
@@ -47,9 +48,11 @@ export const AIChatContextProvider = ({ children }) => {
       console.log("Cannot send message");
       return;
     }
-
+  
     try {
-        console.log("sender id", mUser._id)
+      console.log("Sender ID:", mUser._id);
+  
+      // Send the user's message to your server
       const userMessageResponse = await axios.post(
         `http://localhost:5000/api/messages`,
         {
@@ -58,36 +61,42 @@ export const AIChatContextProvider = ({ children }) => {
           text: message,
         }
       );
-
+  
+      // Add the user's message to the messages state
       setMessages(prev => [...prev, userMessageResponse.data]);
-
-      const aiResponse = await axios.post(
-        `https://39c4-117-219-22-193.ngrok-free.app/chat`,
-        {
-          user_id: mUser.id,
-          message,
-        }
-      );
-      console.log(aiResponse)
-
+  
+      // Construct the request payload for the AI chat URL
+      const aiRequestPayload = {
+        user_id: mUser._id, // Replace with actual user ID if needed
+        message: message
+      };
+  
+      // Send the request to the AI chat service
+      const aiResponse = await axios.post(AI_CHATBOT_URL, aiRequestPayload);
+  
+      console.log("AI Response:", aiResponse.data);
+  
+      // Store the AI's response as a message in your server
       const aiMessageResponse = await axios.post(
         `http://localhost:5000/api/messages`,
         {
           chatId: userAIChatID,
-          senderId: "66c5e5a825f42519a77afa5f",
-          text: aiResponse.data.response,
+          senderId: "66c5e5a825f42519a77afa5f", // AI Bot ID
+          text: aiResponse.data.response, // Use the response text from AI
         }
       );
-
-
-      setMessages(prev => [...prev, aiResponse.data]);
+  
+      // Add the AI's message to the messages state
+      setMessages(prev => [...prev, aiMessageResponse.data]);
+  
+      // Clear the input field after the message is sent
       setTextMessage("");
     } catch (error) {
       setSendTextMessageError(error.message);
       console.error("Error sending message:", error.message);
     }
   }, [userAIChatID, mUser]);
-
+  
   return (
     <AIChatContext.Provider
       value={{

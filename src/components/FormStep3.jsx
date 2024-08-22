@@ -3,7 +3,14 @@ import { motion } from 'framer-motion';
 import { AuthContext } from '../context/AuthContext';
 
 const FormStep3 = ({ onBack }) => {
-  const { registerUser } = useContext(AuthContext);
+  const { registerUser, registerInfo } = useContext(AuthContext);
+
+  const renderField = (label, value) => (
+    <div className="mb-2">
+      <span className="text-gray-400 font-semibold">{label}:</span>
+      <span className="ml-2 text-white">{value || 'Not provided'}</span>
+    </div>
+  );
 
   return (
     <motion.div
@@ -11,21 +18,51 @@ const FormStep3 = ({ onBack }) => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 20 }}
       transition={{ duration: 0.5 }}
-      className="p-6 bg-gray-800 rounded-lg shadow-lg"
+      className="p-6 rounded-lg shadow-lg h-full flex flex-col justify-between"
     >
-      <h2 className="text-2xl font-bold text-[#ff0059] mb-4">Step 3: Review and Submit</h2>
-      <p className="text-gray-400 mb-4">Review your information and submit the form.</p>
+      <div>
+        <h2 className="text-4xl text-white font-bold text-[#ff0059] mb-4">Review and Submit</h2>
+        <p className="text-neutral-400 font-bold mb-8">Take a final look before you <span className="text-yellow-600">join us!</span></p>
+      </div>
+
+      <div className="bg-neutral-800 p-6 rounded-lg shadow-inner mb-6">
+        <div className="grid grid-cols-2 gap-4">
+          {renderField('First Name', registerInfo.first_name)}
+          {renderField('Last Name', registerInfo.last_name)}
+          {renderField('Email', registerInfo.email)}
+          {renderField('Username', registerInfo.username)}
+          {renderField('Gender', registerInfo.gender)}
+          {renderField('Age', registerInfo.age)}
+          {renderField('Location', registerInfo.location)}
+          {renderField('Openness', registerInfo.openness)}
+          {renderField('Relation Type', registerInfo.relation_type)}
+          {renderField('Expected Qualities', registerInfo.exp_qual)}
+          {renderField('Interests', registerInfo.interest)}
+          {renderField('Social Habits', registerInfo.social_habits)}
+          {renderField('Past Relationships', registerInfo.past_relations)}
+        </div>
+
+        {registerInfo.image_url && (
+          <div className="mt-4">
+            <span className="text-gray-400 font-semibold">Profile Picture:</span>
+            <div className="mt-2 w-32 h-32 rounded-full overflow-hidden">
+              <img src={registerInfo.image_url} alt="Profile" className="w-full h-full object-cover" />
+            </div>
+          </div>
+        )}
+      </div>
+
       <form onSubmit={registerUser} className="space-y-4">
         <div className="flex justify-between">
-          <button 
-            type="button" 
-            onClick={onBack} 
-            className="bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded-md"
+          <button
+            type="button"
+            onClick={onBack}
+            className="bg-neutral-800 hover:bg-gray-600 text-white py-2 px-4 rounded-md"
           >
             Back
           </button>
-          <button 
-            type="submit" 
+          <button
+            type="submit"
             className="bg-[#ff0059] hover:bg-red-500 text-white py-2 px-4 rounded-md"
           >
             Submit

@@ -1,5 +1,6 @@
 import { createContext, useCallback, useEffect, useState } from "react";
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export const AuthContext = createContext();
 
@@ -12,6 +13,7 @@ export const AuthContextProvider = ({ children }) => {
 
   const [loginError, setLoginError] = useState(null);
   const [isLoginLoading, setIsLoginLoading] = useState(false);
+  const navigate = useNavigate();
 
   // Check for stored user data in local storage
   useEffect(() => {
@@ -57,6 +59,7 @@ export const AuthContextProvider = ({ children }) => {
         setUser(data); // Update state with user data
 
         console.log("User successfully logged in:", data); // Log success message
+        navigate("/dashboard"); // Redirect to dashboard
       } catch (error) {
         setLoginError(error.message);
         setUser(null); // Reset user state in case of error
@@ -65,7 +68,7 @@ export const AuthContextProvider = ({ children }) => {
         setIsLoginLoading(false);
       }
     },
-    [loginInfo]
+    [loginInfo, navigate]
   );
 
   // Update login information
@@ -114,6 +117,7 @@ export const AuthContextProvider = ({ children }) => {
         setUser(response.data); // Update state with user data
 
         console.log("User successfully registered:", response.data); // Log success message
+        navigate("/dashboard"); // Redirect to dashboard
       } catch (error) {
         setRegisterError(error.response?.data?.message || error.message);
         console.error("Registration error:", error.response?.data?.message || error.message); // Log error message
@@ -121,7 +125,7 @@ export const AuthContextProvider = ({ children }) => {
         setIsRegisterLoading(false);
       }
     },
-    [registerInfo]
+    [registerInfo, navigate]
   );
 
   return (
