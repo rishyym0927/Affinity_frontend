@@ -2,6 +2,7 @@ import React, { createContext, useCallback, useContext, useEffect, useState } fr
 import axios from "axios";
 import { AuthContext } from "./AuthContext";
 import { AI_CHATBOT_URL } from "../utils/constant";
+import { useNavigate } from "react-router-dom";
 
 export const AIChatContext = createContext();
 
@@ -14,7 +15,7 @@ export const AIChatContextProvider = ({ children }) => {
   const [mUser, setMUser] = useState(null);
   const [textMessage, setTextMessage] = useState("");
   const [sendTextMessageError, setSendTextMessageError] = useState(null);
-
+  const navigate = useNavigate()
   useEffect(() => {
     const getMessages = async () => {
       if (!userAIChatID) return;
@@ -42,7 +43,8 @@ export const AIChatContextProvider = ({ children }) => {
 
     getMessages();
   }, [userAIChatID]);
-
+  
+  const [score, setScore]= useState(null)
   const sendTextMessage = useCallback(async (message) => {
     if (!message || !userAIChatID || !mUser) {
       console.log("Cannot send message");
@@ -73,9 +75,13 @@ export const AIChatContextProvider = ({ children }) => {
   
       // Send the request to the AI chat service
       const aiResponse = await axios.post(AI_CHATBOT_URL, aiRequestPayload);
-  
-      console.log("AI Response:", aiResponse.data);
-  
+      
+      console.log("AI Response:", aiResponse.data.compatibility);
+      if(aiResponse.data.compatibility !== undefined){
+        //update the database
+        navigate("/dashboard")
+        
+      }
       // Store the AI's response as a message in your server
       const aiMessageResponse = await axios.post(
         `http://localhost:5000/api/messages`,

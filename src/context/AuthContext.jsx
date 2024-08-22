@@ -1,6 +1,9 @@
 import { createContext, useCallback, useEffect, useState } from "react";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 export const AuthContext = createContext();
 
@@ -31,6 +34,12 @@ export const AuthContextProvider = ({ children }) => {
   const logoutUser = useCallback(() => {
     localStorage.removeItem("User");
     setUser(null);
+    toast.success("Logged out successfully!", {
+      theme: "dark",
+      position: "top-right",
+      autoClose: 3000,
+    });
+    navigate("/");
   }, []);
 
   // Login function
@@ -59,11 +68,21 @@ export const AuthContextProvider = ({ children }) => {
         setUser(data); // Update state with user data
 
         console.log("User successfully logged in:", data); // Log success message
+        toast.success("Login successful!", {
+          theme: "dark",
+          position: "top-right",
+          autoClose: 3000,
+        });
         navigate("/dashboard"); // Redirect to dashboard
       } catch (error) {
         setLoginError(error.message);
         setUser(null); // Reset user state in case of error
         console.error("Login error:", error.message); // Log error message
+        toast.error(`Login failed: ${error.message}`, {
+          theme: "dark",
+          position: "top-right",
+          autoClose: 3000,
+        });
       } finally {
         setIsLoginLoading(false);
       }
@@ -117,10 +136,20 @@ export const AuthContextProvider = ({ children }) => {
         setUser(response.data); // Update state with user data
 
         console.log("User successfully registered:", response.data); // Log success message
+        toast.success("Registration successful!", {
+          theme: "dark",
+          position: "top-right",
+          autoClose: 3000,
+        });
         navigate("/dashboard"); // Redirect to dashboard
       } catch (error) {
         setRegisterError(error.response?.data?.message || error.message);
         console.error("Registration error:", error.response?.data?.message || error.message); // Log error message
+        toast.error(`Registration failed: ${errorMessage}`, {
+          theme: "dark",
+          position: "top-right",
+          autoClose: 3000,
+        });
       } finally {
         setIsRegisterLoading(false);
       }
