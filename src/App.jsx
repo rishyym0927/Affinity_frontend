@@ -14,6 +14,7 @@ import { ExtraContextProvider } from "./context/ExtraContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Requests from "./pages/Requests";
+import CodeRun from "./pages/CodeRun";
 
 
 const App = () => {
@@ -63,6 +64,18 @@ const App = () => {
                   <Layout1>
                     <Requests />
                   </Layout1>
+                ) : (
+                  <Landing />
+                )
+              }
+            />
+            <Route
+              path="/coderun"
+              element={
+                user ? (
+                 
+                    <CodeRun />
+                
                 ) : (
                   <Landing />
                 )
