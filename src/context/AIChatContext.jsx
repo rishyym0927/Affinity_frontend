@@ -1,7 +1,7 @@
 import React, { createContext, useCallback, useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "./AuthContext";
-import { AI_CHATBOT_URL } from "../utils/constant";
+import { AI_CHATBOT_URL, RUST_BACKEND_URL_SCORE } from "../utils/constant";
 import { useNavigate } from "react-router-dom";
 
 export const AIChatContext = createContext();
@@ -79,7 +79,21 @@ export const AIChatContextProvider = ({ children }) => {
       console.log("AI Response:", aiResponse.data.compatibility);
       if(aiResponse.data.compatibility !== undefined){
         //update the database
-        navigate("/dashboard")
+
+        setScore(aiResponse.data.compatibility)
+        
+        const rrr = await axios.put(RUST_BACKEND_URL_SCORE,{
+          email: user.email,
+          score: aiResponse.data.compatibility
+        })
+        if(rr.statusCode === 200){
+          console.log("Score Updated")
+      
+
+          navigate("/dashboard") // Redirect to dashboard after score update
+        }
+
+        
         
       }
       // Store the AI's response as a message in your server

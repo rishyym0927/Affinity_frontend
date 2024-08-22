@@ -26,7 +26,7 @@ const Sidebar = () => {
         whileHover={{ scale: 1.05 }}
       >
         <img
-          src={user?.image || profile_svg}
+          src={user?.image_url || profile_svg}
           alt="Profile"
           className="w-14 h-14 rounded-full bg-black "
         />

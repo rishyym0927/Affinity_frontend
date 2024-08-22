@@ -23,7 +23,7 @@ const FormStep2 = ({ onNext, onBack }) => {
           <label className="w-1/3">
             <span className="text-gray-400">Gender:</span>
             <div className="flex mt-1 flex-row gap-4">
-              {['male', 'female'].map(gender => (
+              {['Male', 'Female'].map(gender => (
                 <button
                   key={gender}
                   type="button"
