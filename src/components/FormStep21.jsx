@@ -1,16 +1,54 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
+import Tagify from '@yaireo/tagify';
+import "@yaireo/tagify/dist/tagify.css";
 
 const FormStep21 = ({ onNext, onBack }) => {
   const { updateRegisterInfo, registerInfo } = useContext(AuthContext);
+  const interestsInputRef = useRef(null);
+  const socialHabitsInputRef = useRef(null);
+
+  useEffect(() => {
+    const tagifyInterests = new Tagify(interestsInputRef.current, {
+      whitelist: [], // Add your predefined tags here if any
+      maxTags: 10, // Set the maximum number of tags allowed
+      dropdown: {
+        maxItems: 20, // Set the maximum number of suggestions shown in the dropdown
+        enabled: 0,   // Enable suggestions dropdown
+      },
+    });
+
+    tagifyInterests.on('change', (e) => {
+      updateRegisterInfo({ ...registerInfo, interest: e.detail.value });
+    });
+
+    const tagifySocialHabits = new Tagify(socialHabitsInputRef.current, {
+      whitelist: [],
+      maxTags: 10,
+      dropdown: {
+        maxItems: 20,
+        enabled: 0,
+      },
+    });
+
+    tagifySocialHabits.on('change', (e) => {
+      updateRegisterInfo({ ...registerInfo, social_habits: e.detail.value });
+    });
+
+    // Cleanup on unmount
+    return () => {
+      tagifyInterests.destroy();
+      tagifySocialHabits.destroy();
+    };
+  }, [registerInfo, updateRegisterInfo]);
 
   async function onFileSelect(e) {
     try {
       const file = e.target.files[0];
       const filename = file.name;
-      
+
       const response = await axios.post(`http://localhost:4000/v1/user/presignedURL`, {
         filename,
       });
@@ -46,15 +84,15 @@ const FormStep21 = ({ onNext, onBack }) => {
         <h2 className="text-4xl text-white font-bold text-[#ff0059] mb-4">More About You</h2>
         <p className='text-neutral-400 font-bold mb-8'>Let's get to know you better <span className='text-yellow-600'>!</span></p>
       </div>
-      
+
       <form className="space">
         <label className="block">
           <span className="text-gray-400">Interests:</span>
           <input
+            ref={interestsInputRef}
             type="text"
             name="interests"
-            value={registerInfo.interest}
-            onChange={(e) => updateRegisterInfo({ ...registerInfo, interest: e.target.value })}
+            defaultValue={registerInfo.interest}
             className="mt-1 block w-full p-2 rounded-md bg-neutral-800 outline-none text-white border border-gray-600"
           />
         </label>
@@ -62,10 +100,10 @@ const FormStep21 = ({ onNext, onBack }) => {
         <label className="block">
           <span className="text-gray-400">Social Habits:</span>
           <input
+            ref={socialHabitsInputRef}
             type="text"
             name="social_habits"
-            value={registerInfo.social_habits}
-            onChange={(e) => updateRegisterInfo({ ...registerInfo, social_habits: e.target.value })}
+            defaultValue={registerInfo.social_habits}
             className="mt-1 block w-full p-2 rounded-md bg-neutral-800 outline-none text-white border border-gray-600"
           />
         </label>

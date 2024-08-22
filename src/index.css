@@ -149,3 +149,38 @@ body {
 .carousel-button:hover {
   background: #0056b3;
 }
+
+/* Input Field Background and Text Color */
+.tagify__input {
+ /* Dark background for the input */
+  color: #ffffff; /* White text color */
+}
+
+/* Tag Background and Text Color */
+.tagify__tag {
+  background-color: #ff0059; /* Pink background for tags */
+  color: #ffffff; /* White text color for tags */
+}
+
+/* Tag Remove Button Color */
+.tagify__tag__removeBtn {
+  color: #ffffff; /* White remove button */
+}
+
+/* Tag Hover and Focus State */
+.tagify__tag--hover,
+.tagify__tag--focus {
+  background-color: #ff3366; /* Lighter pink on hover/focus */
+}
+
+/* Dropdown Suggestion Background and Text Color */
+.tagify__dropdown__item {
+  background-color: #444444; /* Dark background for suggestions */
+  color: #ffffff; /* White text color */
+}
+
+/* Dropdown Suggestion Hover State */
+.tagify__dropdown__item--active {
+  background-color: #ff0059; /* Pink background on hover */
+  color: #ffffff; /* White text color */
+}
