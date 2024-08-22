@@ -21,7 +21,7 @@ const ChatBox = () => {
         if (storedUser && storedUser.user_name) {
           console.log(storedUser);
 
-          const response = await axios.post("http://localhost:5000/api/users/register", {
+          const response = await axios.post("http://ec2-13-233-131-217.ap-south-1.compute.amazonaws.com:5000/api/users/register", {
             username: storedUser.user_name,
           });
           setMUser(response.data);
@@ -42,7 +42,7 @@ const ChatBox = () => {
     const createChat = async () => {
       if (mUser) {
         try {
-          const response2 = await axios.post("http://localhost:5000/api/chats/", {
+          const response2 = await axios.post("http://ec2-13-233-131-217.ap-south-1.compute.amazonaws.com:5000/api/chats/", {
             firstId: "66c5e5a825f42519a77afa5f",
             secondId: mUser._id,
           });
@@ -64,7 +64,7 @@ const ChatBox = () => {
         console.log("userChatID is available:", userChatID);
 
         try {
-          const response = await axios.get(`http://localhost:5000/api/messages/${userChatID}`);
+          const response = await axios.get(`http://ec2-13-233-131-217.ap-south-1.compute.amazonaws.com:5000/api/messages/${userChatID}`);
           console.log("Chat messages response:", response.data);
 
           if (response.data.length === 0) {
@@ -77,7 +77,7 @@ const ChatBox = () => {
 
             const messageFromAI = aiResponse.data.response;
 
-            const sendResponse = await axios.post(`http://localhost:5000/api/messages`, {
+            const sendResponse = await axios.post(`http://ec2-13-233-131-217.ap-south-1.compute.amazonaws.com:5000/api/messages`, {
               chatId: userChatID,
               senderId: "66c5e5a825f42519a77afa5f",
               text: messageFromAI,
@@ -101,7 +101,7 @@ const ChatBox = () => {
     const interval = setInterval(async () => {
       if (userChatID) {
         try {
-          const response = await axios.get(`http://localhost:5000/api/messages/${userChatID}`);
+          const response = await axios.get(`http://ec2-13-233-131-217.ap-south-1.compute.amazonaws.com:5000/api/messages/${userChatID}`);
           setMessages(response.data);
         } catch (e) {
           console.error("Error getting chat messages:", e);
