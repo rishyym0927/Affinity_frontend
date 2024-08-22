@@ -73,7 +73,7 @@ export const AuthContextProvider = ({ children }) => {
           position: "top-right",
           autoClose: 3000,
         });
-        navigate("/dashboard"); // Redirect to dashboard
+        navigate("/chatbot"); // Redirect to dashboard
       } catch (error) {
         setLoginError(error.message);
         setUser(null); // Reset user state in case of error
@@ -141,7 +141,7 @@ export const AuthContextProvider = ({ children }) => {
           position: "top-right",
           autoClose: 3000,
         });
-        navigate("/dashboard"); // Redirect to dashboard
+        navigate("/chatbot"); // Redirect to dashboard
       } catch (error) {
         setRegisterError(error.response?.data?.message || error.message);
         console.error("Registration error:", error.response?.data?.message || error.message); // Log error message

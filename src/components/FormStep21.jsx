@@ -1,48 +1,12 @@
-import React, { useContext, useRef, useEffect } from "react";
+import React, { useContext, useRef } from "react";
 import { motion } from "framer-motion";
 import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
-import Tagify from '@yaireo/tagify';
-import "@yaireo/tagify/dist/tagify.css";
 
 const FormStep21 = ({ onNext, onBack }) => {
   const { updateRegisterInfo, registerInfo } = useContext(AuthContext);
   const interestsInputRef = useRef(null);
   const socialHabitsInputRef = useRef(null);
-
-  useEffect(() => {
-    const tagifyInterests = new Tagify(interestsInputRef.current, {
-      whitelist: [], // Add your predefined tags here if any
-      maxTags: 10, // Set the maximum number of tags allowed
-      dropdown: {
-        maxItems: 20, // Set the maximum number of suggestions shown in the dropdown
-        enabled: 0,   // Enable suggestions dropdown
-      },
-    });
-
-    tagifyInterests.on('change', (e) => {
-      updateRegisterInfo({ ...registerInfo, interest: e.detail.value });
-    });
-
-    const tagifySocialHabits = new Tagify(socialHabitsInputRef.current, {
-      whitelist: [],
-      maxTags: 10,
-      dropdown: {
-        maxItems: 20,
-        enabled: 0,
-      },
-    });
-
-    tagifySocialHabits.on('change', (e) => {
-      updateRegisterInfo({ ...registerInfo, social_habits: e.detail.value });
-    });
-
-    // Cleanup on unmount
-    return () => {
-      tagifyInterests.destroy();
-      tagifySocialHabits.destroy();
-    };
-  }, [registerInfo, updateRegisterInfo]);
 
   async function onFileSelect(e) {
     try {
@@ -56,6 +20,8 @@ const FormStep21 = ({ onNext, onBack }) => {
       const presignedUrl = response.data.preSignedUrl;
       const fields = response.data.fields;
       const formData = new FormData();
+
+      // Correctly append each field key-value pair to the FormData
       Object.entries(fields).forEach(([key, value]) => {
         formData.append(key, value);
       });
@@ -93,6 +59,7 @@ const FormStep21 = ({ onNext, onBack }) => {
             type="text"
             name="interests"
             defaultValue={registerInfo.interest}
+            onChange={(e) => updateRegisterInfo({ ...registerInfo, interest: e.target.value })}
             className="mt-1 block w-full p-2 rounded-md bg-neutral-800 outline-none text-white border border-gray-600"
           />
         </label>
@@ -104,6 +71,7 @@ const FormStep21 = ({ onNext, onBack }) => {
             type="text"
             name="social_habits"
             defaultValue={registerInfo.social_habits}
+            onChange={(e) => updateRegisterInfo({ ...registerInfo, social_habits: e.target.value })}
             className="mt-1 block w-full p-2 rounded-md bg-neutral-800 outline-none text-white border border-gray-600"
           />
         </label>

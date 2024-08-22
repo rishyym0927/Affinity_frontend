@@ -13,6 +13,7 @@ import { AIChatContextProvider } from "./context/AIChatContext";
 import { ExtraContextProvider } from "./context/ExtraContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Requests from "./pages/Requests";
 
 
 const App = () => {
@@ -49,6 +50,18 @@ const App = () => {
                 user ? (
                   <Layout1>
                     <Search />
+                  </Layout1>
+                ) : (
+                  <Landing />
+                )
+              }
+            />
+             <Route
+              path="/request"
+              element={
+                user ? (
+                  <Layout1>
+                    <Requests />
                   </Layout1>
                 ) : (
                   <Landing />

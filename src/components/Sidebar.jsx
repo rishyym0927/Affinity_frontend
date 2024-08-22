@@ -54,10 +54,10 @@ const Sidebar = () => {
             whileHover="hover"
           >
             <Link
-              to="/queue"
+              to="/request"
               className="block text-lg md:text-xl lg:text-2xl hover:text-gray-400"
             >
-              Queue
+              Request
             </Link>
           </motion.li>
           <motion.li

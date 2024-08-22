@@ -77,24 +77,30 @@ export const AIChatContextProvider = ({ children }) => {
       const aiResponse = await axios.post(AI_CHATBOT_URL, aiRequestPayload);
       
       console.log("AI Response:", aiResponse.data.compatibility);
-      if(aiResponse.data.compatibility !== undefined){
-        //update the database
-
-        setScore(aiResponse.data.compatibility)
-        
-        const rrr = await axios.put(RUST_BACKEND_URL_SCORE,{
-          email: user.email,
-          score: aiResponse.data.compatibility
-        })
-        if(rr.statusCode === 200){
-          console.log("Score Updated")
+      if (aiResponse.data.compatibility !== undefined) {
+        try {
+          // Update the database
+          const response = await axios.put(RUST_BACKEND_URL_SCORE, {
+            email: user.email,
+            score: Math.floor(Number(aiResponse.data.compatibility*100)),
+          });
       
-
-          navigate("/dashboard") // Redirect to dashboard after score update
+          console.log("Response from backend:", response);
+      
+          // Set the score state
+          setScore(aiResponse.data.compatibility);
+      
+          // Log the updated score
+          console.log("Score changed:", aiResponse.data.compatibility);
+      
+          if (response.status === 202) {
+            console.log("Score Updated");
+            navigate("/dashboard"); // Redirect to dashboard after score update
+          }
+        } catch (error) {
+          console.error("Error updating score:", error);
+          // Handle the error, e.g., show an error message to the user
         }
-
-        
-        
       }
       // Store the AI's response as a message in your server
       const aiMessageResponse = await axios.post(
