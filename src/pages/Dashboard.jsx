@@ -1,81 +1,36 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import InfoCard from "../components/InfoCard";
+import axios from "axios";
 
 const Dashboard = () => {
-  const users = [
-    {
-      username: "johndoe123",
-      password: "SuperSecretPassword123!",
-      first_name: "John",
-      last_name: "Doe",
-      email: null,
-      gender: "Male",
-      age: 28,
-      location: null,
-      openness: null,
-      interest: null,
-      exp_qual: null,
-      relation_type: null,
-      social_habits: null,
-      past_relations: null,
-      image_url: null,
-      score: 85,
-    },
-    {
-      username: "janesmithxo",
-      password: "P@ssw0rd456!",
-      first_name: "Jane",
-      last_name: "Smith",
-      email: null,
-      gender: "Female",
-      age: 32,
-      location: null,
-      openness: null,
-      interest: null,
-      exp_qual: null,
-      relation_type: null,
-      social_habits: null,
-      past_relations: null,
-      image_url: null,
-      score: 92,
-    },
-    {
-      username: "mikeross78",
-      password: "Str0ngP@ss789#",
-      first_name: "Mike",
-      last_name: "Ross",
-      email: null,
-      gender: "Male",
-      age: 25,
-      location: null,
-      openness: null,
-      interest: null,
-      exp_qual: null,
-      relation_type: null,
-      social_habits: null,
-      past_relations: null,
-      image_url: null,
-      score: 78,
-    },
-  ];
-
+  const [boys, setBoys] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Handle Like and Reject actions
+  useEffect(() => {
+    const getBoys = async () => {
+      try {
+        const response = await axios.get(
+          "http://ec2-3-7-69-234.ap-south-1.compute.amazonaws.com:3001/getboys"
+        );
+        setBoys(response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    getBoys();
+  }, []);
+
   const handleNextUser = () => {
-   
-      setCurrentIndex((prevIndex) => prevIndex + 1);
-      console.log("User liked or rejected.", currentIndex);
-    
+    setCurrentIndex((prevIndex) => prevIndex + 1);
   };
 
-  // Current user
-  const currentUser = users[currentIndex];
+  const currentUser = boys[currentIndex];
 
   return (
-    <div className="flex">
-      <div className="flex items-center h-full w-[100%]">
-        {currentIndex < users.length ? (
+    <div className="flex h-[95%]">
+      <div className="flex items-center h-[100%] w-[100%] ">
+        {currentIndex < boys.length ? (
           <InfoCard
             user={currentUser}
             onLike={handleNextUser}

@@ -12,7 +12,7 @@ const Layout1 = ({ children }) => {
     
 
       {/* Content area */}
-      <div className="flex-1 w-1/6 p-20 ">
+      <div className="flex-1 w-1/6 p-20 bg-neutral-900 h-screen ">
         {children}
       </div>
     </div>
