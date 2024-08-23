@@ -1,13 +1,19 @@
-import { createContext, useCallback, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { useNavigate } from "react-router-dom";
 import { chatBaseURL, getRequest, postRequest } from "../utils/constant";
 import { AuthContext } from "./AuthContext";
+import { io } from "socket.io-client";
 import axios from "axios";
 
 export const ExtraContext = createContext();
 
 export const ExtraContextProvider = ({ children, user }) => {
-
   const navigate = useNavigate();
   const [score, setScore] = useState(null);
 
@@ -22,24 +28,25 @@ export const ExtraContextProvider = ({ children, user }) => {
 
   const updateCurrentChat = useCallback((chat) => {
     setCurrentChat(chat);
-    
   }, []);
 
   useEffect(() => {
     const getUserChats = async () => {
       setIsUserChatsLoading(true);
       if (user.id) {
-        const response = await axios.post(`https://2794-117-219-22-193.ngrok-free.app/getmatched`,{
+        const response = await axios.post(
+          `http://ec2-3-7-69-234.ap-south-1.compute.amazonaws.com:3001/getmatched`,
+          {
             email: user.email,
-  
-        });
+          }
+        );
         if (response.error) {
           setUserChatsError(response);
           setIsUserChatsLoading(false);
           return;
         }
         setUserChats(response.data);
-        console.log('User Chats', response.data);
+        console.log("User Chats", response.data);
         setIsUserChatsLoading(false);
       }
     };
@@ -47,39 +54,37 @@ export const ExtraContextProvider = ({ children, user }) => {
     getUserChats(); // Call the async function inside useEffect
   }, [user]); // Adding user as a dependency
 
-
-
   //now for potential chats
-//   const [potentialChats, setPotentialChats] = useState(null);
-//   useEffect(() => {
-//     const getUser = async () => {
-//       const response = await axios.post('https://494c-117-219-22-193.ngrok-free.app/getmatched',{
-//         email : user.email
-//       });
-//       console.log(response);
-//       if (response.error) {
-//         return console.log("Error Fetching Users", response.error);
-//       }
-//       const pChats = response.data.filter((u) => {
-//         let isChatCreated = false;
-//         if (user.id === u.id) {
-//           return false;
-//         }
-//         if (userChats) {
-//           isChatCreated = userChats?.some((chat) => {
-//             return chat.members[0] === u.id || chat.members[1] === u.id;
-//           });
-//         }
-//         return !isChatCreated;
-//       });
-//       //array of users whom we can chat
-//       setPotentialChats(pChats);
-      
-//     };
-//     getUser();
-//   }, [userChats]);
-//   console.log("Potential Chats", potentialChats);
-  
+  //   const [potentialChats, setPotentialChats] = useState(null);
+  //   useEffect(() => {
+  //     const getUser = async () => {
+  //       const response = await axios.post('https://494c-117-219-22-193.ngrok-free.app/getmatched',{
+  //         email : user.email
+  //       });
+  //       console.log(response);
+  //       if (response.error) {
+  //         return console.log("Error Fetching Users", response.error);
+  //       }
+  //       const pChats = response.data.filter((u) => {
+  //         let isChatCreated = false;
+  //         if (user.id === u.id) {
+  //           return false;
+  //         }
+  //         if (userChats) {
+  //           isChatCreated = userChats?.some((chat) => {
+  //             return chat.members[0] === u.id || chat.members[1] === u.id;
+  //           });
+  //         }
+  //         return !isChatCreated;
+  //       });
+  //       //array of users whom we can chat
+  //       setPotentialChats(pChats);
+
+  //     };
+  //     getUser();
+  //   }, [userChats]);
+  //   console.log("Potential Chats", potentialChats);
+
   const createChat = useCallback(async (firstId, secondId) => {
     const response = await postRequest(
       `${chatBaseURLURL}/chats`,
@@ -101,7 +106,7 @@ export const ExtraContextProvider = ({ children, user }) => {
   const [isMessagesLoading, setIsMessagesLoading] = useState(null);
   const [messagesError, setMessagesError] = useState(null);
 
-  console.log("Messages", messages, currentChat)
+  console.log("Messages", messages, currentChat);
   useEffect(() => {
     const getMessages = async () => {
       setIsMessagesLoading(true);
@@ -109,10 +114,10 @@ export const ExtraContextProvider = ({ children, user }) => {
       const response = await getRequest(
         `http://localhost:1243/api/messages/${currentChat?.id}`
       );
-      console.log(response)
+      console.log(response);
       setIsMessagesLoading(false);
-      if(response.error){
-        return messagesError(response)
+      if (response.error) {
+        return messagesError(response);
       }
       setMessages(response);
     };
@@ -120,26 +125,99 @@ export const ExtraContextProvider = ({ children, user }) => {
   }, [currentChat]);
 
   //sending meesage
-  const[newMessage, setNewMessage]= useState(null) 
-  const[sendtextmessageError, setSendTextMessageError] = useState(null)
-  const sendTextMessage = useCallback(async(textMessage, sender, currentChatId, setTextMessage)=>{
-    if(!textMessage){
-        return console.log("send a message")
+  const [newMessage, setNewMessage] = useState(null);
+  const [sendtextmessageError, setSendTextMessageError] = useState(null);
+  const sendTextMessage = useCallback(
+    async (textMessage, sender, currentChatId, setTextMessage) => {
+      if (!textMessage) {
+        return console.log("send a message");
+      }
+      const response = await postRequest(
+        `${chatBaseURL}/messages`,
+        JSON.stringify({
+          chatId: currentChatId,
+          senderId: sender.id,
+          text: textMessage,
+        })
+      );
+      console.log("mesasage resp", response);
+      if (response.error) {
+        return setSendTextMessageError(response);
+      }
+
+      setNewMessage(response);
+      setTextMessage("");
+      setMessages((prev) => [...prev, response]);
+    },
+    []
+  );
+
+  //socket
+  const [socket, setSocket] = useState(null);
+  const [onlineUsers, setOnlineUsers] = useState([]);
+  
+  console.log("online Users", onlineUsers);
+  useEffect(() => {
+    const newSocket = io("http://localhost:1497");
+    setSocket(newSocket);
+    return () => {
+      newSocket.disconnect();
+    };
+  }, [user]);
+  //add online users
+  useEffect(() => {
+    if (socket === null) return;
+    socket.emit("addNewUser", user?.id);
+    socket.on("getOnlineUsers", (res) => {
+      setOnlineUsers(res);
+    });
+  }, [socket]);
+  //send message
+  const [ids, setIds] = useState(null);
+  const [flex, setFlex] = useState(null);
+  useEffect(()=>{
+    const finalgetids = async()=>{
+        const response = await axios.post(
+          `http://ec2-3-7-69-234.ap-south-1.compute.amazonaws.com:3001/getuser`,
+          {
+            email: flex,
+          }
+        );
+        console.log("ids", response.data.id);
+        setIds(response.data.id);
+  
     }
-    const response = await postRequest(`${chatBaseURL}/messages`, JSON.stringify({
-        chatId: currentChatId,
-        senderId: sender.id,
-        text: textMessage, 
-    }))
-    console.log("mesasage resp", response)
-    if(response.error){
-        return setSendTextMessageError(response)
-    }
-   
-    setNewMessage(response)
-    setTextMessage("")
-    setMessages((prev)=>[...prev, response])
-  },[])
+    finalgetids();
+  },[flex])
+
+  useEffect(() => {
+    if (socket === null) return;
+    const recipientId =
+      currentChat?.boy_email_id === user?.email
+        ? currentChat?.girl_email_id
+        : currentChat?.boy_email_id;
+    
+    setFlex(recipientId);
+    console.log("recipientId", ids);
+    console.log("newMessage", newMessage);
+    socket.emit("sendMessage", { ...newMessage, ids});
+    console.log("fdfds", recipientId)
+  }, [newMessage]);
+
+  //getmessage
+  useEffect(() => {
+    if (socket === null) return;
+    socket.on("getMessage", (res) => {
+        console.log("HEG", currentChat, res)
+        if(currentChat?.id=== res.chatId) return 
+      setMessages((prev) => [...prev, res]);
+      
+    });
+
+    return () => {
+      socket.off("getMessage");
+    };
+  }, [socket, currentChat]);
 
   return (
     <ExtraContext.Provider
@@ -161,6 +239,7 @@ export const ExtraContextProvider = ({ children, user }) => {
         messagesError,
         setMessagesError,
         newMessage,
+        onlineUsers,
       }}
     >
       {children}

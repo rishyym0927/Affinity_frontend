@@ -56,7 +56,7 @@ const ChatBox = () => {
               }`}
               ref={scroll}
             >
-              {console.log("messi",message, user)}
+              {/* {console.log("messi",message, user)} */}
               <span>{message.text}</span>
               <span className="block text-xs mt-1 text-gray-400">
                 {formatTime(message.createdAt)}
@@ -80,6 +80,7 @@ const ChatBox = () => {
         >
           Send
         </button>
+
       </div>
     </div>
   );

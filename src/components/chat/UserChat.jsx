@@ -1,14 +1,15 @@
 import React, { useContext } from 'react';
 import { useFetchRecipient } from '../../hooks/useFetchRecipient';
+import { ExtraContext } from '../../context/ExtraContext';
 
 
 const UserChat = ({ chat, user }) => {
   console.log("from userchat", user, chat);
   const { recipientUser } = useFetchRecipient(chat, user);
-//   const { onlineUsers } = useContext(ChatContext);
+  const { onlineUsers } = useContext(ExtraContext);
   
 
-//   const isOnline = onlineUsers?.some((user) => user?.userId === recipientUser?._id);
+  const isOnline = onlineUsers?.some((user) => user?.userId === recipientUser?._id);
 
   return (
     <div
@@ -29,7 +30,7 @@ const UserChat = ({ chat, user }) => {
         <div className="bg-red-500 text-white text-xs rounded-full h-6 w-6 flex items-center justify-center">
           2
         </div>
-        {/* <span className={`${isOnline ? 'bg-green-500' : ''} w-3 h-3 rounded-full mt-2`}></span> */}
+        <span className={`${isOnline ? 'bg-green-500' : ''} w-3 h-3 rounded-full mt-2`}></span>
       </div>
     </div>
   );
