@@ -1,6 +1,6 @@
-export const AI_CHATBOT_URL="https://7ecf-117-219-22-193.ngrok-free.app/chat"
+export const AI_CHATBOT_URL="https://2194-117-219-22-193.ngrok-free.app/chat"
 
-export const RUST_BACKEND_URL_SCORE="https://7ecd-117-219-22-193.ngrok-free.app/updatescore"
+export const RUST_BACKEND_URL_SCORE="http://ec2-3-7-69-234.ap-south-1.compute.amazonaws.com:3001/updatescore"
 
 export const chatBaseURL = "http://localhost:1243/api";
 import axios from "axios";
