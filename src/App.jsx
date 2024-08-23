@@ -15,7 +15,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Requests from "./pages/Requests";
 import CodeRun from "./pages/CodeRun";
-
+import Matches from "./pages/Matches";
 
 const App = () => {
   const { user } = useContext(AuthContext);
@@ -24,7 +24,7 @@ const App = () => {
   return (
     <>
       <AIChatContextProvider userss={user}>
-        <ExtraContextProvider>
+        <ExtraContextProvider user ={user}>
           {/* ToastContainer to handle toast notifications */}
           <ToastContainer />
 
@@ -45,6 +45,18 @@ const App = () => {
                 )
               }
             />
+             <Route
+              path="/matches"
+              element={
+                user ? (
+                  <Layout1>
+                    <Matches />
+                  </Layout1>
+                ) : (
+                  <Landing />
+                )
+              }
+            />
             <Route
               path="/search"
               element={
@@ -57,7 +69,7 @@ const App = () => {
                 )
               }
             />
-             <Route
+            <Route
               path="/request"
               element={
                 user ? (
@@ -69,18 +81,7 @@ const App = () => {
                 )
               }
             />
-            <Route
-              path="/coderun"
-              element={
-                user ? (
-                 
-                    <CodeRun />
-                
-                ) : (
-                  <Landing />
-                )
-              }
-            />
+            <Route path="/coderun" element={user ? <CodeRun /> : <Landing />} />
 
             <Route
               path="/queue"
