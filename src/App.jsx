@@ -24,7 +24,7 @@ const App = () => {
   return (
     <>
       <AIChatContextProvider userss={user}>
-        <ExtraContextProvider user ={user}>
+        <ExtraContextProvider user={user}>
           {/* ToastContainer to handle toast notifications */}
           <ToastContainer />
 
@@ -33,10 +33,11 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
 
+            {/* Restrict access to Dashboard if user is Male */}
             <Route
               path="/dashboard"
               element={
-                user ? (
+                user && user.gender !== "Male" ? (
                   <Layout1>
                     <Dashboard />
                   </Layout1>
@@ -45,7 +46,8 @@ const App = () => {
                 )
               }
             />
-             <Route
+
+            <Route
               path="/matches"
               element={
                 user ? (
@@ -57,6 +59,7 @@ const App = () => {
                 )
               }
             />
+
             <Route
               path="/search"
               element={
@@ -69,10 +72,12 @@ const App = () => {
                 )
               }
             />
+
+            {/* Restrict access to Requests if user is Female */}
             <Route
               path="/request"
               element={
-                user ? (
+                user && user.gender !== "Female" ? (
                   <Layout1>
                     <Requests />
                   </Layout1>
@@ -81,6 +86,7 @@ const App = () => {
                 )
               }
             />
+
             <Route path="/coderun" element={user ? <CodeRun /> : <Landing />} />
 
             <Route
@@ -95,6 +101,7 @@ const App = () => {
                 )
               }
             />
+
             <Route
               path="/chatbot"
               element={

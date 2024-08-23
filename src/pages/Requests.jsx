@@ -1,102 +1,134 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import InfoCard from "../components/InfoCard";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
+import axios from "axios";
 
 const Requests = () => {
   const [boys, setBoys] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+  const [currentUserDetails, setCurrentUserDetails] = useState(null);
   const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
 
-//   useEffect(() => {
-//     const getBoys = async () => {
-//       try {
-//         const response = await axios.get(
-//           "http://ec2-3-7-69-234.ap-south-1.compute.amazonaws.com:3001/getboys"
-//         );
-//         setBoys(response.data);
-//       } catch (error) {
-//         console.error("Error fetching data:", error);
-//       }
-//     };
+  // Fetch the list of boys
+  useEffect(() => {
+    const getBoys = async () => {
+      setIsLoading(true);
+      try {
+        const response = await axios.post(
+          "http://ec2-3-7-69-234.ap-south-1.compute.amazonaws.com:3001/getgirlrequests",
+          {
+            email: user.email,
+          }
+        );
+        setBoys(response.data);
+        console.log("Boys data:", response.data);
+      } catch (error) {
+        console.error("Error fetching boys:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    getBoys();
+  }, [user.email]);
 
-//     getBoys();
-//   }, []);
+  const[mainId, setMainId]= useState(null)
+  // Fetch details of the current boy in the list
+  useEffect(() => {
+    const getCurrentUserDetails = async () => {
+      if (boys.length > 0 && currentIndex < boys.length) {
+        setIsLoading(true);
+        console.log('Loading', boys[0], currentIndex)
+        const currentBoy = boys[currentIndex];
+        console.log("Current boy:", currentBoy);
 
+        if (!currentBoy || !currentBoy.girl_email_id) {
+          console.error("Invalid boy data or missing email");
+          setIsLoading(false);
+          return;
+        }
+
+        try {
+          const response = await axios.post(
+            "http://ec2-3-7-69-234.ap-south-1.compute.amazonaws.com:3001/getuser",
+            {
+              email: currentBoy.girl_email_id,
+            }
+          );
+          console.log("Fetched user details:", response.data);
+          setCurrentUserDetails(response.data);
+        } catch (error) {
+          console.error("Error fetching user details:", error);
+        } finally {
+          setIsLoading(false);
+        }
+      }
+    };
+    getCurrentUserDetails();
+  }, [boys, currentIndex]);
+
+  // Handle navigation and updating to the next user
   const handleNextUser = () => {
     setCurrentIndex((prevIndex) => prevIndex + 1);
-    navigate("/coderunner")
+
   };
 
-  const users  = [
-    {
-      first_name: "John",
-      last_name: "Doe",
-      email: "john.doe@example.com",
-      username: "johndoe123",
-      gender: "Male",
-      age: 28,
-      location: "New York, NY",
-      openness: "High",
-      relation_type: "Serious",
-      interests: "Hiking, Reading, Gaming",
-      exp_qual: "Bachelor's Degree",
-      social_habits: "Social Drinker",
-      past_relations: "Yes",
-      password: "password123",
-      image_url: "https://example.com/profile/john.jpg",
-      score: 85,
-    },
-    {
-      first_name: "Jane",
-      last_name: "Smith",
-      email: "jane.smith@example.com",
-      username: "janesmith456",
-      gender: "Female",
-      age: 25,
-      location: "San Francisco, CA",
-      openness: "Moderate",
-      relation_type: "Casual",
-      interest: "Cooking, Traveling, Photography",
-      exp_qual: "Master's Degree",
-      social_habits: "Non-Smoker",
-      past_relations: "No",
-      password: "securePass456",
-      image_url: "https://example.com/profile/jane.jpg",
-      score: 92,
-    },
-    {
-      first_name: "Alex",
-      last_name: "Brown",
-      email: "alex.brown@example.com",
-      username: "alexbrown789",
-      gender: "Non-binary",
-      age: 30,
-      location: "Austin, TX",
-      openness: "Low",
-      relation_type: "Friendship",
-      interests: "Yoga, Music, Art",
-      exp_qual: "PhD",
-      social_habits: "Occasional Drinker",
-      past_relations: "Yes",
-      password: "myPassword789",
-      image_url: "https://example.com/profile/alex.jpg",
-      score: 78,
-    }
-  ];
+  const onLike = async () => {
+    try {
+      // Save the current boy's ID before updating the index
+      const boyId = String(boys[currentIndex]?.id);
   
-
-  const currentUser = users[currentIndex];
-  return (<div className="flex h-[95%]">
-    <div className="flex items-center h-[100%] w-[100%] ">
-       
-        <InfoCard
-          user={currentUser}
-          onLike={handleNextUser}
-          onReject={handleNextUser}
-        />
-      
+      // Log the boyId to debug
+      console.log("Current boy ID:", boyId);
+  
+      // Ensure boyId is valid before proceeding
+      if (!boyId) {
+        console.error("No valid boy ID found.");
+        return;
+      }
+  
+      // Increment the index
+      setCurrentIndex((prevIndex) => prevIndex + 1);
+  
+      // Make the request using the saved ID
+      const response = await axios.post(
+        "http://ec2-3-7-69-234.ap-south-1.compute.amazonaws.com:3001/changeflag",
+        {
+          email: boyId,  // Ensure this matches the expected field in the backend
+        }
+      );
+  
+      // Check if the request was successful
+      if (response.status == 202) {
+        console.log("Success:", response);
+        navigate("/coderun");
+      } else {
+        console.error("Failed with status code:", response.status);
+      }
+    } catch (error) {
+      console.error("Error updating flag:", error);
+    }
+  };
+  
+  return (
+    <div className="flex h-[95%]">
+      <div className="flex items-center h-[100%] w-[100%]">
+        {isLoading ? (
+          <div>Loading...</div>
+        ) : boys.length > 0 && currentUserDetails ? (
+          <InfoCard
+            user={currentUserDetails}
+            onLike={onLike}
+            onReject={handleNextUser}
+          />
+        ) : (
+          <div>No users to display</div>
+        )}
+      </div>
     </div>
-  </div>);
+  );
 };
 
 export default Requests;
