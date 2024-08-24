@@ -103,7 +103,10 @@ export const AIChatContextProvider = ({ children }) => {
                 autoClose: 1500,
               
             })
-            navigate("/request"); // Redirect to dashboard after score update
+            if(user?.gender ==="Female"){
+              navigate("/dashboard")
+            }
+            else {navigate("/request")}; // Redirect to dashboard after score update
           }
         } catch (error) {
           console.error("Error updating score:", error);
