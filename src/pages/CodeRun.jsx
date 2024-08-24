@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
+import { AuthContext } from "../context/AuthContext";
+
 import { ToastContainer, toast } from 'react-toastify';
 import { motion } from 'framer-motion';
 import { FiClock } from 'react-icons/fi';
@@ -46,18 +48,19 @@ const CodeRun = () => {
 
       console.log(formData);
 
-      const response = await axios.post("http://localhost:3001/runcode", formData);
-      console.log(response);
+      const response = await axios.post("http://ec2-3-7-69-234.ap-south-1.compute.amazonaws.com:3001/runcode", formData);
+      console.log(response);    
 
       if (response.data === "AC") {
-        setScore(score + Number((1000 - (300 - timeLeft))));
+        setScore(Number(score) + Number((1000 - (300 - timeLeft))));
         toast.success(`ACCEPTED`);
         setSelectedProblem((prev) => ({ ...prev, submitted: true }));
       } else {
         toast.error(`WRONG ANSWER`);
-      }
+      } 
 
-      console.log(score);
+      console.log("score is " + score);
+      console.log( score);
     } catch (err) {
       console.log(err);
     }
@@ -112,12 +115,15 @@ const CodeRun = () => {
     setFile(renamedFile);
     console.log(file);
   };
-
-  const handleLeave = async () => {
+  const {user} = useContext(AuthContext);
+  const handleLeave = async () => {   
     toast.success("You have completed the contest");
     try {
-      const response = await axios.post("http://localhost:3001/changecontestscore");
-      console.log(response);
+      const response = await axios.put("http://ec2-3-7-69-234.ap-south-1.compute.amazonaws.com:3001/updatecontestscore",{
+        id: user.id.toString,
+        contestscore: score.toString,
+      });       
+      console.log(response);  
     } catch (err) {
       console.log("Error leaving contest : " + err.message);
     }
