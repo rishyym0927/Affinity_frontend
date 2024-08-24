@@ -3,7 +3,7 @@ export const MACHINE_CHATBOT_URL="https://ae18-117-219-22-193.ngrok-free.app/mat
 
 export const RUST_BACKEND_URL_SCORE="http://ec2-3-7-69-234.ap-south-1.compute.amazonaws.com:3001/updatescore"
 
-export const chatBaseURL = "http://localhost:1243/api";
+export const chatBaseURL = "http://ec2-13-233-131-217.ap-south-1.compute.amazonaws.com:1243/api";
 import axios from "axios";
 
 export const postRequest = async (url, body) => {

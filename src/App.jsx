@@ -16,6 +16,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Requests from "./pages/Requests";
 import CodeRun from "./pages/CodeRun";
 import Matches from "./pages/Matches";
+import RoomPage from "./pages/Room";
 
 const App = () => {
   const { user } = useContext(AuthContext);
@@ -46,6 +47,7 @@ const App = () => {
                 )
               }
             />
+              <Route path='/room/:roomId' element={<RoomPage />}/>
 
             <Route
               path="/matches"
