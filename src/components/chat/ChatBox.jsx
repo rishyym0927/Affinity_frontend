@@ -30,28 +30,36 @@ const ChatBox = () => {
   }
 
   return (
-    <div className="flex flex-col gap-4 p-4 h-full rounded-lg   bg-black rounded-lg shadow-lg text-white">
-      <div className="font-bold text-lg h-1/6">{recipientUser?.user_name}</div>
-      <div className="flex flex-col gap-3 overflow-auto h-64 h-4/6">
+    <div className="flex flex-col gap-4 p-4 h-full bg-black rounded-lg shadow-lg text-white">
+      <div className="font-bold text-lg">@{recipientUser?.user_name}</div>
+      <div className="flex flex-col gap-3 overflow-y-auto flex-grow">
         {messages &&
           messages.map((message, index) => (
             <div
               key={index}
-              className={`${
+              className={`flex flex-col ${
                 message?.senderId == user.id
-                  ? "self-end bg-[#ff0059] p-3 rounded-md"
-                  : "self-start bg-neutral-700 p-3 rounded-md"
+                  ? "items-end"
+                  : "items-start"
               }`}
-              ref={scroll}
             >
-              <span>{message.text}</span>
-              <span className="block text-xs mt-1 text-gray-400">
-                {formatTime(message.createdAt)}
-              </span>
+              <div
+                className={`p-3 rounded-md max-w-[70%] break-words ${
+                  message?.senderId == user.id
+                    ? "bg-[#ff0059]"
+                    : "bg-neutral-700"
+                }`}
+                ref={index === messages.length - 1 ? scroll : null}
+              >
+                <p>{message.text}</p>
+                <span className="block text-xs mt-1 text-gray-400">
+                  {formatTime(message.createdAt)}
+                </span>
+              </div>
             </div>
           ))}
       </div>
-      <div className="flex  items-center gap-3 h-1/6">
+      <div className="flex items-center gap-3 mt-auto">
         <input
           type="text"
           value={textMessage}
@@ -60,7 +68,7 @@ const ChatBox = () => {
           placeholder="Type a message..."
         />
         <button
-          className="bg-[#ff0059] hover:bg-red-500 text-white p-3 rounded-md"
+          className="bg-[#ff0059] hover:bg-red-500 text-white p-3 rounded-md whitespace-nowrap"
           onClick={() =>
             sendTextMessage(textMessage, user, currentChat.id, setTextMessage)
           }

@@ -175,34 +175,43 @@ export const ExtraContextProvider = ({ children, user }) => {
   //send message
   const [ids, setIds] = useState(null);
   const [flex, setFlex] = useState(null);
-  useEffect(()=>{
-    const finalgetids = async()=>{
-        const response = await axios.post(
-          `http://ec2-3-7-69-234.ap-south-1.compute.amazonaws.com:3001/getuser`,
-          {
-            email: flex,
-          }
-        );
-        console.log("ids", response.data.id);
-        setIds(response.data.id);
-  
-    }
-    finalgetids();
-  },[flex])
 
   useEffect(() => {
-    if (socket === null) return;
+    if (flex === null) return; // Prevent API call if flex is not set
+
+    const finalGetIds = async () => {
+      try {
+        const response = await axios.post(
+          'http://ec2-3-7-69-234.ap-south-1.compute.amazonaws.com:3001/getuser',
+          { email: flex }
+        );
+        console.log('ids', response.data.id);
+        setIds(response.data.id);
+      } catch (error) {
+        console.error('Error fetching user ID:', error);
+      }
+    };
+
+    finalGetIds();
+  }, [flex]); // Only run when `flex` changes
+
+  useEffect(() => {
+    if (!socket || !currentChat || !newMessage) return;
+
     const recipientId =
-      currentChat?.boy_email_id === user?.email
-        ? currentChat?.girl_email_id
-        : currentChat?.boy_email_id;
-    
-    setFlex(recipientId);
-    console.log("recipientId", ids);
-    console.log("newMessage", newMessage);
-    socket.emit("sendMessage", { ...newMessage, ids});
-    console.log("fdfds", recipientId)
-  }, [newMessage]);
+      currentChat.boy_email_id === user?.email
+        ? currentChat.girl_email_id
+        : currentChat.boy_email_id;
+
+    setFlex(recipientId); // Update `flex` to trigger the API call in the other effect
+
+    if (ids) {
+      console.log('RecipientId:', recipientId);
+      console.log('NewMessage:', newMessage);
+      socket.emit('sendMessage', { ...newMessage, ids });
+      console.log('Message sent to:', recipientId);
+    }
+  }, [newMessage, socket, currentChat, user, ids]); // Ensure correct dependencies
 
   //getmessage
   useEffect(() => {

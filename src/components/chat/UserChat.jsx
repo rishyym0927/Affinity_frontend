@@ -17,12 +17,12 @@ const UserChat = ({ chat, user }) => {
           <img src={recipientUser?.image_url} alt="" className="w-12 h-12 rounded-full" />
         </div>
         <div className="text-content">
-          <div className="text-white font-bold">{recipientUser?.user_name}</div>
-          <div className="text-neutral-400">Text Message</div>
+          <div className="text-white font-bold text-transform:uppercase">{recipientUser?.user_name}</div>
+  
         </div>
       </div>
       <div className="flex flex-col items-end">
-        <div className="text-neutral-400 text-sm">12/12/2022</div>
+        
         <div className="bg-red-500 text-white text-xs rounded-full h-6 w-6 flex items-center justify-center">
           2
         </div>
