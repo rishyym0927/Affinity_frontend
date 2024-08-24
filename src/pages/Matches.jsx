@@ -13,7 +13,8 @@ const Chat = () => {
       {userChats?.length < 1 ? null : (
         <div className="flex w-full h-full gap-4">
           {/* Sidebar for user chats */}
-          <div className="w-2/5 h-full  rounded-lg  bg-black p-4 space-y-3 overflow-y-auto">
+          {/* #0*/}
+          <div className="w-2/5 h-full  rounded-lg  bg-[#0a0a0a] p-4 space-y-3 overflow-y-auto">
             {isUserChatsLoading && <p>Loading chats ...</p>}
             {userChats?.map((chat, index) => (
               <div key={index} onClick={() => updateCurrentChat(chat)}>

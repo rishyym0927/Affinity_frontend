@@ -10,7 +10,7 @@ const UserChat = ({ chat, user }) => {
   return (
     <div
       role="button"
-      className="flex items-center p-4 justify-between hover:bg-neutral-800 rounded-lg transition-colors"
+      className="flex items-center p-4 justify-between hover:bg-neutral-800 bg-[#101010] rounded-lg transition-colors"
     >
       <div className="flex items-center">
         <div className="mr-3">
