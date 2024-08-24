@@ -10,6 +10,8 @@ const ChatBox = () => {
   const { currentChat, messages, isMessagesLoading, sendTextMessage } = useContext(ExtraContext);
   const { recipientUser } = useFetchRecipient(currentChat, user);
   const [textMessage, setTextMessage] = useState("");
+  const [aaa, setAaa] = useState(null);
+  const [bbb, setBbb] = useState(null);
   const scroll = useRef();
   const navigate = useNavigate();
   const socket = useSocket();
@@ -20,16 +22,18 @@ const ChatBox = () => {
     scroll.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  let aaa, bbb;
   useEffect(() => {
-    aaa = user ? user.email : null;
-    bbb = currentChat ? currentChat.id : null;
+    setAaa(user ? user.email : null);
+    setBbb(currentChat ? currentChat.id : null);
     console.log("ds", aaa, bbb);
   }, [user, currentChat]);
 
   const handleSubmitForm = useCallback(() => {
-    if (aaa && bbb) {
+    if (aaa && bbb && socket.connected) {
       socket.emit("room:join", { aaa, bbb });
+    } else {
+      alert("Unable to start video call. Please try again later.");
+      console.log("Unable to join room: missing data or socket not connected");
     }
   }, [aaa, bbb, socket]);
 
@@ -71,7 +75,6 @@ const ChatBox = () => {
           VIDEO CALL
         </button>
       </div>
-
       <div className="flex flex-col gap-3 overflow-y-auto flex-grow">
         {console.log(messages)}
         {messages &&
@@ -96,7 +99,6 @@ const ChatBox = () => {
             </div>
           ))}
       </div>
-
       <div className="flex items-center gap-3 mt-auto">
         <input
           type="text"
