@@ -5,6 +5,8 @@ import { AuthContext } from "../context/AuthContext";
 import { ToastContainer, toast } from 'react-toastify';
 import { motion } from 'framer-motion';
 import { FiClock } from 'react-icons/fi';
+import { useFetchRecipient } from '../hooks/useFetchRecipient';
+import { ExtraContext } from '../context/ExtraContext';
 
 const problems = [
   {
@@ -42,30 +44,31 @@ const CodeRun = () => {
         toast.error(`You have already submitted this problem`);
         return;
       }
-
+  
       const formData = new FormData();
       formData.append("file", file);
-
+  
       console.log(formData);
-
+  
       const response = await axios.post("http://ec2-3-7-69-234.ap-south-1.compute.amazonaws.com:3001/runcode", formData);
-      console.log(response);    
-
+      console.log(response);
+  
       if (response.data === "AC") {
-        setScore(Number(score) + Number((1000 - (300 - timeLeft))));
+        setScore((prevScore) => {
+          const newScore = Number(prevScore) + Number(1000 - (300 - timeLeft));
+          console.log("New Score: ", newScore, "Time Left: ", timeLeft);
+          return newScore;
+        });
+  
         toast.success(`ACCEPTED`);
         setSelectedProblem((prev) => ({ ...prev, submitted: true }));
       } else {
         toast.error(`WRONG ANSWER`);
-      } 
-
-      console.log("score is " + score);
-      console.log( score);
+      }
     } catch (err) {
       console.log(err);
     }
   };
-
   useEffect(() => {
     const timer = setInterval(() => {
       setTimeLeft((prevTime) => {
@@ -116,12 +119,13 @@ const CodeRun = () => {
     console.log(file);
   };
   const {user} = useContext(AuthContext);
+  const {contestId}= useContext(ExtraContext);
   const handleLeave = async () => {   
     toast.success("You have completed the contest");
     try {
       const response = await axios.put("http://ec2-3-7-69-234.ap-south-1.compute.amazonaws.com:3001/updatecontestscore",{
-        id: user.id.toString,
-        contestscore: score.toString,
+        id: `${contestId}`,
+        contestscore: `${score}`,
       });       
       console.log(response);  
     } catch (err) {

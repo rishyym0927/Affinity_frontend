@@ -3,6 +3,7 @@ import InfoCard from "../components/InfoCard";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
+import { ExtraContext } from "../context/ExtraContext";
 
 const Requests = () => {
   const [boys, setBoys] = useState([]);
@@ -36,6 +37,7 @@ const Requests = () => {
 
   const[mainId, setMainId]= useState(null)
   // Fetch details of the current boy in the list
+  const {contestId, setContestId}= useContext(ExtraContext)
   useEffect(() => {
     const getCurrentUserDetails = async () => {
       if (boys.length > 0 && currentIndex < boys.length) {
@@ -43,6 +45,8 @@ const Requests = () => {
         console.log('Loading', boys[0], currentIndex)
         const currentBoy = boys[currentIndex];
         console.log("Current boy:", currentBoy);
+        setContestId(currentBoy.id)
+        // console.log(contestId)
 
         if (!currentBoy || !currentBoy.girl_email_id) {
           console.error("Invalid boy data or missing email");

@@ -219,6 +219,9 @@ export const ExtraContextProvider = ({ children, user }) => {
     };
   }, [socket, currentChat]);
 
+
+  const[contestId, setContestId]= useState(null)
+
   return (
     <ExtraContext.Provider
       value={{
@@ -240,6 +243,8 @@ export const ExtraContextProvider = ({ children, user }) => {
         setMessagesError,
         newMessage,
         onlineUsers,
+        setContestId,
+        contestId
       }}
     >
       {children}
