@@ -3,6 +3,7 @@ import axios from "axios";
 import { AuthContext } from "./AuthContext";
 import { AI_CHATBOT_URL, RUST_BACKEND_URL_SCORE } from "../utils/constant";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export const AIChatContext = createContext();
 
@@ -95,7 +96,14 @@ export const AIChatContextProvider = ({ children }) => {
       
           if (response.status === 202) {
             console.log("Score Updated");
-            navigate("/dashboard"); // Redirect to dashboard after score update
+            toast.success("Score updated successfully",{
+            
+                theme: "dark",
+                position: "top-right",
+                autoClose: 1500,
+              
+            })
+            navigate("/request"); // Redirect to dashboard after score update
           }
         } catch (error) {
           console.error("Error updating score:", error);

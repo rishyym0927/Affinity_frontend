@@ -22,10 +22,10 @@ const FormStep3 = ({ onBack }) => {
     >
       <div>
         <h2 className="text-4xl text-white font-bold text-[#ff0059] mb-4">Review and Submit</h2>
-        <p className="text-neutral-400 font-bold mb-8">Take a final look before you <span className="text-yellow-600">join us!</span></p>
+        <p className="text-neutral-400 font-bold mb-4">Take a final look before you <span className="text-yellow-600">join us!</span></p>
       </div>
 
-      <div className="bg-neutral-800 p-6 rounded-lg shadow-inner mb-6">
+      <div className="bg-neutral-800 p-4 rounded-lg shadow-inner text-xs">
         <div className="grid grid-cols-2 gap-4">
           {renderField('First Name', registerInfo.first_name)}
           {renderField('Last Name', registerInfo.last_name)}
@@ -37,27 +37,25 @@ const FormStep3 = ({ onBack }) => {
           {renderField('Openness', registerInfo.openness)}
           {renderField('Relation Type', registerInfo.relation_type)}
           {renderField('Expected Qualities', registerInfo.exp_qual)}
-          {renderField('Interests', registerInfo.interest)}
+          {renderField('Interests', registerInfo.interests)}
           {renderField('Social Habits', registerInfo.social_habits)}
           {renderField('Past Relationships', registerInfo.past_relations)}
-        </div>
-
+          
         {registerInfo.image_url && (
-          <div className="mt-4">
+          <div className="mt-4 flex">
             <span className="text-gray-400 font-semibold">Profile Picture:</span>
             <div className="mt-2 w-32 h-32 rounded-full overflow-hidden">
               <img src={registerInfo.image_url} alt="Profile" className="w-full h-full object-cover" />
             </div>
           </div>
         )}
-      </div>
-
-      <form onSubmit={registerUser} className="space-y-4">
-        <div className="flex justify-between">
+        </div>
+        <form onSubmit={registerUser} className="space-y-4">
+        <div className="flex gap-2">
           <button
             type="button"
             onClick={onBack}
-            className="bg-neutral-800 hover:bg-gray-600 text-white py-2 px-4 rounded-md"
+            className="bg-neutral-900 hover:bg-gray-600 text-white py-2 px-4 rounded-md"
           >
             Back
           </button>
@@ -69,6 +67,10 @@ const FormStep3 = ({ onBack }) => {
           </button>
         </div>
       </form>
+
+      </div>
+
+     
     </motion.div>
   );
 };

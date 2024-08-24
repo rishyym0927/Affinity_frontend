@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import InfoCard from "../components/InfoCard";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
+import { MACHINE_CHATBOT_URL, RUST_BACKEND_URL_SCORE } from "../utils/constant";
 
 const Dashboard = () => {
   const [boys, setBoys] = useState([]);
@@ -11,7 +12,7 @@ const Dashboard = () => {
     const getBoys = async () => {
       try {
         const response = await axios.post(
-          "https://2194-117-219-22-193.ngrok-free.app/match"
+          MACHINE_CHATBOT_URL
         ,{
           user_id: `${user.id}`,
         });

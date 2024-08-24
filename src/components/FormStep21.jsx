@@ -58,8 +58,8 @@ const FormStep21 = ({ onNext, onBack }) => {
             ref={interestsInputRef}
             type="text"
             name="interests"
-            defaultValue={registerInfo.interest}
-            onChange={(e) => updateRegisterInfo({ ...registerInfo, interest: e.target.value })}
+            defaultValue={registerInfo.interests}
+            onChange={(e) => updateRegisterInfo({ ...registerInfo, interests: e.target.value })}
             className="mt-1 block w-full p-2 rounded-md bg-neutral-800 outline-none text-white border border-gray-600"
           />
         </label>
@@ -83,9 +83,9 @@ const FormStep21 = ({ onNext, onBack }) => {
               <input
                 type="radio"
                 name="past_relationships"
-                value="yes"
-                checked={registerInfo.past_relations === "yes"}
-                onChange={() => updateRegisterInfo({ ...registerInfo, past_relations: "yes" })}
+                value="Yes"
+                checked={registerInfo.past_relations === "Yes"}
+                onChange={() => updateRegisterInfo({ ...registerInfo, past_relations: "Yes" })}
                 className="form-radio text-[#ff0059]"
               />
               <span className="ml-2 text-gray-400">Yes</span>
@@ -94,9 +94,9 @@ const FormStep21 = ({ onNext, onBack }) => {
               <input
                 type="radio"
                 name="past_relationships"
-                value="no"
-                checked={registerInfo.past_relations === "no"}
-                onChange={() => updateRegisterInfo({ ...registerInfo, past_relations: "no" })}
+                value="No"
+                checked={registerInfo.past_relations === "No"}
+                onChange={() => updateRegisterInfo({ ...registerInfo, past_relations: "No" })}
                 className="form-radio text-[#ff0059]"
               />
               <span className="ml-2 text-gray-400">No</span>

@@ -23,6 +23,7 @@
     "react-places-autocomplete": "^7.3.0",
     "react-router-dom": "^6.26.1",
     "react-simple-typewriter": "^5.0.1",
+    "react-spinners": "^0.14.1",
     "react-toastify": "^10.0.5",
     "socket.io-client": "^4.7.5"
   },

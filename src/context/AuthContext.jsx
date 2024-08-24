@@ -109,7 +109,7 @@ export const AuthContextProvider = ({ children }) => {
     location: "",
     openness: "",
     relation_type: "",
-    interest: "",
+    interests: "",
     exp_qual: "",
     social_habits: "",
     past_relations: "",
@@ -141,7 +141,7 @@ export const AuthContextProvider = ({ children }) => {
           position: "top-right",
           autoClose: 3000,
         });
-        navigate("/chatbot"); // Redirect to dashboard
+        navigate("/login"); // Redirect to dashboard
       } catch (error) {
         setRegisterError(error.response?.data?.message || error.message);
         console.error("Registration error:", error.response?.data?.message || error.message); // Log error message

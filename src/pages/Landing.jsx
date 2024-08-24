@@ -59,7 +59,7 @@ const Landing = () => {
             </Link>
           </button>
 
-          <div className="flex flex-row text-4xl opacity-70 gap-5  cursor-pointer absolute bottom-10">w
+          <div className="flex flex-row text-4xl opacity-70 gap-5  cursor-pointer absolute bottom-10">
           <FaInstagram />
           <FaTwitter />
           <FaLinkedin />

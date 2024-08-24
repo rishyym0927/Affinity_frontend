@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import InfoCard from "../components/InfoCard";
+import { RiseLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
@@ -12,6 +13,8 @@ const Requests = () => {
   const [currentUserDetails, setCurrentUserDetails] = useState(null);
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
+  const { contestId, setContestId } = useContext(ExtraContext);
+  const color = "#ff0059";
 
   // Fetch the list of boys
   useEffect(() => {
@@ -35,18 +38,17 @@ const Requests = () => {
     getBoys();
   }, [user.email]);
 
-  const[mainId, setMainId]= useState(null)
+  const [mainId, setMainId] = useState(null);
+
   // Fetch details of the current boy in the list
-  const {contestId, setContestId}= useContext(ExtraContext)
   useEffect(() => {
     const getCurrentUserDetails = async () => {
       if (boys.length > 0 && currentIndex < boys.length) {
         setIsLoading(true);
-        console.log('Loading', boys[0], currentIndex)
+        console.log("Loading", boys[0], currentIndex);
         const currentBoy = boys[currentIndex];
         console.log("Current boy:", currentBoy);
-        setContestId(currentBoy.id)
-        // console.log(contestId)
+        setContestId(currentBoy.id);
 
         if (!currentBoy || !currentBoy.girl_email_id) {
           console.error("Invalid boy data or missing email");
@@ -76,35 +78,23 @@ const Requests = () => {
   // Handle navigation and updating to the next user
   const handleNextUser = () => {
     setCurrentIndex((prevIndex) => prevIndex + 1);
-
   };
 
   const onLike = async () => {
     try {
-      // Save the current boy's ID before updating the index
       const boyId = String(boys[currentIndex]?.id);
-  
-      // Log the boyId to debug
       console.log("Current boy ID:", boyId);
-  
-      // Ensure boyId is valid before proceeding
       if (!boyId) {
         console.error("No valid boy ID found.");
         return;
       }
-  
-      // Increment the index
       setCurrentIndex((prevIndex) => prevIndex + 1);
-  
-      // Make the request using the saved ID
       const response = await axios.post(
         "http://ec2-3-7-69-234.ap-south-1.compute.amazonaws.com:3001/changeflag",
         {
-          email: boyId,  // Ensure this matches the expected field in the backend
+          email: boyId,
         }
       );
-  
-      // Check if the request was successful
       if (response.status == 202) {
         console.log("Success:", response);
         navigate("/coderun");
@@ -115,13 +105,17 @@ const Requests = () => {
       console.error("Error updating flag:", error);
     }
   };
-  
+
   return (
     <div className="flex h-[95%]">
       <div className="flex items-center h-[100%] w-[100%]">
         {isLoading ? (
-          <div>Loading...</div>
-        ) : boys.length > 0 && currentUserDetails ? (
+          <div className="w-full h-full flex items-center justify-center">
+            {" "}
+            <RiseLoader size={20} color="#ff0059" />
+          </div>
+        ) : // Use the custom Loader component
+        boys.length > 0 && currentUserDetails ? (
           <InfoCard
             user={currentUserDetails}
             onLike={onLike}

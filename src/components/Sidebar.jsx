@@ -17,6 +17,7 @@ const Sidebar = () => {
         type: "spring",
         stiffness: 300,
       },
+      cursor : "none"
     },
   };
 
@@ -28,7 +29,7 @@ const Sidebar = () => {
   };
 
   const getListItemClass = (path) => {
-    const baseClass = "mb-6 w-full p-3 rounded-lg text-lg md:text-xl lg:text-2xl font-bold cursor-pointer";
+    const baseClass = "mb-6 w-full p-3 rounded-lg text-lg md:text-xl lg:text-2xl font-bold ";
     return location.pathname === path
       ? `${baseClass} bg-[#2C2C2C]`
       : `${baseClass} bg-neutral-700`;
@@ -38,7 +39,7 @@ const Sidebar = () => {
     <div className="w-full md:w-80 lg:w-96 h-full bg-black text-white flex flex-col fixed top-0 left-0">
       {/* Profile section remains unchanged */}
       <motion.div
-        className="p-3 flex gap-2 flex-row items-center bg-[#ff0059] hover:bg-red-500 m-5 rounded-lg justify-around  cursor-pointer"
+        className="p-3 flex gap-2 flex-row items-center bg-[#ff0059] hover:bg-red-500 m-5 rounded-lg justify-around  "
         whileHover={{ scale: 1.05 }}
       >
         <img
@@ -50,8 +51,8 @@ const Sidebar = () => {
           @{user?.user_name || "John Doe"}
         </h3>
       </motion.div>
-      <nav className="flex-1 p-6 w-full">
-        <ul className="w-full">
+      <nav className="flex-1 p-6 w-full cursor-none">
+        <ul className="w-full cursor-none">
           {user.gender === "Female" && (
             <motion.li
               className={getListItemClass("/dashboard")}

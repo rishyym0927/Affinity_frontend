@@ -1,18 +1,91 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite + React</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins&family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins&family=Roboto+Slab:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        cursor: none; /* Hide the default cursor */
+      }
+      .circle {
+        position: fixed;
+        border-radius: 50%;
+        pointer-events: none;
+        width: 24px;
+        height: 24px;
+        transition: background-color 0.3s ease;
+      }
+    </style>
   </head>
   <body>
-    
-
+    <div id="cursor-trail"></div>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    <script>
+      const coords = { x: 0, y: 0 };
+      const colors = [
+        "#FF1493", // Deep Pink
+        "#FF69B4", // Hot Pink
+        "#FFB6C1", // Light Pink
+        "#FFC0CB", // Pink
+        "#DB7093", // Pale Violet Red
+        "#C71585", // Medium Violet Red
+        "#FF00FF", // Magenta
+        "#FF00FF", // Fuchsia
+        "#FF1493", // Deep Pink (repeated for smoother transition)
+      ];
+      
+      const cursorTrail = document.getElementById('cursor-trail');
+      const circleCount = 30;
+
+      for (let i = 0; i < circleCount; i++) {
+        const circle = document.createElement('div');
+        circle.classList.add('circle');
+        cursorTrail.appendChild(circle);
+      }
+
+      const circles = document.querySelectorAll(".circle");
+
+      circles.forEach(function (circle, index) {
+        circle.x = 0;
+        circle.y = 0;
+        circle.style.backgroundColor = colors[index % colors.length];
+      });
+
+      window.addEventListener("mousemove", function (e) {
+        coords.x = e.clientX;
+        coords.y = e.clientY;
+      });
+
+      function animateCircles() {
+        let x = coords.x;
+        let y = coords.y;
+
+        circles.forEach(function (circle, index) {
+          circle.style.left = x - 12 + "px";
+          circle.style.top = y - 12 + "px";
+          circle.style.scale = (circles.length - index) / circles.length;
+          circle.style.opacity = (circles.length - index) / circles.length;
+          circle.x = x;
+          circle.y = y;
+
+          const nextCircle = circles[index + 1] || circles[0];
+          x += (nextCircle.x - x) * 0.3;
+          y += (nextCircle.y - y) * 0.3;
+        });
+
+        requestAnimationFrame(animateCircles);
+      }
+
+      animateCircles();
+    </script>
   </body>
 </html>
