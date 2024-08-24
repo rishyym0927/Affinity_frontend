@@ -112,7 +112,7 @@ export const ExtraContextProvider = ({ children, user }) => {
       setIsMessagesLoading(true);
       setMessagesError(false);
       const response = await getRequest(
-        `http://localhost:1243/api/messages/${currentChat?.id}`
+        `${chatBaseURL}/messages/${currentChat?.id}`
       );
       console.log(response);
       setIsMessagesLoading(false);
@@ -158,7 +158,7 @@ export const ExtraContextProvider = ({ children, user }) => {
   
   console.log("online Users", onlineUsers);
   useEffect(() => {
-    const newSocket = io("http://localhost:1497");
+    const newSocket = io("http://ec2-13-233-131-217.ap-south-1.compute.amazonaws.com:1497");
     setSocket(newSocket);
     return () => {
       newSocket.disconnect();
