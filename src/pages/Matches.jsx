@@ -1,10 +1,6 @@
 import React, { useContext } from 'react';
-
-
-// import { AuthContext } from '../context/AuthContrext';
 import ChatBox from '../components/chat/ChatBox';
-import PotentialChat from '../components/chat/PotentialChat'
-import UserChat from '../components/chat/UserChat'
+import UserChat from '../components/chat/UserChat';
 import { AuthContext } from '../context/AuthContext';
 import { ExtraContext } from '../context/ExtraContext';
 
@@ -13,20 +9,23 @@ const Chat = () => {
   const { userChats, isUserChatsLoading, updateCurrentChat } = useContext(ExtraContext);
 
   return (
-    <div className="container mx-auto p-4 ">
-    
+    <div className="container mx-auto p-4 h-full flex">
       {userChats?.length < 1 ? null : (
-        <div className="flex">
-          <div className="flex-grow message-box pr-6 space-y-3">
+        <div className="flex w-full h-full gap-4">
+          {/* Sidebar for user chats */}
+          <div className="w-2/5 h-full  rounded-lg  bg-black p-4 space-y-3 overflow-y-auto">
             {isUserChatsLoading && <p>Loading chats ...</p>}
             {userChats?.map((chat, index) => (
               <div key={index} onClick={() => updateCurrentChat(chat)}>
-                {console.log(chat)}
                 <UserChat chat={chat} user={user} />
               </div>
             ))}
           </div>
-          <ChatBox />
+          
+          {/* Main Chat Box */}
+          <div className=" w-3/5 h-full ">
+            <ChatBox />
+          </div>
         </div>
       )}
     </div>

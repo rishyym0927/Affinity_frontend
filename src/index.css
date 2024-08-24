@@ -184,3 +184,32 @@ body {
   background-color: #ff0059; /* Pink background on hover */
   color: #ffffff; /* White text color */
 }
+
+/* For Webkit-based browsers (Chrome, Safari, etc.) */
+::-webkit-scrollbar {
+  width: 0; /* Remove scrollbar width */
+  height: 0;
+}
+
+/* Hide scrollbar for Firefox */
+* {
+  scrollbar-width: none; /* Firefox */
+}
+
+/* Hide scrollbar for Edge, Internet Explorer, and others */
+*::-webkit-scrollbar {
+  display: none; /* Hides the scrollbar */
+}
+
+/* Custom scrolling effect */
+.scrollable-content {
+  overflow-y: scroll; /* Enable vertical scrolling */
+  -webkit-overflow-scrolling: touch; /* Enable momentum scrolling on touch devices */
+  scroll-behavior: smooth; /* Smooth scrolling effect */
+  padding-right: 15px; /* Add padding to ensure content isn't hidden behind the hidden scrollbar */
+}
+
+/* Prevent accidental horizontal scroll */
+.scrollable-content {
+  overflow-x: hidden; /* Disable horizontal scrolling */
+}

@@ -2,23 +2,19 @@ import React, { useContext } from 'react';
 import { useFetchRecipient } from '../../hooks/useFetchRecipient';
 import { ExtraContext } from '../../context/ExtraContext';
 
-
 const UserChat = ({ chat, user }) => {
-  console.log("from userchat", user, chat);
   const { recipientUser } = useFetchRecipient(chat, user);
   const { onlineUsers } = useContext(ExtraContext);
-  
-
   const isOnline = onlineUsers?.some((user) => user?.userId === recipientUser?._id);
 
   return (
     <div
       role="button"
-      className="flex items-center p-2 justify-between hover:bg-neutral-800 rounded-lg transition-colors"
+      className="flex items-center p-4 justify-between hover:bg-neutral-800 rounded-lg transition-colors"
     >
       <div className="flex items-center">
-        <div className="mr-2">
-          <img src="" alt="" className="w-12 h-12 rounded-full" />
+        <div className="mr-3">
+          <img src={recipientUser?.image_url} alt="" className="w-12 h-12 rounded-full" />
         </div>
         <div className="text-content">
           <div className="text-white font-bold">{recipientUser?.user_name}</div>
