@@ -1,5 +1,5 @@
-export const AI_CHATBOT_URL="https://ae18-117-219-22-193.ngrok-free.app/chat"
-export const MACHINE_CHATBOT_URL="https://ae18-117-219-22-193.ngrok-free.app/match"
+export const AI_CHATBOT_URL="https://0ce7-117-219-22-193.ngrok-free.app/chat"
+export const MACHINE_CHATBOT_URL="https://0ce7-117-219-22-193.ngrok-free.app/match"
 
 export const RUST_BACKEND_URL_SCORE="http://ec2-3-7-69-234.ap-south-1.compute.amazonaws.com:3001/updatescore"
 
