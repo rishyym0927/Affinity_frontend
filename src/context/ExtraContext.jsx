@@ -3,20 +3,22 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useRef,
   useState,
 } from "react";
 import { useNavigate } from "react-router-dom";
-import { chatBaseURL, getRequest, postRequest } from "../utils/constant";
+import { chatBaseURL, getRequest, postRequest, RUST_MAIN_URL } from "../utils/constant";
 import { AuthContext } from "./AuthContext";
 import { io } from "socket.io-client";
 import axios from "axios";
+import clickSound from '../assets/button1.mp3'; // Add this sound file to your assets
 
 export const ExtraContext = createContext();
 
 export const ExtraContextProvider = ({ children, user }) => {
   const navigate = useNavigate();
   const [score, setScore] = useState(null);
-
+  const audioRef = useRef(new Audio(clickSound));
   const [userChats, setUserChats] = useState(null);
   const [isUserChatsLoading, setIsUserChatsLoading] = useState(false);
   const [userChatsError, setUserChatsError] = useState(null);
@@ -27,6 +29,7 @@ export const ExtraContextProvider = ({ children, user }) => {
   console.log("selected user", user);
 
   const updateCurrentChat = useCallback((chat) => {
+    audioRef.current.play();
     setCurrentChat(chat);
   }, []);
 
@@ -35,7 +38,7 @@ export const ExtraContextProvider = ({ children, user }) => {
       setIsUserChatsLoading(true);
       if (user.id) {
         const response = await axios.post(
-          `http://ec2-3-7-69-234.ap-south-1.compute.amazonaws.com:3001/getmatched`,
+          `${RUST_MAIN_URL}getmatched`,
           {
             email: user.email,
           }
@@ -182,7 +185,7 @@ export const ExtraContextProvider = ({ children, user }) => {
     const finalGetIds = async () => {
       try {
         const response = await axios.post(
-          'http://ec2-3-7-69-234.ap-south-1.compute.amazonaws.com:3001/getuser',
+          RUST_MAIN_URL+ 'getuser',
           { email: flex }
         );
         console.log('ids', response.data.id);

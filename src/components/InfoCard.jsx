@@ -31,7 +31,7 @@ const InfoCard = ({ user, onLike, onReject }) => {
          
           <div className="space-y-4 text-neutral-300">
             <InfoItem label="Personality" value={user ? user.openness : "Introvert"} />
-            <InfoItem label="Interests" value={user ? user.interest : "Football"} />
+            <InfoItem label="Interests" value={user ? user.interests : "Football"} />
             <InfoItem label="Looking for" value={user ? user.relation_type : "Casual"} />
             <InfoItem label="Social habits" value={user ? user.social_habits : "Outgoing"} />
             <InfoItem label="Expectations" value={user ? user.exp_qual : "Honesty"} />

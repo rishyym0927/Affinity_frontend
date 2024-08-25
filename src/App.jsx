@@ -94,7 +94,7 @@ const App = () => {
             <Route
               path="/queue"
               element={
-                user ? (
+                user && user.gender === "Female" ? (
                   <Layout1>
                     <Queue />
                   </Layout1>

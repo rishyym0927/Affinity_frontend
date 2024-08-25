@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
 import { ExtraContext } from "../context/ExtraContext";
+import { RUST_MAIN_URL } from "../utils/constant";
 
 const Requests = () => {
   const [boys, setBoys] = useState([]);
@@ -22,7 +23,7 @@ const Requests = () => {
       setIsLoading(true);
       try {
         const response = await axios.post(
-          "http://ec2-3-7-69-234.ap-south-1.compute.amazonaws.com:3001/getgirlrequests",
+          `${RUST_MAIN_URL}getgirlrequests`,
           {
             email: user.email,
           }
@@ -58,7 +59,7 @@ const Requests = () => {
 
         try {
           const response = await axios.post(
-            "http://ec2-3-7-69-234.ap-south-1.compute.amazonaws.com:3001/getuser",
+            `${RUST_MAIN_URL}getuser`,
             {
               email: currentBoy.girl_email_id,
             }
@@ -90,7 +91,7 @@ const Requests = () => {
       }
       setCurrentIndex((prevIndex) => prevIndex + 1);
       const response = await axios.post(
-        "http://ec2-3-7-69-234.ap-south-1.compute.amazonaws.com:3001/changeflag",
+        `${RUST_MAIN_URL}changeflag`,
         {
           email: boyId,
         }

@@ -1,13 +1,14 @@
-import React, { createContext, useCallback, useContext, useEffect, useState } from "react";
+import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "./AuthContext";
 import { AI_CHATBOT_URL, RUST_BACKEND_URL_SCORE } from "../utils/constant";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-
+import messageSound from "../assets/message-sent.mp3";
 export const AIChatContext = createContext();
 
 export const AIChatContextProvider = ({ children }) => {
+  const audioRef = useRef(new Audio(messageSound));
   const { user } = useContext(AuthContext); // Ensure this is correct in your app
   const [userAIChatID, setUserAIChatID] = useState(null);
   const [messages, setMessages] = useState([]);
@@ -67,7 +68,7 @@ export const AIChatContextProvider = ({ children }) => {
   
       // Add the user's message to the messages state
       setMessages(prev => [...prev, userMessageResponse.data]);
-  
+      audioRef.current.play();
       // Construct the request payload for the AI chat URL
       const aiRequestPayload = {
         user_id: mUser._id, // Replace with actual user ID if needed

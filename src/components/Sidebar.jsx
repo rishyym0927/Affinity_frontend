@@ -126,7 +126,7 @@ const Sidebar = () => {
                     />
                     <InfoItem
                       label="Interests"
-                      value={user?.interest || "Not specified"}
+                      value={user?.interests || "Not specified"}
                     />
                     <InfoItem
                       label="Looking for"
@@ -202,7 +202,7 @@ const Sidebar = () => {
               ChatBot
             </Link>
           </motion.li>
-          <motion.li
+         { user.gender==="Female" && <motion.li
             className={getListItemClass("/queue")}
             variants={menuItemVariants}
             whileHover="hover"
@@ -210,7 +210,7 @@ const Sidebar = () => {
             <Link to="/queue" className={getLinkClass("/queue")}>
               Queue
             </Link>
-          </motion.li>
+          </motion.li>}
         </ul>
       </nav>
 
@@ -228,7 +228,7 @@ const Sidebar = () => {
           ease: "easeInOut", // Smooth animation
         }}
       >
-        Close
+        Logout
       </motion.button>
     </div>
   );

@@ -4,10 +4,10 @@ import InputEmoji from "react-input-emoji";
 import axios from "axios";
 import { AIChatContext } from "../context/AIChatContext";
 import { AI_CHATBOT_URL } from "../utils/constant";
-
+import messageSound from "../assets/message-sent.mp3";
 const ChatBox = () => {
   const scroll = useRef();
-
+  const audioRef = useRef(new Audio(messageSound));
   const { messages } = useContext(AIChatContext);
   const { mUser, setMUser } = useContext(AIChatContext);
   const [userChatID, setUserChatID] = useState(null);

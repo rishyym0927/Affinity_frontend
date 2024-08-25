@@ -8,9 +8,7 @@ const Card = ({ front, back }) => {
     <div className="card">
       <motion.div
         className="card-inner"
-        initial={{ rotateY: 0 }}
-        whileHover={{ rotateY: 180 }}
-        transition={{ duration: 0.1 }}
+       
       >
         <div className="card-front object-center">
           {front}

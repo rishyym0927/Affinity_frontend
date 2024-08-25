@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import axios from 'axios';
 import { motion } from 'framer-motion';
+import { RUST_MAIN_URL } from '../utils/constant';
+import { RiseLoader } from 'react-spinners';
 
 const Queue = () => {
   const { user } = useContext(AuthContext);
@@ -11,9 +13,9 @@ const Queue = () => {
 
   useEffect(() => {
     const fetchAcceptedBoys = async () => {
-      setIsLoading(true);
+      setIsLoading(true);  // Start loading
       try {
-        const response = await axios.post("http://ec2-3-7-69-234.ap-south-1.compute.amazonaws.com:3001/getacceptedboys", {
+        const response = await axios.post(`${RUST_MAIN_URL}getacceptedboys`, {
           email: user.email
         });
         
@@ -27,7 +29,7 @@ const Queue = () => {
         console.error("Error fetching accepted boys:", err);
         setError("Failed to fetch accepted boys. Please try again later.");
       } finally {
-        setIsLoading(false);
+        setIsLoading(false);  // Stop loading
       }
     };
 
@@ -36,7 +38,14 @@ const Queue = () => {
 
   console.log(acceptedReq, "Accepted Boys");
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) {
+    return (
+      <div className="w-full h-full flex items-center justify-center">
+        <RiseLoader size={20} color="#ff0059" />
+      </div>
+    );
+  }
+
   if (error) return <div>{error}</div>;
 
   return (
@@ -56,7 +65,6 @@ const Queue = () => {
                 </span>
               </div>
               <div className="flex gap-4">
-              
                 <ActionButton
                   text="Accept"
                   bgColor="bg-[#ff0059]"

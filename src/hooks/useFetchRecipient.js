@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios"; // Import axios
-import { chatBaseURL } from "../utils/constant";
+import { chatBaseURL, RUST_MAIN_URL } from "../utils/constant";
 
 export const useFetchRecipient = (chat, user) => {
   const [recipientUser, setRecipientUser] = useState(null);
@@ -17,7 +17,7 @@ export const useFetchRecipient = (chat, user) => {
       if (!recipientId) return; // Early return if no recipientId
 
       try {
-        const response = await axios.post(`http://ec2-3-7-69-234.ap-south-1.compute.amazonaws.com:3001/getuser`,{
+        const response = await axios.post(`${RUST_MAIN_URL}getuser`,{
           email: recipientId
         });
      

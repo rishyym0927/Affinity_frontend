@@ -4,6 +4,11 @@ import { ExtraContext } from "../../context/ExtraContext";
 import { useFetchRecipient } from "../../hooks/useFetchRecipient";
 import { useNavigate } from "react-router-dom";
 import { useSocket } from "../../context/SocketProvider";
+import { motion, AnimatePresence } from "framer-motion";
+
+// Import sound effect
+import messageSound from "../../assets/message-sent.mp3";
+import moment from "moment";
 
 const ChatBox = () => {
   const { user } = useContext(AuthContext);
@@ -15,8 +20,7 @@ const ChatBox = () => {
   const scroll = useRef();
   const navigate = useNavigate();
   const socket = useSocket();
-
-  console.log("current chatss", currentChat);
+  const audioRef = useRef(new Audio(messageSound));
 
   useEffect(() => {
     scroll.current?.scrollIntoView({ behavior: "smooth" });
@@ -25,7 +29,6 @@ const ChatBox = () => {
   useEffect(() => {
     setAaa(user ? user.email : null);
     setBbb(currentChat ? currentChat.id : null);
-    console.log("ds", aaa, bbb);
   }, [user, currentChat]);
 
   const handleSubmitForm = useCallback(() => {
@@ -33,7 +36,6 @@ const ChatBox = () => {
       socket.emit("room:join", { aaa, bbb });
     } else {
       alert("Unable to start video call. Please try again later.");
-      console.log("Unable to join room: missing data or socket not connected");
     }
   }, [aaa, bbb, socket]);
 
@@ -56,7 +58,14 @@ const ChatBox = () => {
     const d = new Date(date);
     const now = new Date();
     const isToday = d.toDateString() === now.toDateString();
-    return isToday ? d.toLocaleTimeString() : d.toLocaleDateString();
+    return isToday ? d.toLocaleTimeString() : `${d.toLocaleDateString()} ${d.toLocaleTimeString()}`;
+  };
+
+  const handleSendMessage = () => {
+    if (textMessage.trim()) {
+      sendTextMessage(textMessage, user, currentChat.id, setTextMessage);
+      audioRef.current.play();
+    }
   };
 
   if (!recipientUser) {
@@ -68,53 +77,62 @@ const ChatBox = () => {
   }
 
   return (
-    <div className="flex flex-col gap-4 p-4 h-full bg-black rounded-lg shadow-lg text-white">
-      <div className="flex flex-row items-center justify-between">
+    <div className="flex flex-col gap-4 p-4 h-full bg-neutral-900 rounded-lg shadow-lg text-white">
+      <div className="flex flex-row items-center justify-between bg-neutral-800 p-3 rounded-lg">
         <div className="font-bold text-lg">@{recipientUser?.user_name}</div>
-        <button className="w-24 h-10 bg-yellow-400" onClick={handleSubmitForm}>
-          VIDEO CALL
+        <button
+          className="w-32 h-10 bg-yellow-400 hover:bg-yellow-300 text-black font-semibold rounded-md transition-all shadow-md"
+          onClick={handleSubmitForm}
+        >
+          Video Call
         </button>
       </div>
       <div className="flex flex-col gap-3 overflow-y-auto flex-grow">
-        {console.log(messages)}
-        {messages &&
-          messages.map((message, index) => (
-            <div
-              key={index}
-              className={`flex flex-col ${
-                message?.senderId == user.id ? "items-end" : "items-start"
-              }`}
-            >
-              <div
-                className={`p-3 rounded-md max-w-[70%] break-words ${
-                  message?.senderId == user.id ? "bg-[#ff0059]" : "bg-neutral-700"
+        <AnimatePresence>
+          {messages &&
+            messages.map((message, index) => (
+              <motion.div
+                key={index}
+                className={`flex flex-col ${
+                  message?.senderId == user.id ? "items-end" : "items-start"
                 }`}
-                ref={index === messages.length - 1 ? scroll : null}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.3 }}
+                ref={index == messages.length - 1 ? scroll : null}
               >
-                <p>{message.text}</p>
-                <span className="block text-xs mt-1 text-gray-400">
-                  {formatTime(message.createdAt)}
-                </span>
-              </div>
-            </div>
-          ))}
+                <div
+                  className={`p-3 rounded-md max-w-[70%] break-words shadow-md ${
+                    message?.senderId == user.id ? "bg-[#ff0059]" : "bg-neutral-700"
+                  }`}
+                >
+                  <p>{message.text}</p>
+                  <span className="block text-xs mt-1 text-white">
+                    {moment(message.createdAt).calendar()}
+                  </span>
+                </div>
+              </motion.div>
+            ))}
+        </AnimatePresence>
       </div>
       <div className="flex items-center gap-3 mt-auto">
         <input
           type="text"
           value={textMessage}
           onChange={(e) => setTextMessage(e.target.value)}
-          className="w-full p-3 rounded-lg bg-neutral-800 text-white focus:outline-none"
+          onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+          className="w-full p-3 rounded-lg bg-neutral-800 text-white focus:outline-none focus:ring-2 focus:ring-[#ff0059] transition-all"
           placeholder="Type a message..."
         />
-        <button
-          className="bg-[#ff0059] hover:bg-red-500 text-white p-3 rounded-md whitespace-nowrap"
-          onClick={() =>
-            sendTextMessage(textMessage, user, currentChat.id, setTextMessage)
-          }
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="bg-[#ff0059] hover:bg-pink-600 text-white p-3 rounded-md transition-all shadow-md"
+          onClick={handleSendMessage}
         >
           Send
-        </button>
+        </motion.button>
       </div>
     </div>
   );

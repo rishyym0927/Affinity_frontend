@@ -1,10 +1,11 @@
-import { createContext, useCallback, useEffect, useState } from "react";
+import { createContext, useCallback, useEffect, useRef, useState } from "react";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { RUST_MAIN_URL } from "../utils/constant";
 
-
+import clickSound from '../assets/login.mp3';
 export const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
@@ -13,6 +14,7 @@ export const AuthContextProvider = ({ children }) => {
     email: "",
     password: "",
   });
+  const audioRef = useRef(new Audio(clickSound));
 
   const [loginError, setLoginError] = useState(null);
   const [isLoginLoading, setIsLoginLoading] = useState(false);
@@ -50,7 +52,7 @@ export const AuthContextProvider = ({ children }) => {
       setLoginError(null);
 
       try {
-        const response = await fetch("http://ec2-3-7-69-234.ap-south-1.compute.amazonaws.com:3001/login", {
+        const response = await fetch(`${RUST_MAIN_URL}login`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -68,6 +70,7 @@ export const AuthContextProvider = ({ children }) => {
         setUser(data); // Update state with user data
 
         console.log("User successfully logged in:", data); // Log success message
+        audioRef.current.play();
         toast.success("Login successful!", {
           theme: "dark",
           position: "top-right",
