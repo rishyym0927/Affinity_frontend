@@ -1,10 +1,11 @@
 import React, { useRef, useEffect, useState, useContext } from "react";
 import moment from "moment";
-import InputEmoji from "react-input-emoji";
 import axios from "axios";
+import { motion, AnimatePresence } from "framer-motion";
 import { AIChatContext } from "../context/AIChatContext";
 import { AI_CHATBOT_URL } from "../utils/constant";
 import messageSound from "../assets/message-sent.mp3";
+
 const ChatBox = () => {
   const scroll = useRef();
   const audioRef = useRef(new Audio(messageSound));
@@ -116,45 +117,77 @@ const ChatBox = () => {
     scroll.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendTextMessage(textMessage);
+    }
+  };
+
+  const messageVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0 },
+  };
+
   return (
     <div className="flex flex-col justify-between bg-black rounded-[16px] h-full overflow-hidden">
-      <div className="flex justify-start items-center p-5 gap-4  bg-black  over text-white ">
-        <img src="https://images.pexels.com/photos/2599244/pexels-photo-2599244.jpeg"  className="h-10 w-10 rounded-full"/>
+      <motion.div 
+        className="flex justify-start items-center p-5 gap-4 bg-black text-white"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        <img src="https://images.pexels.com/photos/2599244/pexels-photo-2599244.jpeg" className="h-10 w-10 rounded-full"/>
         <strong className="text-xl font-bold">AI Chatbot</strong>
-      </div>
+      </motion.div>
       <div className="flex flex-col gap-3 px-8 overflow-y-auto flex-grow">
-        {messages.map((message, index) => (
-          <div
-            key={index}
-            className={`${
-              message.senderId === "66c5e5a825f42519a77afa5f"
-                ? "self-start bg-neutral-700 text-left text-white"
-                : "self-end bg-[#ff0059] text-white  text-right"
-            } p-3 rounded-md max-w-[50%]`}
-            ref={scroll}
-          >
-            <span>{message.text}</span>
-            <span className="text-sm font-light block">
-              {moment(message.createdAt).calendar()}
-            </span>
-          </div>
-        ))}
+        <AnimatePresence>
+          {messages.map((message, index) => (
+            <motion.div
+              key={index}
+              className={`${
+                message.senderId === "66c5e5a825f42519a77afa5f"
+                  ? "self-start bg-neutral-700 text-left text-white"
+                  : "self-end bg-[#ff0059] text-white text-right"
+              } p-3 rounded-md max-w-[50%]`}
+              ref={scroll}
+              variants={messageVariants}
+              initial="hidden"
+              animate="visible"
+              exit="hidden"
+              transition={{ duration: 0.3 }}
+            >
+              <span>{message.text}</span>
+              <span className="text-sm font-light block">
+                {moment(message.createdAt).calendar()}
+              </span>
+            </motion.div>
+          ))}
+        </AnimatePresence>
       </div>
-      <div className="flex items-center gap-6 p-7 mt-3  bg-black">
+      <motion.div 
+        className="flex items-center gap-6 p-7 mt-3 bg-black"
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
         <input
           type="text"
           value={textMessage}
           onChange={(e) => setTextMessage(e.target.value)}
+          onKeyPress={handleKeyPress}
           className="w-full p-2 rounded-md text-white bg-neutral-800 outline-none border-1 hover:outline-[#ff0059]"
           placeholder="Enter your message here"
         />
-        <button
+        <motion.button
           className="bg-[#ff0059] hover:bg-red-500 text-white py-2 px-4 rounded-md"
           onClick={() => sendTextMessage(textMessage)}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
         >
           Send
-        </button>
-      </div>
+        </motion.button>
+      </motion.div>
     </div>
   );
 };

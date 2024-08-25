@@ -1,7 +1,7 @@
 import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "./AuthContext";
-import { AI_CHATBOT_URL, RUST_BACKEND_URL_SCORE } from "../utils/constant";
+import { AI_CHATBOT_URL, RUST_BACKEND_URL_SCORE, RUST_MAIN_URL } from "../utils/constant";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import messageSound from "../assets/message-sent.mp3";
@@ -82,7 +82,7 @@ export const AIChatContextProvider = ({ children }) => {
       if (aiResponse.data.compatibility !== undefined) {
         try {
           // Update the database
-          const response = await axios.put(RUST_BACKEND_URL_SCORE, {
+          const response = await axios.put(`${RUST_MAIN_URL}updatescore`, {
             email: user.email,
             score: Math.floor(Number(aiResponse.data.compatibility*100)),
           });

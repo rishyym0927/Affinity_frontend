@@ -4,6 +4,8 @@ import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
 import { MACHINE_CHATBOT_URL, RUST_MAIN_URL } from "../utils/constant";
 import { RiseLoader } from "react-spinners";
+import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
   const [boys, setBoys] = useState([]);
@@ -14,7 +16,7 @@ const Dashboard = () => {
   useEffect(() => {
     if (user?.id) {
       const getBoys = async () => {
-        setIsLoading(true);  // Start loading
+        setIsLoading(true);
         try {
           const response = await axios.post(MACHINE_CHATBOT_URL, {
             user_id: `${user.id}`,
@@ -24,12 +26,12 @@ const Dashboard = () => {
         } catch (error) {
           console.error("Error fetching data:", error);
         } finally {
-          setIsLoading(false);  // Stop loading
+          setIsLoading(false);
         }
       };
       getBoys();
     }
-  }, [user?.id]); // Adding user.id as a dependency
+  }, [user?.id]);
 
   const handleNextUser = () => {
     setCurrentIndex((prevIndex) => prevIndex + 1);
@@ -45,9 +47,7 @@ const Dashboard = () => {
             girl_email: user.email,
           }
         );
-
         console.log("response on reject", response);
-
         if (response.status === 200) {
           setCurrentIndex((prevIndex) => prevIndex + 1);
         } else {
@@ -69,9 +69,7 @@ const Dashboard = () => {
             boy_email: boys[currentIndex].email,
           }
         );
-
         console.log(response);
-
         if (response.status === 202) {
           setCurrentIndex((prevIndex) => prevIndex + 1);
         } else {
@@ -85,9 +83,19 @@ const Dashboard = () => {
 
   const currentUser = boys[currentIndex];
 
+  const emptyStateVariants = {
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  };
+
+  const heartVariants = {
+    initial: { scale: 0 },
+    animate: { scale: [0, 1.2, 1], transition: { duration: 1, repeat: Infinity, repeatType: "reverse" } },
+  };
+
   return (
     <div className="flex h-[95%]">
-      <div className="flex items-center h-[100%] w-[100%]">
+      <div className="flex items-center justify-center h-[100%] w-[100%]">
         {isLoading ? (
           <div className="w-full h-full flex items-center justify-center">
             <RiseLoader size={20} color="#ff0059" />
@@ -99,11 +107,31 @@ const Dashboard = () => {
             onReject={onReject}
           />
         ) : (
-          <div className="text-center w-full">
-            <h2 className="text-3xl font-semibold text-red-900">
-              No more users found.
-            </h2>
-          </div>
+          <motion.div 
+            className="text-center"
+            variants={emptyStateVariants}
+            initial="initial"
+            animate="animate"
+          >
+            <motion.div
+              className="text-[#ff0059] text-6xl mb-4"
+              variants={heartVariants}
+              initial="initial"
+              animate="animate"
+            >
+              ❤️
+            </motion.div>
+            <h2 className="text-2xl font-bold mb-4 text-[#ff0059]">No More Profiles to Show</h2>
+            <p className="text-gray-600 mb-6">You've seen all available profiles. Check back later for new matches!</p>
+            <motion.button
+              className="bg-[#ff0059] text-white px-8 py-3 rounded-full font-semibold text-lg"
+              whileHover={{ scale: 1.05, boxShadow: "0 0 15px rgba(255,0,89,0.5)" }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => {useNavigate('/dashboard')}}
+            >
+              Explore More
+            </motion.button>
+          </motion.div>
         )}
       </div>
     </div>

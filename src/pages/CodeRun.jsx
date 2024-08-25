@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { AuthContext } from "../context/AuthContext";
-
 import { ToastContainer, toast } from 'react-toastify';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { FiClock } from 'react-icons/fi';
-import { useFetchRecipient } from '../hooks/useFetchRecipient';
 import { ExtraContext } from '../context/ExtraContext';
+import { useNavigate } from 'react-router-dom';
+import { RUST_MAIN_URL } from '../utils/constant';
 
 const problems = [
   {
@@ -37,6 +37,9 @@ const CodeRun = () => {
   const [timeLeft, setTimeLeft] = useState(300); // 5 minutes timer
   const [file, setFile] = useState();
   const [score, setScore] = useState(0);
+  const { user } = useContext(AuthContext);
+  const { contestId } = useContext(ExtraContext);
+  const navigate = useNavigate();
 
   const handleSubmit = async () => {
     try {
@@ -50,7 +53,7 @@ const CodeRun = () => {
   
       console.log(formData);
   
-      const response = await axios.post("http://ec2-3-7-69-234.ap-south-1.compute.amazonaws.com:3001/runcode", formData);
+      const response = await axios.post(`${RUST_MAIN_URL}runcode`, formData);
       console.log(response);
   
       if (response.data === "AC") {
@@ -69,6 +72,7 @@ const CodeRun = () => {
       console.log(err);
     }
   };
+
   useEffect(() => {
     const timer = setInterval(() => {
       setTimeLeft((prevTime) => {
@@ -83,13 +87,10 @@ const CodeRun = () => {
     return () => clearInterval(timer);
   }, []);
 
-
-  /// refresh hone pe warning
   useEffect(() => {
     const handleBeforeUnload = (event) => {
       event.preventDefault();
-      event.returnValue = ''; // This is needed for Chrome
-      
+      event.returnValue = '';
     };
 
     window.addEventListener('beforeunload', handleBeforeUnload);
@@ -107,94 +108,161 @@ const CodeRun = () => {
 
   const handleUpload = (e) => {
     const originalFile = e.target.files[0];
-
-    const newFileName = `ques${selectedProblem.id}.py`; // Change this to your desired filename
-
-    // Create a new File object with the same contents but a different name
+    const newFileName = `ques${selectedProblem.id}.py`;
     const renamedFile = new File([originalFile], newFileName, {
       type: originalFile.type,
     });
-
     setFile(renamedFile);
     console.log(file);
   };
-  const {user} = useContext(AuthContext);
-  const {contestId}= useContext(ExtraContext);
+
   const handleLeave = async () => {   
     toast.success("You have completed the contest");
     try {
-      const response = await axios.put("http://ec2-3-7-69-234.ap-south-1.compute.amazonaws.com:3001/updatecontestscore",{
+      const response = await axios.put(`${RUST_MAIN_URL}updatecontestscore`, {
         id: `${contestId}`,
         contestscore: `${score}`,
       });       
       console.log(response);  
+      navigate('/request')
     } catch (err) {
       console.log("Error leaving contest : " + err.message);
     }
   };
 
+  const containerVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { 
+        duration: 0.5,
+        when: "beforeChildren",
+        staggerChildren: 0.1
+      }
+    },
+    exit: { opacity: 0, y: 20, transition: { duration: 0.3 } }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 }
+  };
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 20 }}
-      transition={{ duration: 0.5 }}
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
       className="p-8 shadow-lg h-screen flex flex-col justify-between bg-neutral-900 text-white"
     >
-      <header className="mb-6 flex justify-between items-center">
+      <motion.header variants={itemVariants} className="mb-6 flex justify-between items-center">
         <div>
-          <h1 className="text-4xl font-bold text-[#ff0059]">CodeRun</h1>
-          <div className="flex items-center text-lg mt-2 text-neutral-400">
+          <motion.h1 
+            className="text-4xl font-bold text-[#ff0059]"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            CodeRun
+          </motion.h1>
+          <motion.div 
+            className="flex items-center text-lg mt-2 text-neutral-400"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+          >
             <FiClock className="mr-2 text-[#ff0059]" />
             <span>Time Left: <span className="font-bold text-white">{formatTime(timeLeft)}</span></span>
-          </div>
+          </motion.div>
         </div>
-        <div>
+        <motion.div variants={itemVariants}>
           <label className="text-gray-400 mr-2">Select Problem:</label>
-          <select
+          <motion.select
             value={selectedProblem.id}
             onChange={(e) =>
               setSelectedProblem(problems.find((p) => p.id === Number(e.target.value)))
             }
             className="bg-neutral-800 text-white p-2 rounded-md outline-none border border-gray-600"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
             {problems.map((problem) => (
               <option key={problem.id} value={problem.id}>
                 Problem {problem.id}
               </option>
             ))}
-          </select>
-        </div>
-      </header>
+          </motion.select>
+        </motion.div>
+      </motion.header>
 
-      <section className="flex-1">
-        <h2 className="text-2xl font-semibold mb-4">Problem {selectedProblem.id}</h2>
-        <p className="text-neutral-400 mb-4">{selectedProblem.question}</p>
-        <div className="mb-4">
-          <h3 className="text-lg font-semibold text-neutral-300">Sample Input:</h3>
-          <pre className="bg-neutral-800 p-4 rounded-md mt-2 text-sm text-neutral-200">
-            {selectedProblem.sampleInput}
-          </pre>
-        </div>
-        <div className="mb-6">
-          <h3 className="text-lg font-semibold text-neutral-300">Sample Output:</h3>
-          <pre className="bg-neutral-800 p-4 rounded-md mt-2 text-sm text-neutral-200">
-            {selectedProblem.sampleOutput}
-          </pre>
-        </div>
-        <label className="block mb-6">
-          <span className="text-gray-400">Upload your code:</span>
-          <input
-            type="file"
-            accept=".js,.py,.cpp" // Adjust based on the languages you support
-            onChange={handleUpload}
-            className="mt-2 block w-full p-2 rounded-md bg-neutral-800 outline-none text-white border border-gray-600"
-          />
-          <p className="mt-2 text-sm text-neutral-500">Accepted formats: .js, .py, .cpp</p>
-        </label>
-      </section>
+      <AnimatePresence mode="wait">
+        <motion.section 
+          key={selectedProblem.id}
+          variants={itemVariants}
+          initial="hidden"
+          animate="visible"
+          exit="hidden"
+          className="flex-1"
+        >
+          <motion.h2 
+            className="text-2xl font-semibold mb-4"
+            whileHover={{ x: 10 }}
+          >
+            Problem {selectedProblem.id}
+          </motion.h2>
+          <motion.p 
+            className="text-neutral-400 mb-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+          >
+            {selectedProblem.question}
+          </motion.p>
+          <motion.div className="mb-4" variants={itemVariants}>
+            <h3 className="text-lg font-semibold text-neutral-300">Sample Input:</h3>
+            <motion.pre 
+              className="bg-neutral-800 p-4 rounded-md mt-2 text-sm text-neutral-200"
+              whileHover={{ scale: 1.02 }}
+            >
+              {selectedProblem.sampleInput}
+            </motion.pre>
+          </motion.div>
+          <motion.div className="mb-6" variants={itemVariants}>
+            <h3 className="text-lg font-semibold text-neutral-300">Sample Output:</h3>
+            <motion.pre 
+              className="bg-neutral-800 p-4 rounded-md mt-2 text-sm text-neutral-200"
+              whileHover={{ scale: 1.02 }}
+            >
+              {selectedProblem.sampleOutput}
+            </motion.pre>
+          </motion.div>
+          <motion.label className="block mb-6" variants={itemVariants}>
+            <span className="text-gray-400">Upload your code:</span>
+            <motion.input
+              type="file"
+              accept=".js,.py,.cpp"
+              onChange={handleUpload}
+              className="mt-2 block w-full p-2 rounded-md bg-neutral-800 outline-none text-white border border-gray-600"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            />
+            <motion.p 
+              className="mt-2 text-sm text-neutral-500"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3 }}
+            >
+              Accepted formats: .js, .py, .cpp
+            </motion.p>
+          </motion.label>
+        </motion.section>
+      </AnimatePresence>
 
-      <footer className="flex justify-between items-center mt-8">
+      <motion.footer 
+        variants={itemVariants}
+        className="flex justify-between items-center mt-8"
+      >
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
@@ -213,7 +281,7 @@ const CodeRun = () => {
         >
           Submit Code
         </motion.button>
-      </footer>
+      </motion.footer>
 
       <ToastContainer />
     </motion.div>

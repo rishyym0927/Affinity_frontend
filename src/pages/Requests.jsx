@@ -6,6 +6,7 @@ import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
 import { ExtraContext } from "../context/ExtraContext";
 import { RUST_MAIN_URL } from "../utils/constant";
+import { motion } from "framer-motion";
 
 const Requests = () => {
   const [boys, setBoys] = useState([]);
@@ -107,23 +108,55 @@ const Requests = () => {
     }
   };
 
+  const emptyStateVariants = {
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  };
+
+  const heartVariants = {
+    initial: { scale: 0 },
+    animate: { scale: [0, 1.2, 1], transition: { duration: 1, repeat: Infinity, repeatType: "reverse" } },
+  };
+
   return (
     <div className="flex h-[95%]">
-      <div className="flex items-center h-[100%] w-[100%]">
+      <div className="flex items-center justify-center h-[100%] w-[100%]">
         {isLoading ? (
           <div className="w-full h-full flex items-center justify-center">
-            {" "}
             <RiseLoader size={20} color="#ff0059" />
           </div>
-        ) : // Use the custom Loader component
-        boys.length > 0 && currentUserDetails ? (
+        ) : boys.length > 0 && currentUserDetails ? (
           <InfoCard
             user={currentUserDetails}
             onLike={onLike}
             onReject={handleNextUser}
           />
         ) : (
-          <div>No users to display</div>
+          <motion.div 
+            className="text-center"
+            variants={emptyStateVariants}
+            initial="initial"
+            animate="animate"
+          >
+            <motion.div
+              className="text-[#ff0059] text-6xl mb-4"
+              variants={heartVariants}
+              initial="initial"
+              animate="animate"
+            >
+              ❤️
+            </motion.div>
+            <h2 className="text-2xl font-bold mb-4 text-[#ff0059]">No Matching Requests Yet</h2>
+            <p className="text-gray-600 mb-6">Don't worry, love takes time. Keep your profile updated and stay active!</p>
+            <motion.button
+              className="bg-[#ff0059] text-white px-8 py-3 rounded-full font-semibold text-lg"
+              whileHover={{ scale: 1.05, boxShadow: "0 0 15px rgba(255,0,89,0.5)" }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => {/* Add navigation to explore page or similar */}}
+            >
+              Click me to feel good
+            </motion.button>
+          </motion.div>
         )}
       </div>
     </div>
