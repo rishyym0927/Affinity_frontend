@@ -69,7 +69,7 @@ export const AuthContextProvider = ({ children }) => {
         localStorage.setItem("User", JSON.stringify(data)); // Store user data in local storage
         setUser(data); // Update state with user data
 
-        console.log("User successfully logged in:", data); // Log success message
+        // console.log("User successfully logged in:", data); // Log success message
         audioRef.current.play();
         toast.success("Login successful!", {
           theme: "dark",
@@ -80,7 +80,7 @@ export const AuthContextProvider = ({ children }) => {
       } catch (error) {
         setLoginError(error.message);
         setUser(null); // Reset user state in case of error
-        console.error("Login error:", error.message); // Log error message
+        // console.error("Login error:", error.message); // Log error message
         toast.error(`Login failed: ${error.message}`, {
           theme: "dark",
           position: "top-right",
@@ -138,7 +138,7 @@ export const AuthContextProvider = ({ children }) => {
         localStorage.setItem("User", JSON.stringify(response.data)); // Store user data in local storage
         setUser(response.data); // Update state with user data
 
-        console.log("User successfully registered:", response.data); // Log success message
+        // console.log("User successfully registered:", response.data); // Log success message
         toast.success("Registration successful!", {
           theme: "dark",
           position: "top-right",
@@ -147,7 +147,7 @@ export const AuthContextProvider = ({ children }) => {
         navigate("/login"); // Redirect to dashboard
       } catch (error) {
         setRegisterError(error.response?.data?.message || error.message);
-        console.error("Registration error:", error.response?.data?.message || error.message); // Log error message
+        // console.error("Registration error:", error.response?.data?.message || error.message); // Log error message
         toast.error(`Registration failed: ${errorMessage}`, {
           theme: "dark",
           position: "top-right",

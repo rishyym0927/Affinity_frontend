@@ -25,8 +25,8 @@ export const ExtraContextProvider = ({ children, user }) => {
   //to read messages of selected users only
   const [currentChat, setCurrentChat] = useState(null);
   //to read messages of selected users only
-  console.log("selected userssss", currentChat);
-  console.log("selected user", user);
+  // console.log("selected userssss", currentChat);
+  // console.log("selected user", user);
 
   const updateCurrentChat = useCallback((chat) => {
     audioRef.current.play();
@@ -49,7 +49,7 @@ export const ExtraContextProvider = ({ children, user }) => {
           return;
         }
         setUserChats(response.data);
-        console.log("User Chats", response.data);
+        // console.log("User Chats", response.data);
         setIsUserChatsLoading(false);
       }
     };
@@ -109,7 +109,7 @@ export const ExtraContextProvider = ({ children, user }) => {
   const [isMessagesLoading, setIsMessagesLoading] = useState(null);
   const [messagesError, setMessagesError] = useState(null);
 
-  console.log("Messages", messages, currentChat);
+  // console.log("Messages", messages, currentChat);
   useEffect(() => {
     const getMessages = async () => {
       setIsMessagesLoading(true);
@@ -117,7 +117,7 @@ export const ExtraContextProvider = ({ children, user }) => {
       const response = await getRequest(
         `${chatBaseURL}/messages/${currentChat?.id}`
       );
-      console.log(response);
+      // console.log(response);
       setIsMessagesLoading(false);
       if (response.error) {
         return messagesError(response);
@@ -143,7 +143,7 @@ export const ExtraContextProvider = ({ children, user }) => {
           text: textMessage,
         })
       );
-      console.log("mesasage resp", response);
+      // console.log("mesasage resp", response);
       if (response.error) {
         return setSendTextMessageError(response);
       }
@@ -159,7 +159,7 @@ export const ExtraContextProvider = ({ children, user }) => {
   const [socket, setSocket] = useState(null);
   const [onlineUsers, setOnlineUsers] = useState([]);
   
-  console.log("online Users", onlineUsers);
+  // console.log("online Users", onlineUsers);
   useEffect(() => {
     const newSocket = io("http://ec2-13-233-131-217.ap-south-1.compute.amazonaws.com:1497");
     setSocket(newSocket);
@@ -188,7 +188,7 @@ export const ExtraContextProvider = ({ children, user }) => {
           RUST_MAIN_URL+ 'getuser',
           { email: flex }
         );
-        console.log('ids', response.data.id);
+        // console.log('ids', response.data.id);
         setIds(response.data.id);
       } catch (error) {
         console.error('Error fetching user ID:', error);
@@ -209,10 +209,10 @@ export const ExtraContextProvider = ({ children, user }) => {
     setFlex(recipientId); // Update `flex` to trigger the API call in the other effect
 
     if (ids) {
-      console.log('RecipientId:', recipientId);
-      console.log('NewMessage:', newMessage);
+      // console.log('RecipientId:', recipientId);
+      // console.log('NewMessage:', newMessage);
       socket.emit('sendMessage', { ...newMessage, ids });
-      console.log('Message sent to:', recipientId);
+      // console.log('Message sent to:', recipientId);
     }
   }, [newMessage, socket, currentChat, user, ids]); // Ensure correct dependencies
 
@@ -220,7 +220,7 @@ export const ExtraContextProvider = ({ children, user }) => {
   useEffect(() => {
     if (socket === null) return;
     socket.on("getMessage", (res) => {
-        console.log("HEG", currentChat, res)
+        // console.log("HEG", currentChat, res)
         if(currentChat?.id=== res.chatId) return 
       setMessages((prev) => [...prev, res]);
       

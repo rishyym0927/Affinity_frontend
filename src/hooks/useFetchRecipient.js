@@ -22,7 +22,7 @@ export const useFetchRecipient = (chat, user) => {
         });
      
         setRecipientUser(response.data); // Assuming response.data contains the user data
-        console.log("Fetched recipient user:", response.data);
+        // console.log("Fetched recipient user:", response.data);
       } catch (err) {
         setError(err.message || "Error fetching recipient user"); // Handle the error properly
       }

@@ -54,7 +54,7 @@ export const AIChatContextProvider = ({ children }) => {
     }
   
     try {
-      console.log("Sender ID:", mUser._id);
+      // console.log("Sender ID:", mUser._id);
   
       // Send the user's message to your server
       const userMessageResponse = await axios.post(
@@ -87,13 +87,13 @@ export const AIChatContextProvider = ({ children }) => {
             score: Math.floor(Number(aiResponse.data.compatibility*100)),
           });
       
-          console.log("Response from backend:", response);
+          // console.log("Response from backend:", response);
       
           // Set the score state
           setScore(aiResponse.data.compatibility);
       
           // Log the updated score
-          console.log("Score changed:", aiResponse.data.compatibility);
+          // console.log("Score changed:", aiResponse.data.compatibility);
       
           if (response.status === 202) {
             console.log("Score Updated");

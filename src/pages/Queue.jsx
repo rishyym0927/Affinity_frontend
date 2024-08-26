@@ -22,6 +22,7 @@ const Queue = () => {
         const response = await axios.post(`${RUST_MAIN_URL}getacceptedboys`, {
           email: user.email,
         });
+        console.log("Accepted", response);
         if (Array.isArray(response.data)) {
           setAcceptedReq(response.data);
         } else {
@@ -37,9 +38,10 @@ const Queue = () => {
     fetchAcceptedBoys();
   }, [user.email]);
 
-  const onAccept = async (boy) => {
+  const onAccept = (boy) => {
     setSelectedBoy(boy);
     setShowConfirmModal(true);
+    console.log("aa", boy);
   };
 
   const confirmAccept = async () => {
@@ -116,7 +118,30 @@ const Queue = () => {
       <AnimatePresence>
         {acceptedReq && acceptedReq.length > 0 ? (
           <motion.ul className="space-y-4">
-            {/* ... (keep existing code for rendering accepted requests) */}
+            {acceptedReq.map((boy, index) => (
+              <motion.li
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                className="bg-neutral-800 p-4 rounded-lg flex justify-between items-center shadow-lg"
+              >
+                <div className="text-xl font-semibold">
+                  <span>{boy.boy_email_id || "Unknown"}</span>
+                  <span className="ml-4 text-yellow-500">
+                    Score: {boy.contest_score || "N/A"}
+                  </span>
+                </div>
+                <div className="flex gap-4">
+                  <ActionButton
+                    text="Accept"
+                    bgColor="bg-[#ff0059]"
+                    hoverColor="bg-yellow-500"
+                    onClick={() => onAccept(boy)}
+                  />
+                </div>
+              </motion.li>
+            ))}
           </motion.ul>
         ) : (
           <motion.div
@@ -141,7 +166,7 @@ const Queue = () => {
               className="bg-[#ff0059] text-white px-8 py-3 rounded-full font-semibold text-lg"
               whileHover={{ scale: 1.05, boxShadow: "0 0 15px rgba(255,0,89,0.5)" }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => navigate("/dashboard")} // Adjust this route as needed
+              onClick={() => navigate("/dashboard")}
             >
               Explore More Matches
             </motion.button>
@@ -161,7 +186,6 @@ const Queue = () => {
     </motion.div>
   );
 };
-
 
 const ActionButton = ({ onClick, bgColor, hoverColor, text }) => (
   <motion.button

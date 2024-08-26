@@ -9,6 +9,8 @@ import { motion, AnimatePresence } from "framer-motion";
 // Import sound effect
 import messageSound from "../../assets/message-sent.mp3";
 import moment from "moment";
+import { AI_CHATBOT_URL, AI_MAIN_URL } from "../../utils/constant";
+import axios from "axios";
 
 const ChatBox = () => {
   const { user } = useContext(AuthContext);
@@ -67,6 +69,29 @@ const ChatBox = () => {
       audioRef.current.play();
     }
   };
+
+  // useEffect(() => {
+  //   console.log("Total MESSAGES", messages);
+  
+  //   if (messages.length > 50 && messages) {
+  //     console.log("score reached");
+      
+  //     const getCompScore = async () => {
+  //       try {
+  //         const response = await axios.post(`${AI_MAIN_URL}calc`, {
+  //           data: messages
+  //         });
+  //         console.log("Comp score response:", response.data);
+  //         // Handle the response here
+  //       } catch (error) {
+  //         console.error("Error calculating comp score:", error);
+  //         // Handle the error here
+  //       }
+  //     };
+  
+  //     getCompScore();
+  //   }
+  // }, [messages]);
 
   if (!recipientUser) {
     return <p className="text-center w-full">No conversation found</p>;

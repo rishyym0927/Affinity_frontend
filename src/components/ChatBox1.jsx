@@ -20,14 +20,14 @@ const ChatBox = () => {
         const storedUser = JSON.parse(localStorage.getItem("User"));
 
         if (storedUser && storedUser.user_name) {
-          console.log(storedUser);
+          // console.log(storedUser);
 
           const response = await axios.post("http://ec2-13-233-131-217.ap-south-1.compute.amazonaws.com:5000/api/users/register", {
             username: storedUser.user_name,
           });
           setMUser(response.data);
 
-          console.log(response.data);
+          // console.log(response.data);
         } else {
           console.log("No user found in localStorage.");
         }
@@ -47,7 +47,7 @@ const ChatBox = () => {
             firstId: "66c5e5a825f42519a77afa5f",
             secondId: mUser._id,
           });
-          console.log(response2.data);
+          // console.log(response2.data);
           setUserChatID(response2.data._id);
           setUserAIChatID(response2.data._id);
         } catch (error) {
@@ -62,11 +62,11 @@ const ChatBox = () => {
   useEffect(() => {
     const getChats = async () => {
       if (userChatID) {
-        console.log("userChatID is available:", userChatID);
+        // console.log("userChatID is available:", userChatID);
 
         try {
           const response = await axios.get(`http://ec2-13-233-131-217.ap-south-1.compute.amazonaws.com:5000/api/messages/${userChatID}`);
-          console.log("Chat messages response:", response.data);
+          // console.log("Chat messages response:", response.data);
 
           if (response.data.length === 0) {
             console.log("No messages found, fetching AI message...");
@@ -74,7 +74,7 @@ const ChatBox = () => {
             const aiResponse = await axios.post(AI_CHATBOT_URL, {
               user_id: mUser._id
             });
-            console.log("AI response received:", aiResponse.data);
+            // console.log("AI response received:", aiResponse.data);
 
             const messageFromAI = aiResponse.data.response;
 
@@ -83,7 +83,7 @@ const ChatBox = () => {
               senderId: "66c5e5a825f42519a77afa5f",
               text: messageFromAI,
             });
-            console.log("AI message sent successfully:", sendResponse.data);
+            // console.log("AI message sent successfully:", sendResponse.data);
           } else {
             console.log("Messages found, no AI response needed.");
           }

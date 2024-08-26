@@ -37,7 +37,7 @@ const Landing = () => {
               words={[
                 "Find love in the dark... it’s less awkward that way.",
                 "Swipe right... because love at first sight is overrated.",
-                "Heartbreak? There’s an app for that.",
+                "Heartbreak? There’s an website for that.",
                 "Single? There's someone out there as twisted as you.",
                 "Swipe left on loneliness... you deserve better.",
               ]}
