@@ -37,27 +37,27 @@ const Dashboard = () => {
     setCurrentIndex((prevIndex) => prevIndex + 1);
   };
 
-  const onReject = async () => {
-    try {
-      if (boys[currentIndex]) {
-        const response = await axios.post(
-          `${RUST_MAIN_URL}reject`,
-          {
-            boy_email: boys[currentIndex].email,
-            girl_email: user.email,
-          }
-        );
-        console.log("response on reject", response);
-        if (response.status === 200) {
-          setCurrentIndex((prevIndex) => prevIndex + 1);
-        } else {
-          console.error(`Unexpected status code: ${response.status}`);
-        }
-      }
-    } catch (error) {
-      console.error("Error adding friend:", error.message || error);
-    }
-  };
+  // const onReject = async () => {
+  //   try {
+  //     if (boys[currentIndex]) {
+  //       const response = await axios.post(
+  //         `${RUST_MAIN_URL}reject`,
+  //         {
+  //           boy_email: boys[currentIndex].email,
+  //           girl_email: user.email,
+  //         }
+  //       );
+  //       console.log("response on reject", response);
+  //       if (response.status === 200) {
+  //         setCurrentIndex((prevIndex) => prevIndex + 1);
+  //       } else {
+  //         console.error(`Unexpected status code: ${response.status}`);
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.error("Error adding friend:", error.message || error);
+  //   }
+  // };
 
   const onLike = async () => {
     try {
@@ -104,7 +104,7 @@ const Dashboard = () => {
           <InfoCard
             user={currentUser}
             onLike={onLike}
-            onReject={onReject}
+            onReject={handleNextUser}
           />
         ) : (
           <motion.div 
