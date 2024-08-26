@@ -12,7 +12,7 @@ pipeline {
             steps {
                 script {
                     // Build the backend Docker image
-                    sh 'docker build -t  $BACKEND_IMAGE:$DOCKER_TAG" .'
+                    sh 'docker build -t $BACKEND_IMAGE:$DOCKER_TAG .'
                 }
             }
         }
@@ -27,11 +27,11 @@ pipeline {
                 }
             }
         }
-        stage('Deploy')
-        {
+
+        stage('Deploy') {
             steps {
                 script {
-                    sh 'curl -X POST "ec2-13-126-149-80.ap-south-1.compute.amazonaws.com:3002/webhook"'
+                    sh 'curl -X POST "http://ec2-13-126-149-80.ap-south-1.compute.amazonaws.com:3002/webhook"'
                 }
             }
         }
