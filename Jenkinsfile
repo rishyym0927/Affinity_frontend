@@ -31,7 +31,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    sh 'curl -X POST "http://ec2-13-126-149-80.ap-south-1.compute.amazonaws.com:3002/webhook"'
+                    sh 'curl -X POST "http://ec2-13-232-176-18.ap-south-1.compute.amazonaws.com:3002/webhook"'
                 }
             }
         }
