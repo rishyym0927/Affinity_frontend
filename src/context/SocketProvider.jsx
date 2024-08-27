@@ -13,7 +13,7 @@ export const useSocket = () =>
 
 export const SocketProvider = (props) => {
 
-    const socket = useMemo(() =>  io('http://ec2-13-233-131-217.ap-south-1.compute.amazonaws.com:8000') , [])
+    const socket = useMemo(() =>  io('http://ec2-3-111-34-89.ap-south-1.compute.amazonaws.com:8000') , [])
 
     
 

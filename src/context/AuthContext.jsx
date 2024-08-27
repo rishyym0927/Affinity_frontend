@@ -133,7 +133,7 @@ export const AuthContextProvider = ({ children }) => {
       setRegisterError(null);
 
       try {
-        const response = await axios.post("http://ec2-3-7-69-234.ap-south-1.compute.amazonaws.com:3001/signup", registerInfo);
+        const response = await axios.post(`${RUST_MAIN_URL}signup`, registerInfo);
 
         localStorage.setItem("User", JSON.stringify(response.data)); // Store user data in local storage
         setUser(response.data); // Update state with user data

@@ -13,7 +13,7 @@ const FormStep21 = ({ onNext, onBack }) => {
       const file = e.target.files[0];
       const filename = file.name;
 
-      const response = await axios.post(`http://ec2-13-233-131-217.ap-south-1.compute.amazonaws.com:4000/v1/user/presignedUrl`, {
+      const response = await axios.post(`http://ec2-3-111-34-89.ap-south-1.compute.amazonaws.com:4000/v1/user/presignedUrl`, {
         filename,
       });
 

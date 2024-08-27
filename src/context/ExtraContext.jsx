@@ -161,7 +161,7 @@ export const ExtraContextProvider = ({ children, user }) => {
   
   // console.log("online Users", onlineUsers);
   useEffect(() => {
-    const newSocket = io("http://ec2-13-233-131-217.ap-south-1.compute.amazonaws.com:1497");
+    const newSocket = io("http://ec2-3-111-34-89.ap-south-1.compute.amazonaws.com:1497");
     setSocket(newSocket);
     return () => {
       newSocket.disconnect();

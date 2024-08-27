@@ -27,7 +27,7 @@ export const AIChatContextProvider = ({ children }) => {
 
       try {
         const response = await axios.get(
-          `http://ec2-13-233-131-217.ap-south-1.compute.amazonaws.com:5000/api/messages/${userAIChatID}`
+          `http://ec2-3-111-34-89.ap-south-1.compute.amazonaws.com:5000/api/messages/${userAIChatID}`
         );
 
         if (response.data) {
@@ -58,7 +58,7 @@ export const AIChatContextProvider = ({ children }) => {
   
       // Send the user's message to your server
       const userMessageResponse = await axios.post(
-        `http://ec2-13-233-131-217.ap-south-1.compute.amazonaws.com:5000/api/messages`,
+        `http://ec2-3-111-34-89.ap-south-1.compute.amazonaws.com:5000/api/messages`,
         {
           chatId: userAIChatID,
           senderId: mUser._id,
@@ -116,7 +116,7 @@ export const AIChatContextProvider = ({ children }) => {
       }
       // Store the AI's response as a message in your server
       const aiMessageResponse = await axios.post(
-        `http://ec2-13-233-131-217.ap-south-1.compute.amazonaws.com:5000/api/messages`,
+        `http://ec2-3-111-34-89.ap-south-1.compute.amazonaws.com:5000/api/messages`,
         {
           chatId: userAIChatID,
           senderId: "66c5e5a825f42519a77afa5f", // AI Bot ID
