@@ -18,9 +18,7 @@ const Dashboard = () => {
       const getBoys = async () => {
         setIsLoading(true);
         try {
-          const response = await axios.post(MACHINE_CHATBOT_URL, {
-            user_id: `${user.id}`,
-          });
+          const response = await axios.get(`${RUST_MAIN_URL}getboys`)
           console.log(response);
           setBoys(response.data);
         } catch (error) {
