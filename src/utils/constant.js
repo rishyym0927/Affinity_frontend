@@ -3,7 +3,7 @@ export const MACHINE_CHATBOT_URL="http://ec2-3-6-94-25.ap-south-1.compute.amazon
 export const AI_MAIN_URL="http://ec2-3-6-94-25.ap-south-1.compute.amazonaws.com:9000/"
 export const RUST_MAIN_URL ="http://ec2-13-232-216-30.ap-south-1.compute.amazonaws.com:3001/"
 export const RUST_BACKEND_URL_SCORE="http://ec2-13-232-216-30.ap-south-1.compute.amazonaws.com:3001/updatescore"
-
+export const MAJOR_CHAT_SERVICE = "http://http://ec2-3-111-34-89.ap-south-1.compute.amazonaws.com:5000/api/"
 export const chatBaseURL = "http://ec2-3-111-34-89.ap-south-1.compute.amazonaws.com:1243/api";
 import axios from "axios";
 
