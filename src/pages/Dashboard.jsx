@@ -18,11 +18,20 @@ const Dashboard = () => {
       const getBoys = async () => {
         setIsLoading(true);
         try {
-          const response = await axios.get(`${RUST_MAIN_URL}getboys`)
+          const response = await axios.post(`${MACHINE_CHATBOT_URL}`, {
+            user_id: `${user.id}`
+          });
           console.log(response);
           setBoys(response.data);
         } catch (error) {
-          console.error("Error fetching data:", error);
+          console.error("Error fetching data from POST request:", error);
+          try {
+            const fallbackResponse = await axios.get(`${RUST_MAIN_URL}getboys`);
+            console.log("Fallback response:", fallbackResponse);
+            setBoys(fallbackResponse.data);
+          } catch (fallbackError) {
+            console.error("Error fetching data from fallback GET request:", fallbackError);
+          }
         } finally {
           setIsLoading(false);
         }

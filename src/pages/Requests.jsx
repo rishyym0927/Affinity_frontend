@@ -39,7 +39,7 @@ const Requests = () => {
       }
     };
     getBoys();
-  }, [user.email]);
+  }, []);
 
   // Fetch details of the current boy in the list
   useEffect(() => {
@@ -88,6 +88,34 @@ const Requests = () => {
         return prevIndex;
       }
     });
+  };
+
+  const onReject = async () => {
+    try {
+      const boyId = String(boys[currentIndex]?.id);
+      console.log("Current boy ID:", boyId);
+      if (!boyId) {
+        console.error("No valid boy ID found.");
+        return;
+      }
+      const response = await axios.post(
+        `${RUST_MAIN_URL}reject`,
+        {
+          boy_email: boyId,
+          girl_email: currentUserDetails.email
+        }
+      );
+      if (response.status === 200) {
+        console.log("Success:", response);
+        handleNextUser();
+      } else {
+        console.error("Failed with status code:", response.status);
+        handleNextUser();
+      }
+    } catch (error) {
+      console.error("Error updating flag:", error);
+      handleNextUser();
+    }
   };
 
   const onLike = async () => {
@@ -167,7 +195,7 @@ const Requests = () => {
         <InfoCard
           user={currentUserDetails}
           onLike={onLike}
-          onReject={handleNextUser}
+          onReject={onReject}
         />
       );
     }
