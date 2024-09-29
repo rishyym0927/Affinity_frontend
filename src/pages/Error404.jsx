@@ -25,7 +25,7 @@ const Error404 = () => {
         <div className="text-[#ff0059] text-6xl font-bold md:text-[100px] w-full text-center">Error404</div>
         <div className="text-white md:hidden">Page not found</div>
         <div className="-mt-6 md:-mt-2 md:flex gap-4 w-full justify-center hidden">
-          <p className="text-white">Page not found</p>md:
+          <p className="text-white">Page not found</p>
           <p className="text-white">Page not found</p>
           <p className="text-white">Page not found</p>
         </div>
