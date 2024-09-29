@@ -13,83 +13,55 @@ const Dashboard = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const { user } = useContext(AuthContext);
-
-  
+  const navigate = useNavigate(); // Declare navigate using the hook
+  console.log("user id", user.id);
 
   useEffect(() => {
-    if (user?.id) {
-      const getBoys = async () => {
-        setIsLoading(true);
-        try {
+    const getBoys = async () => {
+      try {
+        if (user?.id) {
+          console.log(`Fetching data for user_id: ${user.id}`);
           const response = await axios.post(`${MACHINE_CHATBOT_URL}`, {
-            user_id: `${user.id}`
+            user_id: user.id
           });
-          console.log(response);
-          if(response.data){setBoys(response.data);}
           
-        } catch (error) {
-          console.error("Error fetching data from POST request:", error);
-          try {
-            // uncommented during deployment phase
-            // const fallbackResponse = await axios.get(`${RUST_MAIN_URL}getboys`);
-            // console.log("Fallback response:", fallbackResponse);
-       
-          
+          if (response.data && response.data.length > 0) {
+            setBoys(response.data);
+          } else {
+            console.warn("No data received from API.");
             setBoys(sampleData1);
-          } catch (fallbackError) {
-            console.error("Error fetching data from fallback GET request:", fallbackError);
           }
-        } finally {
-          setIsLoading(false);
+        } else {
+          console.warn("User ID not available, using sample data.");
+          setBoys(sampleData1);
         }
-      };
-      getBoys();
-    }
+      } catch (error) {
+        console.error("Error during API call:", error);
+        setBoys(sampleData1);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    
+    getBoys();
   }, [user?.id]);
 
   const handleNextUser = () => {
     setCurrentIndex((prevIndex) => prevIndex + 1);
   };
 
-  // const onReject = async () => {
-  //   try {
-  //     if (boys[currentIndex]) {
-  //       const response = await axios.post(
-  //         `${RUST_MAIN_URL}reject`,
-  //         {
-  //           boy_email: boys[currentIndex].email,
-  //           girl_email: user.email,
-  //         }
-  //       );
-  //       console.log("response on reject", response);
-  //       if (response.status === 200) {
-  //         setCurrentIndex((prevIndex) => prevIndex + 1);
-  //       } else {
-  //         console.error(`Unexpected status code: ${response.status}`);
-  //       }
-  //     }
-  //   } catch (error) {
-  //     console.error("Error adding friend:", error.message || error);
-  //   }
-  // };
-
   const onLike = async () => {
     try {
       if (boys[currentIndex]) {
-        const response = await axios.post(
-          `${RUST_MAIN_URL}addfriend`,
-          {
-            girl_email: user.email,
-            boy_email: boys[currentIndex].email,
-          }
-        );
+        const response = await axios.post(`${RUST_MAIN_URL}addfriend`, {
+          girl_email: user.email,
+          boy_email: boys[currentIndex].email,
+        });
         console.log(response);
         if (response.status === 202) {
           setCurrentIndex((prevIndex) => prevIndex + 1);
         } else {
-        
           console.error(`Unexpected status code: ${response.status}`);
-          
         }
       }
     } catch (error) {
@@ -107,7 +79,10 @@ const Dashboard = () => {
 
   const heartVariants = {
     initial: { scale: 0 },
-    animate: { scale: [0, 1.2, 1], transition: { duration: 1, repeat: Infinity, repeatType: "reverse" } },
+    animate: {
+      scale: [0, 1.2, 1],
+      transition: { duration: 1, repeat: Infinity, repeatType: "reverse" },
+    },
   };
 
   return (
@@ -124,7 +99,7 @@ const Dashboard = () => {
             onReject={handleNextUser}
           />
         ) : (
-          <motion.div 
+          <motion.div
             className="text-center"
             variants={emptyStateVariants}
             initial="initial"
@@ -138,13 +113,21 @@ const Dashboard = () => {
             >
               ❤️
             </motion.div>
-            <h2 className="text-2xl font-bold mb-4 text-[#ff0059]">No More Profiles to Show</h2>
-            <p className="text-gray-600 mb-6">You've seen all available profiles. Check back later for new matches!</p>
+            <h2 className="text-2xl font-bold mb-4 text-[#ff0059]">
+              No More Profiles to Show
+            </h2>
+            <p className="text-gray-600 mb-6">
+              You've seen all available profiles. Check back later for new
+              matches!
+            </p>
             <motion.button
               className="bg-[#ff0059] text-white px-8 py-3 rounded-full font-semibold text-lg"
-              whileHover={{ scale: 1.05, boxShadow: "0 0 15px rgba(255,0,89,0.5)" }}
+              whileHover={{
+                scale: 1.05,
+                boxShadow: "0 0 15px rgba(255,0,89,0.5)",
+              }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => {useNavigate('/dashboard')}}
+              onClick={() => navigate("/dashboard")} // Use navigate here
             >
               Explore More
             </motion.button>
