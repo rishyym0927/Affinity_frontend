@@ -23,7 +23,7 @@ const ChatBox = () => {
   const navigate = useNavigate();
   const socket = useSocket();
   const audioRef = useRef(new Audio(messageSound));
-
+  console.log("recx",recipientUser, currentChat)
   useEffect(() => {
     scroll.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
@@ -93,18 +93,16 @@ const ChatBox = () => {
   //   }
   // }, [messages]);
 
-  if (!recipientUser) {
+  if (!recipientUser ) {
     return <p className="text-center w-full">No conversation found</p>;
   }
 
-  if (isMessagesLoading) {
-    return <p className="text-center w-full">Loading messages...</p>;
-  }
+ 
 
   return (
     <div className="flex flex-col gap-4 p-4 h-full bg-neutral-900 rounded-lg shadow-lg text-white">
       <div className="flex flex-row items-center justify-between bg-neutral-800 p-3 rounded-lg">
-        <div className="font-bold text-lg">@{recipientUser?.user_name}</div>
+        <div className="font-bold text-lg">@{recipientUser?.user_name || recipientUser?.first_name}</div>
         <button
           className="w-32 h-10 bg-yellow-400 hover:bg-yellow-300 text-black font-semibold rounded-md transition-all shadow-md"
           onClick={handleSubmitForm}

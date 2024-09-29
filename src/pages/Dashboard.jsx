@@ -6,12 +6,15 @@ import { MACHINE_CHATBOT_URL, RUST_MAIN_URL } from "../utils/constant.js";
 import { RiseLoader } from "react-spinners";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { sampleData1 } from "../../sampleData.js";
 
 const Dashboard = () => {
   const [boys, setBoys] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const { user } = useContext(AuthContext);
+
+  
 
   useEffect(() => {
     if (user?.id) {
@@ -22,13 +25,17 @@ const Dashboard = () => {
             user_id: `${user.id}`
           });
           console.log(response);
-          setBoys(response.data);
+          if(response.data){setBoys(response.data);}
+          
         } catch (error) {
           console.error("Error fetching data from POST request:", error);
           try {
-            const fallbackResponse = await axios.get(`${RUST_MAIN_URL}getboys`);
-            console.log("Fallback response:", fallbackResponse);
-            setBoys(fallbackResponse.data);
+            // uncommented during deployment phase
+            // const fallbackResponse = await axios.get(`${RUST_MAIN_URL}getboys`);
+            // console.log("Fallback response:", fallbackResponse);
+       
+          
+            setBoys(sampleData1);
           } catch (fallbackError) {
             console.error("Error fetching data from fallback GET request:", fallbackError);
           }
@@ -80,11 +87,14 @@ const Dashboard = () => {
         if (response.status === 202) {
           setCurrentIndex((prevIndex) => prevIndex + 1);
         } else {
+        
           console.error(`Unexpected status code: ${response.status}`);
+          
         }
       }
     } catch (error) {
       console.error("Error adding friend:", error.message || error);
+      setCurrentIndex((prevIndex) => prevIndex + 1);
     }
   };
 

@@ -1,7 +1,7 @@
 import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "./AuthContext";
-import { AI_CHATBOT_URL, RUST_BACKEND_URL_SCORE, RUST_MAIN_URL } from "../utils/constant.js";
+import { AI_CHATBOT_URL, MAJOR_CHAT_SERVICE, RUST_BACKEND_URL_SCORE, RUST_MAIN_URL } from "../utils/constant.js";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import messageSound from "../assets/message-sent.mp3";
@@ -27,7 +27,7 @@ export const AIChatContextProvider = ({ children }) => {
 
       try {
         const response = await axios.get(
-          `http://ec2-3-111-34-89.ap-south-1.compute.amazonaws.com:5000/api/messages/${userAIChatID}`
+          `${MAJOR_CHAT_SERVICE}messages/${userAIChatID}`
         );
 
         if (response.data) {
@@ -58,7 +58,7 @@ export const AIChatContextProvider = ({ children }) => {
   
       // Send the user's message to your server
       const userMessageResponse = await axios.post(
-        `http://ec2-3-111-34-89.ap-south-1.compute.amazonaws.com:5000/api/messages`,
+        `${MAJOR_CHAT_SERVICE}messages`,
         {
           chatId: userAIChatID,
           senderId: mUser._id,
@@ -116,7 +116,7 @@ export const AIChatContextProvider = ({ children }) => {
       }
       // Store the AI's response as a message in your server
       const aiMessageResponse = await axios.post(
-        `http://ec2-3-111-34-89.ap-south-1.compute.amazonaws.com:5000/api/messages`,
+        `${MAJOR_CHAT_SERVICE}/messages`,
         {
           chatId: userAIChatID,
           senderId: "66c5e5a825f42519a77afa5f", // AI Bot ID

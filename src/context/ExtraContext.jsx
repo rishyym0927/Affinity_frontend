@@ -12,6 +12,7 @@ import { AuthContext } from "./AuthContext";
 import { io } from "socket.io-client";
 import axios from "axios";
 import clickSound from '../assets/button1.mp3'; // Add this sound file to your assets
+import { sampleData2, sampleData5 } from "../../sampleData.js";
 
 export const ExtraContext = createContext();
 
@@ -30,63 +31,39 @@ export const ExtraContextProvider = ({ children, user }) => {
 
   const updateCurrentChat = useCallback((chat) => {
     audioRef.current.play();
+    console.log("update current chat")
     setCurrentChat(chat);
   }, []);
 
   useEffect(() => {
     const getUserChats = async () => {
-      setIsUserChatsLoading(true);
-      if (user.id) {
-        const response = await axios.post(
-          `${RUST_MAIN_URL}getmatched`,
-          {
+      try {
+        setIsUserChatsLoading(true);
+        if (user.id) {
+          const response = await axios.post(`${RUST_MAIN_URL}getmatched`, {
             email: user.email,
+          });
+  
+          if (response.status !== 200) {
+            throw new Error("Error occurred while fetching user chats");
           }
-        );
-        if (response.error) {
-          setUserChatsError(response);
-          setIsUserChatsLoading(false);
-          return;
+  
+          setUserChats(response.data); // Set the response data
         }
-        setUserChats(response.data);
-        // console.log("User Chats", response.data);
+      } catch (error) {
+        console.log("Error fetching user chats:", error.message);
+        //only for development and sample purposes only 
+        setUserChats(sampleData5)
+        setUserChatsError(error);
+      } finally {
         setIsUserChatsLoading(false);
       }
     };
-
+  
     getUserChats(); // Call the async function inside useEffect
   }, [user]); // Adding user as a dependency
+  
 
-  //now for potential chats
-  //   const [potentialChats, setPotentialChats] = useState(null);
-  //   useEffect(() => {
-  //     const getUser = async () => {
-  //       const response = await axios.post('https://494c-117-219-22-193.ngrok-free.app/getmatched',{
-  //         email : user.email
-  //       });
-  //       console.log(response);
-  //       if (response.error) {
-  //         return console.log("Error Fetching Users", response.error);
-  //       }
-  //       const pChats = response.data.filter((u) => {
-  //         let isChatCreated = false;
-  //         if (user.id === u.id) {
-  //           return false;
-  //         }
-  //         if (userChats) {
-  //           isChatCreated = userChats?.some((chat) => {
-  //             return chat.members[0] === u.id || chat.members[1] === u.id;
-  //           });
-  //         }
-  //         return !isChatCreated;
-  //       });
-  //       //array of users whom we can chat
-  //       setPotentialChats(pChats);
-
-  //     };
-  //     getUser();
-  //   }, [userChats]);
-  //   console.log("Potential Chats", potentialChats);
 
   const createChat = useCallback(async (firstId, secondId) => {
     const response = await postRequest(

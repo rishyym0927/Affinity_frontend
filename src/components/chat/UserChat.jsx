@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 const UserChat = ({ chat, user }) => {
   const { recipientUser } = useFetchRecipient(chat, user);
   const { onlineUsers } = useContext(ExtraContext);
+  console.log("rece", recipientUser)
   
   // Check if the recipient user is online
   const isOnline = onlineUsers?.some((onlineUser) => onlineUser?.userId === recipientUser?._id);
@@ -24,17 +25,17 @@ const UserChat = ({ chat, user }) => {
           className="mr-3"
         >
           <img
-            src={recipientUser?.image_url}
+            src={recipientUser?.image_url || chat.image_url}
             alt=""
             className="w-12 h-12 rounded-full object-cover md:w-14 md:h-14"
           />
         </motion.div>
         <div className="text-content">
           <div className="text-white font-semibold text-lg md:text-xl uppercase truncate">
-            {recipientUser?.user_name || 'Unknown User'}
+            {recipientUser?.user_name || chat.first_name|| 'Unknown User'}
           </div>
           <div className="text-gray-400 text-sm md:text-base">
-            {recipientUser?.email || 'No email provided'}
+            {recipientUser?.email || chat.boy_email_id || 'No email provided'}
           </div>
         </div>
       </div>

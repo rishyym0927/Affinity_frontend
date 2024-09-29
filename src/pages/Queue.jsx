@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { RUST_MAIN_URL } from "../utils/constant.js";
 import { RiseLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
+import { sampleData4 } from "../../sampleData.js";
 
 const Queue = () => {
   const { user } = useContext(AuthContext);
@@ -26,11 +27,15 @@ const Queue = () => {
         if (Array.isArray(response.data)) {
           setAcceptedReq(response.data);
         } else {
-          setError("Unexpected data format. Please try again later.");
+          // setError("Unexpected data format. Please try again later.");
+         
         }
       } catch (err) {
         console.error("Error fetching accepted boys:", err);
-        setError("Failed to fetch accepted boys. Please try again later.");
+        console.log(acceptedReq)
+        // setError("Failed to fetch accepted boys. Please try again later.");
+        //for dev purpose only
+         setAcceptedReq(sampleData4);
       } finally {
         setIsLoading(false);
       }

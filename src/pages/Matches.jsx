@@ -8,7 +8,7 @@ import { motion } from 'framer-motion';
 const Chat = () => {
   const { user } = useContext(AuthContext);
   const { userChats, isUserChatsLoading, updateCurrentChat } = useContext(ExtraContext);
-
+   console.log(userChats, user)
   const emptyStateVariants = {
     initial: { opacity: 0, y: 20 },
     animate: { opacity: 1, y: 0, transition: { duration: 0.5 } },
