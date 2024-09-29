@@ -17,6 +17,7 @@ import Requests from "./pages/Requests";
 import CodeRun from "./pages/CodeRun";
 import Matches from "./pages/Matches";
 import RoomPage from "./pages/Room";
+import Error404 from "./pages/Error404";
 
 
 /* TO  ACCESS ANY PAGE YOU CAN REMOVE THE RESTRICTIONS BY SIMPLY REPLACING THE 
@@ -39,6 +40,7 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path='/room/:roomId' element={<RoomPage />}/>
+            <Route path='/error' element={<Error404 />}/>
             <Route path="/coderun" element={user ? <CodeRun /> : <Landing />} />
 
             {/* Restrict access to Dashboard if user is Male */}
