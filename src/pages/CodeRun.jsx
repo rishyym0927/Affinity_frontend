@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FiClock } from 'react-icons/fi';
 import { ExtraContext } from '../context/ExtraContext';
 import { useNavigate } from 'react-router-dom';
-import { RUST_MAIN_URL } from '../utils/constant';
+import { RUST_MAIN_URL } from '../utils/constant.js';
 
 const problems = [
   {

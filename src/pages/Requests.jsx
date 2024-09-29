@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
 import { ExtraContext } from "../context/ExtraContext";
-import { RUST_MAIN_URL } from "../utils/constant";
+import { RUST_MAIN_URL } from "../utils/constant.js";
 import { motion } from "framer-motion";
 
 const Requests = () => {

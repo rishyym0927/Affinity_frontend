@@ -9,7 +9,7 @@ import { motion, AnimatePresence } from "framer-motion";
 // Import sound effect
 import messageSound from "../../assets/message-sent.mp3";
 import moment from "moment";
-import { AI_CHATBOT_URL, AI_MAIN_URL } from "../../utils/constant";
+import { AI_CHATBOT_URL, AI_MAIN_URL } from "../../utils/constant.js";
 import axios from "axios";
 
 const ChatBox = () => {

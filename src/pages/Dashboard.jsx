@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import InfoCard from "../components/InfoCard";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
-import { MACHINE_CHATBOT_URL, RUST_MAIN_URL } from "../utils/constant";
+import { MACHINE_CHATBOT_URL, RUST_MAIN_URL } from "../utils/constant.js";
 import { RiseLoader } from "react-spinners";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";

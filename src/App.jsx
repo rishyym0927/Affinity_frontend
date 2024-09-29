@@ -6,7 +6,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import Layout1 from "./Layout1";
-import Search from "./pages/Search";
+
 import Queue from "./pages/Queue";
 import Chatbot from "./pages/Chatbot";
 import { AIChatContextProvider } from "./context/AIChatContext";
@@ -17,6 +17,11 @@ import Requests from "./pages/Requests";
 import CodeRun from "./pages/CodeRun";
 import Matches from "./pages/Matches";
 import RoomPage from "./pages/Room";
+
+
+/* TO  ACCESS ANY PAGE YOU CAN REMOVE THE RESTRICTIONS BY SIMPLY REPLACING THE 
+LANDING ELEMENT BY THE RESPECTIVE ONE
+*/
 
 const App = () => {
   const { user } = useContext(AuthContext);
@@ -33,6 +38,8 @@ const App = () => {
             <Route path="/" element={<Landing />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path='/room/:roomId' element={<RoomPage />}/>
+            <Route path="/coderun" element={user ? <CodeRun /> : <Landing />} />
 
             {/* Restrict access to Dashboard if user is Male */}
             <Route
@@ -47,7 +54,7 @@ const App = () => {
                 )
               }
             />
-              <Route path='/room/:roomId' element={<RoomPage />}/>
+             
 
             <Route
               path="/matches"
@@ -62,18 +69,7 @@ const App = () => {
               }
             />
 
-            <Route
-              path="/search"
-              element={
-                user ? (
-                  <Layout1>
-                    <Search />
-                  </Layout1>
-                ) : (
-                  <Landing />
-                )
-              }
-            />
+         
 
             {/* Restrict access to Requests if user is Female */}
             <Route
@@ -89,7 +85,7 @@ const App = () => {
               }
             />
 
-            <Route path="/coderun" element={user ? <CodeRun /> : <Landing />} />
+         
 
             <Route
               path="/queue"

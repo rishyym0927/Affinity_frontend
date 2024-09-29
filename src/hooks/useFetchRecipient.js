@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios"; // Import axios
-import { chatBaseURL, RUST_MAIN_URL } from "../utils/constant";
+import { chatBaseURL, RUST_MAIN_URL } from "../utils/constant.js";
 
 export const useFetchRecipient = (chat, user) => {
   const [recipientUser, setRecipientUser] = useState(null);

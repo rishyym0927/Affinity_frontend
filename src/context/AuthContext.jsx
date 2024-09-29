@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { RUST_MAIN_URL } from "../utils/constant";
+import { RUST_MAIN_URL } from "../utils/constant.js";
 
 import clickSound from '../assets/login.mp3';
 export const AuthContext = createContext();

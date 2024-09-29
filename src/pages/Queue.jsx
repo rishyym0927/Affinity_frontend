@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
-import { RUST_MAIN_URL } from "../utils/constant";
+import { RUST_MAIN_URL } from "../utils/constant.js";
 import { RiseLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
 

@@ -3,7 +3,7 @@ import moment from "moment";
 import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
 import { AIChatContext } from "../context/AIChatContext";
-import { AI_CHATBOT_URL, MAJOR_CHAT_SERVICE } from "../utils/constant";
+import { AI_CHATBOT_URL, MAJOR_CHAT_SERVICE } from "../utils/constant.js";
 import messageSound from "../assets/message-sent.mp3";
 
 const ChatBox = () => {

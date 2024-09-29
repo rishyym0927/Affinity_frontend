@@ -1,7 +1,7 @@
 import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "./AuthContext";
-import { AI_CHATBOT_URL, RUST_BACKEND_URL_SCORE, RUST_MAIN_URL } from "../utils/constant";
+import { AI_CHATBOT_URL, RUST_BACKEND_URL_SCORE, RUST_MAIN_URL } from "../utils/constant.js";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import messageSound from "../assets/message-sent.mp3";

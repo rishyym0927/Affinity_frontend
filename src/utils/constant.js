@@ -1,10 +1,10 @@
-export const AI_CHATBOT_URL="http://ec2-3-6-94-25.ap-south-1.compute.amazonaws.com:9000/chat"
-export const MACHINE_CHATBOT_URL="http://ec2-3-6-94-25.ap-south-1.compute.amazonaws.com:9000/match"
-export const AI_MAIN_URL="http://ec2-3-6-94-25.ap-south-1.compute.amazonaws.com:9000/"
-export const RUST_MAIN_URL ="http://ec2-13-232-216-30.ap-south-1.compute.amazonaws.com:3001/"
-export const RUST_BACKEND_URL_SCORE="http://ec2-13-232-216-30.ap-south-1.compute.amazonaws.com:3001/updatescore"
-export const MAJOR_CHAT_SERVICE = "http://ec2-3-111-34-89.ap-south-1.compute.amazonaws.com:5000/api/"
-export const chatBaseURL = "http://ec2-3-111-34-89.ap-south-1.compute.amazonaws.com:1243/api";
+export const AI_CHATBOT_URL=import.meta.env.AI_CHATBOT_URL
+export const MACHINE_CHATBOT_URL= import.meta.env.MACHINE_CHATBOT_URL
+export const AI_MAIN_URL= import.meta.env.AI_MAIN_URL
+export const RUST_MAIN_URL = import.meta.env.RUST_MAIN_URL
+export const RUST_BACKEND_URL_SCORE= import.meta.env.RUST_BACKEND_URL_SCORE
+export const MAJOR_CHAT_SERVICE = import.meta.env.MAJOR_CHAT_SERVICE
+export const chatBaseURL = import.meta.env.CHAT_BASE_URL
 import axios from "axios";
 
 export const postRequest = async (url, body) => {

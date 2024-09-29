@@ -7,7 +7,7 @@ import {
   useState,
 } from "react";
 import { useNavigate } from "react-router-dom";
-import { chatBaseURL, getRequest, postRequest, RUST_MAIN_URL } from "../utils/constant";
+import { chatBaseURL, getRequest, postRequest, RUST_MAIN_URL } from "../utils/constant.js";
 import { AuthContext } from "./AuthContext";
 import { io } from "socket.io-client";
 import axios from "axios";
