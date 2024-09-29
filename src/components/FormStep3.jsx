@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
 import { motion } from 'framer-motion';
 import { AuthContext } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const FormStep3 = ({ onBack }) => {
   const { registerUser, registerInfo } = useContext(AuthContext);
-
+  const navigate = useNavigate();
   const renderField = (label, value) => (
     <div className="mb-2">
       <span className="text-gray-400 font-semibold">{label}:</span>
@@ -62,6 +63,9 @@ const FormStep3 = ({ onBack }) => {
           <button
             type="submit"
             className="bg-[#ff0059] hover:bg-red-500 text-white py-2 px-4 rounded-md"
+            onClick={ () => {
+              navigate('/dashboard')
+            }}
           >
             Submit
           </button>
