@@ -54,6 +54,16 @@ To get started with the project, follow these steps:
     ```bash
     npm install
     ```
+3. Even after running npm install, it may give an error while running that "dotenv is not defined".
+Simply run :
+
+   ```bash
+   npm install dotenv
+   ```
+   Now you can re-run the server and this time it will run without any error.
+   
+   >*Please note that you don’t need environment variables to run the project since no environment variables are currently being used in the codebase. The project contains only the frontend code and all the data has been hardcoaded. However, the requirement to install `dotenv` exists due to the boilerplate code present in the `vite.config.js`, which includes the `dotenv` configuration. Aside from this boilerplate setup, there is no practical need for `dotenv` in the project at the moment.*
+
 
 ## Usage
 
