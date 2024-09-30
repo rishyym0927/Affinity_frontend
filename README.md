@@ -85,6 +85,9 @@ This will start the development server and you can view the application in your 
   - **App.js**: The main App component.
   - **index.js**: The entry point of the application.
 
+
+> **Note**: Users are informed that they have the complete right to manipulate the sample data present in *sampleData.js*, as it is hardcoded. Any changes made will affect only your own codebase and will not impact others.
+
 ### Routing
 
 **Affinity** is still under development so it lacks connectivity between its various pages hence there is no button or something kind of that can direct you to other pages. But you can access them by using a */* followed by *page-route*.
