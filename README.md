@@ -1,9 +1,8 @@
-
-
-
 # Affinity Frontend
 
-Welcome to the Affinity Frontend repository! This project is part of the Affinity application, focusing on the frontend development.
+Welcome to the Affinity Frontend repository! This project is part of the broader Affinity platform, focusing exclusively on frontend development. Affinity is a web application designed to connect individuals with similar intellectual levels. The platform utilizes an AI-powered chatbot for matchmaking and includes various interactive games, such as coding rounds, to match users based on their skillset. Once matched, users can engage in meaningful conversations with one another, fostering intellectual connections.
+
+If you're interested in working on the backend of our project, please head over to the following repository [Affinity Backend](https://github.com/Sidharth-Singh10/Affinity-backend).
 
 ## Table of Contents
 
@@ -12,31 +11,26 @@ Welcome to the Affinity Frontend repository! This project is part of the Affinit
 - [Technologies Used](#technologies-used)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Folder Structure](#folder-structure)
 - [Contributing](#contributing)
-- [License](#license)
 - [Contact](#contact)
 
 ## Introduction
 
-Affinity Frontend is a React-based frontend application designed to provide a seamless user experience. This repository is dedicated to the frontend part of the project, and contributions should be limited to this area.
+The Affinity Frontend is a React-based application designed to deliver a smooth and seamless user experience. This repository houses all the code related to the frontend portion of the Affinity project, and all contributions should be focused on this area. The frontend interacts with the backend through API calls to provide matchmaking services, games, and chat functionality for users.
 
 ## Features
 
 - User-friendly interface
 - Responsive design
 - Integration with backend APIs
-- State management with Redux
 - Routing with React Router
 
 ## Technologies Used
 
 - React
-- Redux
 - React Router
 - Axios
 - CSS Modules
-- Jest (for testing)
 
 ## Installation
 
@@ -81,16 +75,13 @@ We welcome contributions from the community! Please read our [`CONTRIBUTING.md`]
 
 ### Hacktoberfest and GSSoC 24
 
-We are participating in Hacktoberfest and GSSoC 24. Contributions are welcome for the frontend part of the project only. Please do not make changes to the backend.
+This repository is actively participating in Hacktoberfest and GSSoC 24. We welcome contributions, but please note that only frontend-related tasks are open for contribution. Any modifications or changes to the backend will not be considered. Feel free to raise issues and start working on assigned tasks.
 
-## License
-
-This project is licensed under the MIT License. See the LICENSE file for more details.
 
 ## Contact
 
 If you have any questions or need further assistance, feel free to open an issue or contact the maintainers.
 
 Thank you for your contributions!
-```
+
 
