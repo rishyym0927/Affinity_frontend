@@ -85,6 +85,58 @@ This will start the development server and you can view the application in your 
   - **App.js**: The main App component.
   - **index.js**: The entry point of the application.
 
+### Routing
+
+**Affinity** is still under development so it lacks connectivity between its various pages hence there is no button or something kind of that can direct you to other pages. But you can access them by using a */* followed by *page-route*.
+
+<table align="center">
+  <tr>
+    <th> Page Name </th>
+    <th>Route</th>
+  </tr>
+  <tr>
+    <td>Landing</td>
+    <td>/</td>
+  </tr>
+  <tr>
+    <td>Login</td>
+    <td>/login</td>
+  </tr>
+  <tr>
+    <td>Register</td>
+    <td>/register</td>
+  </tr>
+  <tr>
+    <td>Room Page</td>
+    <td>/room/:roomId</td>
+  </tr>
+  <tr>
+    <td>Code Run</td>
+    <td>/coderun</td>
+  </tr>
+  <tr>
+    <td>Dashboard</td>
+    <td>/dashboard</td>
+  </tr>
+  <tr>
+    <td>Matches</td>
+    <td>/matches</td>
+  </tr>
+  <tr>
+    <td>Requests</td>
+    <td>/request</td>
+  </tr>
+  <tr>
+    <td>Queue</td>
+    <td>/queue</td>
+  </tr>
+  <tr>
+    <td>Chatbot</td>
+    <td>/chatbot</td>
+  </tr>
+</table>
+
+
 ## Contributing
 
 We welcome contributions from the community! Please read our [`CONTRIBUTING.md`](command:_github.copilot.openRelativePath?%5B%7B%22scheme%22%3A%22file%22%2C%22authority%22%3A%22%22%2C%22path%22%3A%22%2Fc%3A%2FUsers%2FLenovo%2FOneDrive%2FDesktop%2FPRACTISE%2Fdfsdfs%2FAffinity_frontend%2FCONTRIBUTING.md%22%2C%22query%22%3A%22%22%2C%22fragment%22%3A%22%22%7D%2C%22e29a7936-4f33-4970-9e7f-3e2939a28627%22%5D "c:\Users\Lenovo\OneDrive\Desktop\PRACTISE\dfsdfs\Affinity_frontend\CONTRIBUTING.md") file for detailed guidelines on how to contribute to this project.
