@@ -95,21 +95,6 @@ Go to the original repository and create a pull request from your forked reposit
 npm run format
 ```
 
-- **Linting**: Ensure your code passes linting checks. We use ESLint for linting. You can check for linting errors by running:
-
-```bash
-npm run lint
-```
-
-## Testing
-
-1. Ensure your code passes all existing tests.
-2. Add new tests to cover any new features or changes.
-3. Run the tests:
-
-```bash
-npm test
-```
 
 ## Documentation
 
@@ -120,4 +105,4 @@ Update documentation as necessary for any changes you make. This includes updati
 If you have any questions or need further assistance, feel free to open an issue or contact the maintainers.
 
 Thank you for your contributions!
-```
+
