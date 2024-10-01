@@ -2,7 +2,25 @@ import React, { useContext, useRef } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { motion } from 'framer-motion';
 import Carousel from '../components/Carousel';
-import clickSound from '../assets/login.mp3'; // Add this sound file to your assets
+import clickSound from '../assets/login.mp3'; // Ensure this sound file is available
+
+const InputField = ({ id, type, placeholder, value, onChange, label }) => (
+    <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3 }}
+    >
+        <label htmlFor={id} className="block text-sm font-medium text-gray-400 mb-1">{label}</label>
+        <input
+            id={id}
+            type={type}
+            placeholder={placeholder}
+            value={value || ''}
+            onChange={onChange}
+            className="w-full px-4 py-2 rounded-md bg-neutral-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-[#ff0059] text-gray-200 transition duration-300"
+        />
+    </motion.div>
+);
 
 const Login = () => {
     const { loginUser, loginError, loginInfo, updateLoginInfo, isLoginLoading } = useContext(AuthContext);
@@ -10,7 +28,7 @@ const Login = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // audioRef.current.play();
+        audioRef.current.play(); // Play audio on button click
         loginUser(e);
     };
 
@@ -51,36 +69,22 @@ const Login = () => {
                     <h2 className="text-4xl font-extrabold mb-2 text-[#ff0059]">Welcome Back</h2>
                     <p className="text-gray-400 mb-8">Log in to continue your journey</p>
                     <form onSubmit={handleSubmit} className="space-y-6">
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.3 }}
-                        >
-                            <label htmlFor="email" className="block text-sm font-medium text-gray-400 mb-1">Email</label>
-                            <input
-                                id="email"
-                                type="email"
-                                placeholder="Enter your email"
-                                value={loginInfo.email || ''}
-                                onChange={(e) => updateLoginInfo({ ...loginInfo, email: e.target.value })}
-                                className="w-full px-4 py-2 rounded-md bg-neutral-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-[#ff0059] text-gray-200 transition duration-300"
-                            />
-                        </motion.div>
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.4 }}
-                        >
-                            <label htmlFor="password" className="block text-sm font-medium text-gray-400 mb-1">Password</label>
-                            <input
-                                id="password"
-                                type="password"
-                                placeholder="Enter your password"
-                                value={loginInfo.password || ''}
-                                onChange={(e) => updateLoginInfo({ ...loginInfo, password: e.target.value })}
-                                className="w-full px-4 py-2 rounded-md bg-neutral-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-[#ff0059] text-gray-200 transition duration-300"
-                            />
-                        </motion.div>
+                        <InputField
+                            id="email"
+                            type="email"
+                            placeholder="Enter your email"
+                            value={loginInfo.email}
+                            onChange={(e) => updateLoginInfo({ ...loginInfo, email: e.target.value })}
+                            label="Email"
+                        />
+                        <InputField
+                            id="password"
+                            type="password"
+                            placeholder="Enter your password"
+                            value={loginInfo.password}
+                            onChange={(e) => updateLoginInfo({ ...loginInfo, password: e.target.value })}
+                            label="Password"
+                        />
                         <motion.button
                             type="submit"
                             className="w-full px-4 py-2 bg-[#ff0059] hover:bg-red-500 rounded-md text-white font-bold transition duration-300"
@@ -100,7 +104,7 @@ const Login = () => {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5 }}
                         >
-                            <p>{loginError?.message}</p>
+                            <p>{loginError.message}</p>
                         </motion.div>
                     )}
                 </motion.div>

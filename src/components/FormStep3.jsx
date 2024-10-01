@@ -67,10 +67,7 @@ const FormStep3 = ({ onBack }) => {
           </button>
         </div>
       </form>
-
-      </div>
-
-     
+      </div>     
     </motion.div>
   );
 };

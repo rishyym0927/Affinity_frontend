@@ -1,34 +1,29 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { ExtraContext } from "../../context/ExtraContext";
 
 const PotentialChat = () => {
   const { user } = useContext(AuthContext);
   const { potentialChats, createChat } = useContext(ExtraContext);
-  // const {onlineUser} =useContext(ExtraContext);
 
-  // fetch potential chats from database or API
-  console.log("potential chats",potentialChats)
+  const handleCreateChat = (recipientId) => {
+    createChat(user._id, recipientId);
+  };
+
   return (
-    <>
-      <div className="all-users">
-        {potentialChats &&
-          potentialChats.map((u, index) => {
-            return (
-              <div
-                className="single-user"
-                key={index}
-                onClick={() => {
-                  createChat(user._id, u._id);
-                }}
-              >
-                {u.username}
-                {/* <span className={onlineUsers?.some((user)=>user?.userId === u?._id) ? "user-online" : ""}></span> */}
-              </div>
-            );
-          })}
-      </div>
-    </>
+    <div className="all-users">
+      {potentialChats?.map((u, index) => (
+        <div
+          key={index}
+          className="single-user cursor-pointer hover:bg-gray-200 p-2 rounded-md transition-all"
+          onClick={() => handleCreateChat(u._id)}
+        >
+          {u.username}
+          {/* Uncomment and adjust this line if online status is implemented */}
+          {/* <span className={onlineUsers?.some((onlineUser) => onlineUser?.userId === u?._id) ? "user-online" : ""}></span> */}
+        </div>
+      ))}
+    </div>
   );
 };
 

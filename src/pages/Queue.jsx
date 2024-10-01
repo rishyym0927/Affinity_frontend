@@ -27,15 +27,12 @@ const Queue = () => {
         if (Array.isArray(response.data)) {
           setAcceptedReq(response.data);
         } else {
-          // setError("Unexpected data format. Please try again later.");
-         
+          setError("Unexpected data format. Please try again later.");
         }
       } catch (err) {
         console.error("Error fetching accepted boys:", err);
-        console.log(acceptedReq)
-        // setError("Failed to fetch accepted boys. Please try again later.");
-        //for dev purpose only
-         setAcceptedReq(sampleData4);
+        // For development purpose, use sample data
+        setAcceptedReq(sampleData4);
       } finally {
         setIsLoading(false);
       }
@@ -43,10 +40,9 @@ const Queue = () => {
     fetchAcceptedBoys();
   }, [user.email]);
 
-  const onAccept = (boy) => {
+  const handleAccept = (boy) => {
     setSelectedBoy(boy);
     setShowConfirmModal(true);
-    console.log("aa", boy);
   };
 
   const confirmAccept = async () => {
@@ -93,18 +89,20 @@ const Queue = () => {
     );
   }
 
-  if (error) return (
-    <motion.div 
-      initial={{ opacity: 0, y: -20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 20 }}
-      className="w-full h-screen flex items-center justify-center bg-neutral-900"
-    >
-      <div className="bg-red-600 text-white p-4 rounded-lg shadow-lg">
-        {error}
-      </div>
-    </motion.div>
-  );
+  if (error) {
+    return (
+      <motion.div 
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 20 }}
+        className="w-full h-screen flex items-center justify-center bg-neutral-900"
+      >
+        <div className="bg-red-600 text-white p-4 rounded-lg shadow-lg">
+          {error}
+        </div>
+      </motion.div>
+    );
+  }
 
   return (
     <motion.div 
@@ -121,7 +119,7 @@ const Queue = () => {
         Queue
       </motion.h2>
       <AnimatePresence>
-        {acceptedReq && acceptedReq.length > 0 ? (
+        {acceptedReq.length > 0 ? (
           <motion.ul className="space-y-4">
             {acceptedReq.map((boy, index) => (
               <motion.li
@@ -142,7 +140,7 @@ const Queue = () => {
                     text="Accept"
                     bgColor="bg-[#ff0059]"
                     hoverColor="bg-yellow-500"
-                    onClick={() => onAccept(boy)}
+                    onClick={() => handleAccept(boy)}
                   />
                 </div>
               </motion.li>
@@ -192,7 +190,7 @@ const Queue = () => {
   );
 };
 
-const ActionButton = ({ onClick, bgColor, hoverColor, text }) => (
+const ActionButton = ({ onClick, bgColor, text }) => (
   <motion.button
     whileHover={{ scale: 1.05 }}
     whileTap={{ scale: 0.95 }}

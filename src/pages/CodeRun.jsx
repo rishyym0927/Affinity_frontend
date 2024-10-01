@@ -8,6 +8,7 @@ import { ExtraContext } from '../context/ExtraContext';
 import { useNavigate } from 'react-router-dom';
 import { RUST_MAIN_URL } from '../utils/constant.js';
 
+// Predefined problems
 const problems = [
   {
     id: 1,
@@ -35,47 +36,45 @@ const problems = [
 const CodeRun = () => {
   const [selectedProblem, setSelectedProblem] = useState(problems[0]);
   const [timeLeft, setTimeLeft] = useState(300); // 5 minutes timer
-  const [file, setFile] = useState();
+  const [file, setFile] = useState(null);
   const [score, setScore] = useState(0);
   const { user } = useContext(AuthContext);
   const { contestId } = useContext(ExtraContext);
   const navigate = useNavigate();
 
+  // Submit the code to the server
   const handleSubmit = async () => {
+    if (selectedProblem.submitted) {
+      toast.error(`You have already submitted this problem`);
+      return;
+    }
+
     try {
-      if (selectedProblem.submitted) {
-        toast.error(`You have already submitted this problem`);
-        return;
-      }
-  
       const formData = new FormData();
       formData.append("file", file);
-  
-      console.log(formData);
-  
+
       const response = await axios.post(`${RUST_MAIN_URL}runcode`, formData);
-      console.log(response);
-  
+      
       if (response.data === "AC") {
-        setScore((prevScore) => {
-          const newScore = Number(prevScore) + Number(1000 - (300 - timeLeft));
-          console.log("New Score: ", newScore, "Time Left: ", timeLeft);
+        setScore(prevScore => {
+          const newScore = prevScore + (1000 - (300 - timeLeft));
           return newScore;
         });
-  
+
         toast.success(`ACCEPTED`);
-        setSelectedProblem((prev) => ({ ...prev, submitted: true }));
+        setSelectedProblem(prev => ({ ...prev, submitted: true }));
       } else {
         toast.error(`WRONG ANSWER`);
       }
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
+  // Timer effect
   useEffect(() => {
     const timer = setInterval(() => {
-      setTimeLeft((prevTime) => {
+      setTimeLeft(prevTime => {
         if (prevTime <= 0) {
           clearInterval(timer);
           return 0;
@@ -87,60 +86,55 @@ const CodeRun = () => {
     return () => clearInterval(timer);
   }, []);
 
+  // Warn user on page leave
   useEffect(() => {
-    const handleBeforeUnload = (event) => {
+    const handleBeforeUnload = event => {
       event.preventDefault();
       event.returnValue = '';
     };
 
     window.addEventListener('beforeunload', handleBeforeUnload);
-
     return () => {
       window.removeEventListener('beforeunload', handleBeforeUnload);
     };
-  }, []);   
+  }, []);
 
-  const formatTime = (seconds) => {
+  // Format seconds into mm:ss
+  const formatTime = seconds => {
     const minutes = Math.floor(seconds / 60);
     const secs = seconds % 60;
     return `${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
   };
 
-  const handleUpload = (e) => {
+  // Handle file upload
+  const handleUpload = e => {
     const originalFile = e.target.files[0];
-    const newFileName = `ques${selectedProblem.id}.py`;
-    const renamedFile = new File([originalFile], newFileName, {
+    if (!originalFile) return;
+
+    const renamedFile = new File([originalFile], `ques${selectedProblem.id}.py`, {
       type: originalFile.type,
     });
     setFile(renamedFile);
-    console.log(file);
   };
 
-  const handleLeave = async () => {   
+  // Leave contest and update score
+  const handleLeave = async () => {
     toast.success("You have completed the contest");
     try {
-      const response = await axios.put(`${RUST_MAIN_URL}updatecontestscore`, {
+      await axios.put(`${RUST_MAIN_URL}updatecontestscore`, {
         id: `${contestId}`,
         contestscore: `${score}`,
-      });       
-      console.log(response);  
-      navigate('/request')
+      });
+      navigate('/request');
     } catch (err) {
-      console.log("Error leaving contest : " + err.message);
+      console.error("Error leaving contest: ", err.message);
     }
   };
 
+  // Motion animation variants
   const containerVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: { 
-        duration: 0.5,
-        when: "beforeChildren",
-        staggerChildren: 0.1
-      }
-    },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5, when: "beforeChildren", staggerChildren: 0.1 } },
     exit: { opacity: 0, y: 20, transition: { duration: 0.3 } }
   };
 
@@ -181,13 +175,13 @@ const CodeRun = () => {
           <motion.select
             value={selectedProblem.id}
             onChange={(e) =>
-              setSelectedProblem(problems.find((p) => p.id === Number(e.target.value)))
+              setSelectedProblem(problems.find(p => p.id === Number(e.target.value)))
             }
             className="bg-neutral-800 text-white p-2 rounded-md outline-none border border-gray-600"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            {problems.map((problem) => (
+            {problems.map(problem => (
               <option key={problem.id} value={problem.id}>
                 Problem {problem.id}
               </option>
@@ -219,24 +213,9 @@ const CodeRun = () => {
           >
             {selectedProblem.question}
           </motion.p>
-          <motion.div className="mb-4" variants={itemVariants}>
-            <h3 className="text-lg font-semibold text-neutral-300">Sample Input:</h3>
-            <motion.pre 
-              className="bg-neutral-800 p-4 rounded-md mt-2 text-sm text-neutral-200"
-              whileHover={{ scale: 1.02 }}
-            >
-              {selectedProblem.sampleInput}
-            </motion.pre>
-          </motion.div>
-          <motion.div className="mb-6" variants={itemVariants}>
-            <h3 className="text-lg font-semibold text-neutral-300">Sample Output:</h3>
-            <motion.pre 
-              className="bg-neutral-800 p-4 rounded-md mt-2 text-sm text-neutral-200"
-              whileHover={{ scale: 1.02 }}
-            >
-              {selectedProblem.sampleOutput}
-            </motion.pre>
-          </motion.div>
+          <ProblemDetail title="Sample Input:" content={selectedProblem.sampleInput} />
+          <ProblemDetail title="Sample Output:" content={selectedProblem.sampleOutput} />
+          
           <motion.label className="block mb-6" variants={itemVariants}>
             <span className="text-gray-400">Upload your code:</span>
             <motion.input
@@ -287,5 +266,13 @@ const CodeRun = () => {
     </motion.div>
   );
 };
+
+// Component for problem detail display
+const ProblemDetail = ({ title, content }) => (
+  <div className="mb-4">
+    <h3 className="text-lg font-semibold text-[#ff0059]">{title}</h3>
+    <p className="text-neutral-400">{content}</p>
+  </div>
+);
 
 export default CodeRun;

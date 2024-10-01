@@ -5,48 +5,47 @@ import { useFetchRecipient } from "../../hooks/useFetchRecipient";
 import { useNavigate } from "react-router-dom";
 import { useSocket } from "../../context/SocketProvider";
 import { motion, AnimatePresence } from "framer-motion";
-
-// Import sound effect
 import messageSound from "../../assets/message-sent.mp3";
 import moment from "moment";
-import { AI_CHATBOT_URL, AI_MAIN_URL } from "../../utils/constant.js";
+import { AI_MAIN_URL } from "../../utils/constant.js";
 import axios from "axios";
 
 const ChatBox = () => {
   const { user } = useContext(AuthContext);
   const { currentChat, messages, isMessagesLoading, sendTextMessage } = useContext(ExtraContext);
   const { recipientUser } = useFetchRecipient(currentChat, user);
+
   const [textMessage, setTextMessage] = useState("");
-  const [aaa, setAaa] = useState(null);
-  const [bbb, setBbb] = useState(null);
-  const scroll = useRef();
+  const [userEmail, setUserEmail] = useState(null);
+  const [chatId, setChatId] = useState(null);
+  
+  const scrollRef = useRef();
   const navigate = useNavigate();
   const socket = useSocket();
   const audioRef = useRef(new Audio(messageSound));
-  console.log("recx",recipientUser, currentChat)
+
   useEffect(() => {
-    scroll.current?.scrollIntoView({ behavior: "smooth" });
+    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
   useEffect(() => {
-    setAaa(user ? user.email : null);
-    setBbb(currentChat ? currentChat.id : null);
+    setUserEmail(user?.email || null);
+    setChatId(currentChat?.id || null);
   }, [user, currentChat]);
 
-  const handleSubmitForm = useCallback(() => {
-    if (aaa && bbb && socket.connected) {
-      socket.emit("room:join", { aaa, bbb });
+  const joinRoom = useCallback(() => {
+    if (userEmail && chatId && socket.connected) {
+      socket.emit("room:join", { userEmail, chatId });
     } else {
       alert("Unable to start video call. Please try again later.");
     }
-  }, [aaa, bbb, socket]);
+  }, [userEmail, chatId, socket]);
 
   const handleJoinRoom = useCallback(
-    (data) => {
-      const { room } = data;
-      navigate(`/room/${bbb}`);
+    ({ room }) => {
+      navigate(`/room/${chatId}`);
     },
-    [navigate, bbb]
+    [navigate, chatId]
   );
 
   useEffect(() => {
@@ -59,8 +58,9 @@ const ChatBox = () => {
   const formatTime = (date) => {
     const d = new Date(date);
     const now = new Date();
-    const isToday = d.toDateString() === now.toDateString();
-    return isToday ? d.toLocaleTimeString() : `${d.toLocaleDateString()} ${d.toLocaleTimeString()}`;
+    return d.toDateString() === now.toDateString()
+      ? d.toLocaleTimeString()
+      : `${d.toLocaleDateString()} ${d.toLocaleTimeString()}`;
   };
 
   const handleSendMessage = () => {
@@ -70,34 +70,40 @@ const ChatBox = () => {
     }
   };
 
-  // useEffect(() => {
-  //   console.log("Total MESSAGES", messages);
-  
-  //   if (messages.length > 50 && messages) {
-  //     console.log("score reached");
-      
-  //     const getCompScore = async () => {
-  //       try {
-  //         const response = await axios.post(`${AI_MAIN_URL}calc`, {
-  //           data: messages
-  //         });
-  //         console.log("Comp score response:", response.data);
-  //         // Handle the response here
-  //       } catch (error) {
-  //         console.error("Error calculating comp score:", error);
-  //         // Handle the error here
-  //       }
-  //     };
-  
-  //     getCompScore();
-  //   }
-  // }, [messages]);
+  // Helper function for mapping messages
+  const renderMessages = () => {
+    return (
+      <AnimatePresence>
+        {messages &&
+          messages.map((message, index) => (
+            <motion.div
+              key={index}
+              className={`flex flex-col ${message?.senderId === user.id ? "items-end" : "items-start"}`}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+              ref={index === messages.length - 1 ? scrollRef : null}
+            >
+              <div
+                className={`p-3 rounded-md max-w-[70%] break-words shadow-md ${
+                  message?.senderId === user.id ? "bg-[#ff0059]" : "bg-neutral-700"
+                }`}
+              >
+                <p>{message.text}</p>
+                <span className="block text-xs mt-1 text-white">
+                  {moment(message.createdAt).calendar()}
+                </span>
+              </div>
+            </motion.div>
+          ))}
+      </AnimatePresence>
+    );
+  };
 
-  if (!recipientUser ) {
+  if (!recipientUser) {
     return <p className="text-center w-full">No conversation found</p>;
   }
-
- 
 
   return (
     <div className="flex flex-col gap-4 p-4 h-full bg-neutral-900 rounded-lg shadow-lg text-white">
@@ -105,40 +111,16 @@ const ChatBox = () => {
         <div className="font-bold text-lg">@{recipientUser?.user_name || recipientUser?.first_name}</div>
         <button
           className="w-32 h-10 bg-yellow-400 hover:bg-yellow-300 text-black font-semibold rounded-md transition-all shadow-md"
-          onClick={handleSubmitForm}
+          onClick={joinRoom}
         >
           Video Call
         </button>
       </div>
+
       <div className="flex flex-col gap-3 overflow-y-auto flex-grow">
-        <AnimatePresence>
-          {messages &&
-            messages.map((message, index) => (
-              <motion.div
-                key={index}
-                className={`flex flex-col ${
-                  message?.senderId == user.id ? "items-end" : "items-start"
-                }`}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.3 }}
-                ref={index == messages.length - 1 ? scroll : null}
-              >
-                <div
-                  className={`p-3 rounded-md max-w-[70%] break-words shadow-md ${
-                    message?.senderId == user.id ? "bg-[#ff0059]" : "bg-neutral-700"
-                  }`}
-                >
-                  <p>{message.text}</p>
-                  <span className="block text-xs mt-1 text-white">
-                    {moment(message.createdAt).calendar()}
-                  </span>
-                </div>
-              </motion.div>
-            ))}
-        </AnimatePresence>
+        {renderMessages()}
       </div>
+
       <div className="flex items-center gap-3 mt-auto">
         <input
           type="text"

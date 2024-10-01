@@ -7,8 +7,7 @@ const Chatbot = () => {
     <div className='w-full h-full '>
     <ChatBox1 />
     </div>
-  </>
-    
+   </>  
   )
 }
 
