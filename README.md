@@ -48,6 +48,16 @@ To get started with the project, follow these steps:
     ```bash
     npm install
     ```
+3. Even after running npm install, it may give an error while running that "dotenv is not defined".
+Simply run :
+
+   ```bash
+   npm install dotenv
+   ```
+   Now you can re-run the server and this time it will run without any error.
+   
+   >*Please note that you don’t need environment variables to run the project since no environment variables are currently being used in the codebase. The project contains only the frontend code and all the data has been hardcoaded. However, the requirement to install `dotenv` exists due to the boilerplate code present in the `vite.config.js`, which includes the `dotenv` configuration. Aside from this boilerplate setup, there is no practical need for `dotenv` in the project at the moment.*
+
 
 ## Usage
 
@@ -68,6 +78,61 @@ This will start the development server and you can view the application in your 
   - **pages/**: Contains React components for different pages.
   - **App.js**: The main App component.
   - **index.js**: The entry point of the application.
+
+
+> **Note**: Users are informed that they have the complete right to manipulate the sample data present in *sampleData.js*, as it is hardcoded. Any changes made will affect only your own codebase and will not impact others.
+
+### Routing
+
+**Affinity** is still under development so it lacks connectivity between its various pages hence there is no button or something kind of that can direct you to other pages. But you can access them by using a */* followed by *page-route*.
+
+<table align="center">
+  <tr>
+    <th> Page Name </th>
+    <th>Route</th>
+  </tr>
+  <tr>
+    <td>Landing</td>
+    <td>/</td>
+  </tr>
+  <tr>
+    <td>Login</td>
+    <td>/login</td>
+  </tr>
+  <tr>
+    <td>Register</td>
+    <td>/register</td>
+  </tr>
+  <tr>
+    <td>Room Page</td>
+    <td>/room/:roomId</td>
+  </tr>
+  <tr>
+    <td>Code Run</td>
+    <td>/coderun</td>
+  </tr>
+  <tr>
+    <td>Dashboard</td>
+    <td>/dashboard</td>
+  </tr>
+  <tr>
+    <td>Matches</td>
+    <td>/matches</td>
+  </tr>
+  <tr>
+    <td>Requests</td>
+    <td>/request</td>
+  </tr>
+  <tr>
+    <td>Queue</td>
+    <td>/queue</td>
+  </tr>
+  <tr>
+    <td>Chatbot</td>
+    <td>/chatbot</td>
+  </tr>
+</table>
+
 
 ## Contributing
 
