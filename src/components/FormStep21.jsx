@@ -147,7 +147,7 @@ const FormStep21 = ({ onNext, onBack }) => {
         </div>
       </form>
 
-      <div className="flex justify-start gap-4 items-end mt-10">
+      <div className="flex justify-start gap-4 items-end mt-10 pb-6">
         <button type="button" onClick={onBack} className="bg-neutral-800 hover:bg-gray-600 text-white py-2 px-4 rounded-md">
           Back
         </button>
