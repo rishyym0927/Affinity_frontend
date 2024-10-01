@@ -17,6 +17,8 @@ import Requests from "./pages/Requests";
 import CodeRun from "./pages/CodeRun";
 import Matches from "./pages/Matches";
 import RoomPage from "./pages/Room";
+import Denied from "./pages/Denied";
+import Chat from "./pages/Matches";
 
 
 /* TO  ACCESS ANY PAGE YOU CAN REMOVE THE RESTRICTIONS BY SIMPLY REPLACING THE 
@@ -38,54 +40,22 @@ const App = () => {
             <Route path="/" element={<Landing />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path='/room/:roomId' element={<RoomPage />}/>
-            <Route path="/coderun" element={user ? <CodeRun /> : <Landing />} />
+            <Route path="/room/:roomId" element={<RoomPage />} />
+            <Route path="/coderun" element={user ? <CodeRun /> : <Denied />} />
 
-            {/* Restrict access to Dashboard if user is Male */}
+            {/* Restrict Access to dashboard for Males */}
             <Route
               path="/dashboard"
               element={
-                user && user.gender !== "Male" ? (
+                user && user.gender === "Female" ? (
                   <Layout1>
                     <Dashboard />
                   </Layout1>
                 ) : (
-                  <Landing />
+                  <Denied />
                 )
               }
             />
-             
-
-            <Route
-              path="/matches"
-              element={
-                user ? (
-                  <Layout1>
-                    <Matches />
-                  </Layout1>
-                ) : (
-                  <Landing />
-                )
-              }
-            />
-
-         
-
-            {/* Restrict access to Requests if user is Female */}
-            <Route
-              path="/request"
-              element={
-                user && user.gender !== "Female" ? (
-                  <Layout1>
-                    <Requests />
-                  </Layout1>
-                ) : (
-                  <Landing />
-                )
-              }
-            />
-
-         
 
             <Route
               path="/queue"
@@ -95,11 +65,38 @@ const App = () => {
                     <Queue />
                   </Layout1>
                 ) : (
-                  <Landing />
+                  <Denied />
                 )
               }
             />
 
+            {/* Restrict Access for Females */}
+            <Route
+              path="/request"
+              element={
+                user && user.gender === "Male" ? (
+                  <Layout1>
+                    <Requests />
+                  </Layout1>
+                ) : (
+                  <Denied />
+                )
+              }
+            />
+
+            {/* Restricted Access for Unauthenticated Users */}
+            <Route
+              path="/matches"
+              element={
+                user ? (
+                  <Layout1>
+                    <Matches />
+                  </Layout1>
+                ) : (
+                  <Denied />
+                )
+              }
+            />
             <Route
               path="/chatbot"
               element={
@@ -108,10 +105,12 @@ const App = () => {
                     <Chatbot />
                   </Layout1>
                 ) : (
-                  <Landing />
+                  <Denied />
                 )
               }
             />
+
+            <Route path="/denied" element={<Denied />} />
           </Routes>
         </ExtraContextProvider>
       </AIChatContextProvider>
