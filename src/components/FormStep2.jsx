@@ -1,9 +1,31 @@
-import React, { useContext } from 'react';
+import React, { useContext,useState } from 'react';
 import { motion } from 'framer-motion';
 import { AuthContext } from '../context/AuthContext';
+import { validations } from '../utils/formValidations';
 
 const FormStep2 = ({ onNext, onBack }) => {
   const { updateRegisterInfo, registerInfo } = useContext(AuthContext);
+  const [errors, setErrors] = useState({});
+
+  const handleNext = () =>{
+    const newErrors ={};
+    const fieldsToValidate = ['gender','age','username','location'] ;
+
+    fieldsToValidate.forEach((field) => {
+      const error = validations(field, registerInfo[field]);
+      if (error) {
+        newErrors[field] = error;
+      }
+    });
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+  
+    setErrors({});
+    onNext(); 
+  }
 
   return (
     <motion.div
@@ -36,6 +58,7 @@ const FormStep2 = ({ onNext, onBack }) => {
                 </button>
               ))}
             </div>
+            {errors.gender && <p className="text-[#ff0059]">{errors.gender}</p>}
           </label>
           <label className="w-1/3">
             <span className="text-gray-400">Age:</span>
@@ -46,6 +69,7 @@ const FormStep2 = ({ onNext, onBack }) => {
               onChange={(e) => updateRegisterInfo({ ...registerInfo, age: Number(e.target.value) })}
               className="mt-1 block w-full p-2 rounded-md bg-neutral-800 outline-none text-white border border-gray-600"
             />
+            {errors.age && <p className="text-[#ff0059]">{errors.age}</p>}
           </label>
           <label className="w-1/3">
           <span className="text-gray-400">Username:</span>
@@ -56,6 +80,7 @@ const FormStep2 = ({ onNext, onBack }) => {
             onChange={(e) => updateRegisterInfo({ ...registerInfo, username: e.target.value })}
             className="mt-1 block w-full p-2 rounded-md bg-neutral-800 outline-none text-white border border-gray-600"
           />
+          {errors.username && <p className="text-[#ff0059]">{errors.username}</p>}
         </label>
         </div>
 
@@ -68,6 +93,7 @@ const FormStep2 = ({ onNext, onBack }) => {
             onChange={(e) => updateRegisterInfo({ ...registerInfo, location: e.target.value })}
             className="mt-1 block w-full p-2 rounded-md bg-neutral-800 outline-none text-white border border-gray-600"
           />
+          {errors.location && <p className="text-[#ff0059]">{errors.location}</p>}
         </label>
         <div className='flex flex-row gap-10'>
           <label className="w-1/2">
@@ -118,7 +144,7 @@ const FormStep2 = ({ onNext, onBack }) => {
           <button type="button" onClick={onBack} className="bg-neutral-800 hover:bg-gray-600 text-white py-2 px-4 rounded-md">
             Back
           </button>
-          <button type="button" onClick={onNext} className="bg-[#ff0059] hover:bg-red-500 text-white py-2 px-4 rounded-md">
+          <button type="button" onClick={handleNext} className="bg-[#ff0059] hover:bg-red-500 text-white py-2 px-4 rounded-md">
             Next
           </button>
         </div>

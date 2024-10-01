@@ -1,9 +1,34 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { motion } from 'framer-motion';
 import { AuthContext } from '../context/AuthContext';
 import { Link } from 'react-router-dom';
+import { validations } from '../utils/formValidations'; 
+
 const FormStep1 = ({ onNext }) => {
   const { updateRegisterInfo, registerInfo } = useContext(AuthContext);
+  const [errors, setErrors] = useState({});
+
+  const handleNext = () => {
+    const newErrors = {};
+  
+    const fieldsToValidate = ['first_name', 'last_name', 'email', 'password'];
+  
+    fieldsToValidate.forEach((field) => {
+      const error = validations(field, registerInfo[field]);
+      if (error) {
+        newErrors[field] = error;
+      }
+    });
+  
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+  
+    setErrors({});
+    onNext(); 
+  };
+  
 
   return (
     <motion.div
@@ -27,6 +52,7 @@ const FormStep1 = ({ onNext }) => {
             onChange={(e) => updateRegisterInfo({ ...registerInfo, first_name: e.target.value })}
             className="mt-1 block w-full p-2 rounded-md bg-neutral-800 outline-none text-white border border-gray-600" 
           />
+          {errors.first_name && <p className="text-[#ff0059]">{errors.first_name}</p>}
         </label>
         <label className="w-1/2">
           <span className="text-gray-400">Last Name:</span>
@@ -37,6 +63,7 @@ const FormStep1 = ({ onNext }) => {
             onChange={(e) => updateRegisterInfo({ ...registerInfo, last_name: e.target.value })}
             className="mt-1 block w-full p-2 rounded-md bg-neutral-800 outline-none text-white border border-gray-600" 
           />
+          {errors.last_name && <p className="text-[#ff0059]">{errors.last_name}</p>} 
         </label>
         </div>
         <label className="block">
@@ -48,6 +75,7 @@ const FormStep1 = ({ onNext }) => {
             onChange={(e) => updateRegisterInfo({ ...registerInfo, email: e.target.value })}
             className="mt-1 block w-full p-2 rounded-md bg-neutral-800 outline-none text-white border border-gray-600" 
           />
+           {errors.email && <p className="text-[#ff0059]">{errors.email}</p>}
         </label>
        
 
@@ -60,13 +88,14 @@ const FormStep1 = ({ onNext }) => {
             onChange={(e) => updateRegisterInfo({ ...registerInfo, password: e.target.value })}
             className="mt-1 block w-full p-2 rounded-md bg-neutral-800 outline-none text-white border border-gray-600" 
           />
+            {errors.password && <p className="text-[#ff0059]">{errors.password}</p>}
         </label>
 
         
       </form>
       <button 
           type="button" 
-          onClick={onNext} 
+          onClick={handleNext} 
           className="w-1/3 mt-14 mb-10 bg-[#ff0059] hover:bg-red-500 text-white py-4 rounded-md"
         >
           Lets Move to Next

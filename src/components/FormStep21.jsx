@@ -1,12 +1,33 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useRef , useState } from "react";
 import { motion } from "framer-motion";
 import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
-
+import { validations } from "../utils/formValidations";
 const FormStep21 = ({ onNext, onBack }) => {
   const { updateRegisterInfo, registerInfo } = useContext(AuthContext);
   const interestsInputRef = useRef(null);
   const socialHabitsInputRef = useRef(null);
+  const [errors, setErrors] = useState({});
+
+  const handleNext = () =>{
+    const newErrors ={};
+    const fieldsToValidate = ['interests','past_relationships'] ;
+
+    fieldsToValidate.forEach((field) => {
+      const error = validations(field, registerInfo[field]);
+      if (error) {
+        newErrors[field] = error;
+      }
+    });
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+  
+    setErrors({});
+    onNext(); 
+  }
 
   async function onFileSelect(e) {
     try {
@@ -62,6 +83,7 @@ const FormStep21 = ({ onNext, onBack }) => {
             onChange={(e) => updateRegisterInfo({ ...registerInfo, interests: e.target.value })}
             className="mt-1 block w-full p-2 rounded-md bg-neutral-800 outline-none text-white border border-gray-600"
           />
+          {errors.interests && <p className="text-[#ff0059]">{errors.interests}</p>}
         </label>
 
         <label className="block">
@@ -102,6 +124,7 @@ const FormStep21 = ({ onNext, onBack }) => {
               <span className="ml-2 text-gray-400">No</span>
             </label>
           </div>
+          {errors.past_relationships && <p className="text-[#ff0059]">{errors.past_relationships}</p>}
         </div>
 
         <div className="mt-4">
@@ -128,7 +151,7 @@ const FormStep21 = ({ onNext, onBack }) => {
         <button type="button" onClick={onBack} className="bg-neutral-800 hover:bg-gray-600 text-white py-2 px-4 rounded-md">
           Back
         </button>
-        <button type="button" onClick={onNext} className="bg-[#ff0059] hover:bg-red-500 text-white py-2 px-4 rounded-md">
+        <button type="button" onClick={handleNext} className="bg-[#ff0059] hover:bg-red-500 text-white py-2 px-4 rounded-md">
           Next
         </button>
       </div>
