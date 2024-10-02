@@ -131,6 +131,10 @@ This will start the development server and you can view the application in your 
     <td>Chatbot</td>
     <td>/chatbot</td>
   </tr>
+  <tr>
+    <td>Denied</td>
+    <td>/denied</td>
+  </tr>
 </table>
 
 
