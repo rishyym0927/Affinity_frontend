@@ -66,7 +66,7 @@ const FormStep2 = ({ onNext, onBack }) => {
               type="age"
               name="age"
               value={registerInfo.age}
-              onChange={(e) => updateRegisterInfo({ ...registerInfo, age: Number(e.target.value) })}
+              onChange={(e) => updateRegisterInfo({ ...registerInfo, age: e.target.value })}
               className="mt-1 block w-full p-2 rounded-md bg-neutral-800 outline-none text-white border border-gray-600"
             />
             {errors.age && <p className="text-[#ff0059]">{errors.age}</p>}
