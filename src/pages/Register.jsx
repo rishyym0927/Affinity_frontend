@@ -27,8 +27,8 @@ function Register() {
         backgroundColor: 'black'
       }}
     >
-      <div className="flex flex-row bg-neutral-900 rounded-[30px] w-[85rem] h-[40rem] p-7 relative">
-        <div className="w-3/5 h-full">
+      <div className="flex flex-row bg-neutral-900 rounded-[30px] w-[85rem] h-[40rem] p-7 relative ">
+        <div className="w-3/5 h-full overflow-y-scroll">
           <MultiStepForm />
         </div>
         <div className="w-2/5">
