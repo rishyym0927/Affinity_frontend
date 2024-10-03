@@ -1,3 +1,4 @@
+// App.jsx
 import React, { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
 import { Route, Routes } from "react-router-dom";
@@ -16,7 +17,8 @@ import Requests from "./pages/Requests";
 import CodeRun from "./pages/CodeRun";
 import Matches from "./pages/Matches";
 import RoomPage from "./pages/Room";
-
+import Custom404 from "./pages/Custom404";
+import Denied from "./pages/Denied"; // Import Denied page
 
 /* TO  ACCESS ANY PAGE YOU CAN REMOVE THE RESTRICTIONS BY SIMPLY REPLACING THE 
 LANDING ELEMENT BY THE RESPECTIVE ONE
@@ -26,6 +28,11 @@ const App = () => {
   const { user } = useContext(AuthContext);
   console.log(user);
 
+  // If user is undefined, show a loading state until user is fetched
+  if (!user) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <>
       <AIChatContextProvider userss={user}>
@@ -33,13 +40,14 @@ const App = () => {
           <ToastContainer />
 
           <Routes>
+            <Route path="*" element={<Custom404 />} />
             <Route path="/" element={<Landing />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/room/:roomId" element={<RoomPage />} />
             <Route path="/coderun" element={user ? <CodeRun /> : <Denied />} />
 
-            {/* Restrict access to Dashboard if user is Male */}
+            {/* Restrict access to Dashboard if user is Female */}
             <Route
               path="/dashboard"
               element={
@@ -66,9 +74,7 @@ const App = () => {
               }
             />
 
-         
-
-            {/* Restrict access to Requests if user is Female */}
+            {/* Restrict access to Requests if user is Male */}
             <Route
               path="/request"
               element={
@@ -82,8 +88,6 @@ const App = () => {
               }
             />
 
-         
-
             <Route
               path="/matches"
               element={
@@ -96,6 +100,7 @@ const App = () => {
                 )
               }
             />
+
             <Route
               path="/chatbot"
               element={
