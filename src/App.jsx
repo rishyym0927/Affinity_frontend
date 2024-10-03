@@ -6,7 +6,6 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import Layout1 from "./Layout1";
-
 import Queue from "./pages/Queue";
 import Chatbot from "./pages/Chatbot";
 import { AIChatContextProvider } from "./context/AIChatContext";
@@ -17,11 +16,7 @@ import Requests from "./pages/Requests";
 import CodeRun from "./pages/CodeRun";
 import Matches from "./pages/Matches";
 import RoomPage from "./pages/Room";
-
-
-/* TO  ACCESS ANY PAGE YOU CAN REMOVE THE RESTRICTIONS BY SIMPLY REPLACING THE 
-LANDING ELEMENT BY THE RESPECTIVE ONE
-*/
+import Custom404 from "./pages/Custom404";
 
 const App = () => {
   const { user } = useContext(AuthContext);
@@ -31,7 +26,6 @@ const App = () => {
     <>
       <AIChatContextProvider userss={user}>
         <ExtraContextProvider user={user}>
-          {/* ToastContainer to handle toast notifications */}
           <ToastContainer />
 
           <Routes>
@@ -41,7 +35,6 @@ const App = () => {
             <Route path='/room/:roomId' element={<RoomPage />}/>
             <Route path="/coderun" element={user ? <CodeRun /> : <Landing />} />
 
-            {/* Restrict access to Dashboard if user is Male */}
             <Route
               path="/dashboard"
               element={
@@ -54,7 +47,6 @@ const App = () => {
                 )
               }
             />
-             
 
             <Route
               path="/matches"
@@ -69,9 +61,6 @@ const App = () => {
               }
             />
 
-         
-
-            {/* Restrict access to Requests if user is Female */}
             <Route
               path="/request"
               element={
@@ -84,8 +73,6 @@ const App = () => {
                 )
               }
             />
-
-         
 
             <Route
               path="/queue"
@@ -112,6 +99,9 @@ const App = () => {
                 )
               }
             />
+
+            {/* Add a catch-all route for 404 errors */}
+            <Route path="*" element={<Custom404/>} />
           </Routes>
         </ExtraContextProvider>
       </AIChatContextProvider>
