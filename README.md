@@ -1,6 +1,8 @@
-<div align="center" >
+![registerss](https://github.com/user-attachments/assets/f778eb0c-3e02-4218-aa2c-a356d0671004)<div align="center" >
     
 ![banner](https://github.com/user-attachments/assets/6df2da27-9fb2-4c0e-99c2-6e4cf56741af)
+
+<div align="center"><img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/rishyym0927/Affinity_frontend?style=for-the-badge"> <img alt="GitHub Repo stars" src="https://img.shields.io/github/contributors/rishyym0927/Affinity_frontend?style=for-the-badge"> <img alt="GitHub Repo stars" src="https://img.shields.io/github/issues/rishyym0927/Affinity_frontend?style=for-the-badge"> <img alt="GitHub Repo stars" src="https://img.shields.io/github/issues-pr/rishyym0927/Affinity_frontend?style=for-the-badge"> <img alt="GitHub Repo stars" src="https://img.shields.io/github/issues-closed/rishyym0927/Affinity_frontend?style=for-the-badge"> <img alt="GitHub Repo stars" src="https://img.shields.io/github/issues-pr-closed/rishyym0927/Affinity_frontend?style=for-the-badge"></div>
 
 <br> 
 
@@ -107,19 +109,19 @@ This will start the development server and you can view the application in your 
 <div align="center">
   <table>
       <tr>
-          <td> <img src="./src/assets/chatbotss.png"> </td>
-          <td> <img src="./src/assets/coderunss.png"> </td>
-          <td> <img src="./src/assets/dashboardss.png"> </td>
+          <td><img src="https://github.com/user-attachments/assets/ebcbbdef-38c9-4fcd-b6ee-a4eb1dbc0564"></td>
+          <td> <img src="https://github.com/user-attachments/assets/bb45d5fe-7084-46d5-8799-7369acdb1cdf"> </td>
+          <td> <img src="https://github.com/user-attachments/assets/9755112d-0ae7-4ade-87b2-0f10b9018ff0"> </td>
       </tr>
       <tr>
-          <td> <img src="./src/assets/loginss.png"> </td>
-          <td> <img src="./src/assets/matchingss.png"> </td>
-          <td> <img src="./src/assets/landingss.png"> </td>
+          <td> <img src="https://github.com/user-attachments/assets/5432c306-9dac-46e0-866c-e5b5ce6be4fb"> </td>
+          <td> <img src="https://github.com/user-attachments/assets/53aef3ce-94d0-4b3e-90bb-deff2ef4b0f4"> </td>
+          <td> <img src="https://github.com/user-attachments/assets/9a4c08a0-8766-489a-b6d1-7482d26b693d"> </td>
       </tr>
       <tr>
-           <td> <img src="./src/assets/roomss.png"> </td>
-            <td> <img src="./src/assets/queuess.png"> </td>
-            <td> <img src="./src/assets/registerss.png"> </td>
+           <td> <img src="https://github.com/user-attachments/assets/953719d9-31ab-4981-9495-c6159f08ddcf"> </td>
+            <td> <img src="https://github.com/user-attachments/assets/cef3d825-85c2-4bd8-aa7d-e83c65e0385f"> </td>
+            <td> <img src="https://github.com/user-attachments/assets/59b6073c-d248-4585-9020-27b7f6d8d8f5"> </td>
       </tr>
 </table>
 </div>
