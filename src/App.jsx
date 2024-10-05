@@ -1,3 +1,4 @@
+// App.jsx
 import React, { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
 import { Route, Routes } from "react-router-dom";
@@ -6,7 +7,6 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import Layout1 from "./Layout1";
-
 import Queue from "./pages/Queue";
 import Chatbot from "./pages/Chatbot";
 import { AIChatContextProvider } from "./context/AIChatContext";
@@ -17,9 +17,8 @@ import Requests from "./pages/Requests";
 import CodeRun from "./pages/CodeRun";
 import Matches from "./pages/Matches";
 import RoomPage from "./pages/Room";
-import Denied from "./pages/Denied";
-import Chat from "./pages/Matches";
-
+import Custom404 from "./pages/Custom404";
+import Denied from "./pages/Denied"; // Import Denied page
 
 /* TO  ACCESS ANY PAGE YOU CAN REMOVE THE RESTRICTIONS BY SIMPLY REPLACING THE 
 LANDING ELEMENT BY THE RESPECTIVE ONE
@@ -29,21 +28,26 @@ const App = () => {
   const { user } = useContext(AuthContext);
   console.log(user);
 
+  // If user is undefined, show a loading state until user is fetched
+  if (!user) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <>
       <AIChatContextProvider userss={user}>
         <ExtraContextProvider user={user}>
-          {/* ToastContainer to handle toast notifications */}
           <ToastContainer />
 
           <Routes>
+            <Route path="*" element={<Custom404 />} />
             <Route path="/" element={<Landing />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/room/:roomId" element={<RoomPage />} />
             <Route path="/coderun" element={user ? <CodeRun /> : <Denied />} />
 
-            {/* Restrict Access to dashboard for Males */}
+            {/* Restrict access to Dashboard if user is Female */}
             <Route
               path="/dashboard"
               element={
@@ -70,7 +74,7 @@ const App = () => {
               }
             />
 
-            {/* Restrict Access for Females */}
+            {/* Restrict access to Requests if user is Male */}
             <Route
               path="/request"
               element={
@@ -84,7 +88,6 @@ const App = () => {
               }
             />
 
-            {/* Restricted Access for Unauthenticated Users */}
             <Route
               path="/matches"
               element={
@@ -97,6 +100,7 @@ const App = () => {
                 )
               }
             />
+
             <Route
               path="/chatbot"
               element={
@@ -109,8 +113,6 @@ const App = () => {
                 )
               }
             />
-
-            <Route path="/denied" element={<Denied />} />
           </Routes>
         </ExtraContextProvider>
       </AIChatContextProvider>
