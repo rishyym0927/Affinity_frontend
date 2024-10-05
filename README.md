@@ -186,11 +186,8 @@ This will start the development server and you can view the application in your 
 ## Directory tree
 
 
-<div align="center>
-    
-  ![directory-tree](https://github.com/user-attachments/assets/6628a379-880b-4182-bbe9-8ed86a93c6f6)
+![directory-tree](https://github.com/user-attachments/assets/6628a379-880b-4182-bbe9-8ed86a93c6f6)
 
-</div>
 
 <br>
 
