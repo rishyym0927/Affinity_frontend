@@ -108,47 +108,47 @@ This will start the development server and you can view the application in your 
   </tr>
   <tr>
     <td>Landing</td>
-    <td>/</td>
+    <td><a href="./src/pages/Landing.jsx">/</a></td>
   </tr>
   <tr>
     <td>Login</td>
-    <td>/login</td>
+    <td><a href="./src/pages/Login.jsx">/login</a></td>
   </tr>
   <tr>
     <td>Register</td>
-    <td>/register</td>
+    <td><a href="./src/pages/Register.jsx">/register</a></td>
   </tr>
   <tr>
     <td>Room Page</td>
-    <td>/room/:roomId</td>
+    <td><a href="./src/pages/Room.jsx">/room/:roomId</a></td>
   </tr>
   <tr>
     <td>Code Run</td>
-    <td>/coderun</td>
+    <td><a href="./src/pages/CodeRun.jsx">/coderun</a></td>
   </tr>
   <tr>
     <td>Dashboard</td>
-    <td>/dashboard</td>
+    <td><a href="./src/pages/Dashboard.jsx">/dashboard</a></td>
   </tr>
   <tr>
     <td>Matches</td>
-    <td>/matches</td>
+    <td><a href="./src/pages/Matches.jsx">/matches</a></td>
   </tr>
   <tr>
     <td>Requests</td>
-    <td>/request</td>
+    <td><a href="./src/pages/Requests.jsx">/request</a></td>
   </tr>
   <tr>
     <td>Queue</td>
-    <td>/queue</td>
+    <td><a href="./src/pages/Queue.jsx">/queue</a></td>
   </tr>
   <tr>
     <td>Chatbot</td>
-    <td>/chatbot</td>
+    <td><a href="./src/pages/Chatbot.jsx">/chatbot</a></td>
   </tr>
   <tr>
     <td>Denied</td>
-    <td>/denied</td>
+    <td><a href="./src/pages/Denied.jsx">/denied</a></td>
   </tr>
 </table>
 
