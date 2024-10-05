@@ -32,11 +32,7 @@ The Affinity Frontend is a React-based application designed to deliver a smooth 
 
 ## Preview
 <center>
-<img src="./src/assets/Preview1.png" alt="Landing" width=360>
-<img src="./src/assets/Preview2.png" alt="Login" width=360>
-<br>
-<img src="./src/assets/Preview3.png" alt="Register" width=360>
-<img src="./src/assets/Preview4.png" alt="Dashboard" width=360>
+<img src="./src/assets/Preview1.png" alt="Landing" width=360><img src="./src/assets/Preview2.png" alt="Login" width=360><br><img src="./src/assets/Preview3.png" alt="Register" width=360><img src="./src/assets/Preview4.png" alt="Dashboard" width=360>
 </center>
 
 ## Technologies Used
