@@ -4,15 +4,18 @@ Welcome to the Affinity Frontend repository! This project is part of the broader
 
 If you're interested in working on the backend of our project, please head over to the following repository [Affinity Backend](https://github.com/Sidharth-Singh10/Affinity-backend).
 
-## Table of Contents
 
-- [Introduction](#introduction)
-- [Features](#features)
-- [Technologies Used](#technologies-used)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [Contact](#contact)
+<p align="center">
+<a href="#introduction"><kbd><br>&emsp;Introduction&emsp;<br><br></kbd></a>&emsp;
+<a href="#features"><kbd><br>&emsp;Features&emsp;<br><br></kbd></a>&emsp;
+<a href="#preview"><kbd><br>&emsp;Preview&emsp;<br><br></kbd></a>&emsp;
+<a href="#technologies-used"><kbd><br>&emsp;Technologies Used&emsp;<br><br></kbd></a>&emsp;
+<a href="#installatiom"><kbd><br>&emsp;Installatiom&emsp;<br><br></kbd></a>&emsp;
+<a href="#usage"><kbd><br>&emsp;Usage&emsp;<br><br></kbd></a>&emsp;
+<a href="#contibutors"><kbd><br>&emsp;Contibutors&emsp;<br><br></kbd></a>&emsp;
+<a href="#contibuting"><kbd><br>&emsp;Contibuting&emsp;<br><br></kbd></a>&emsp;
+<a href="#contact"><kbd><br>&emsp;Contact&emsp;<br><br></kbd></a>&emsp;
+</p>
 
 ## Introduction
 
@@ -24,6 +27,14 @@ The Affinity Frontend is a React-based application designed to deliver a smooth 
 - Responsive design
 - Integration with backend APIs
 - Routing with React Router
+
+## Preview
+<center>
+<img src="./src/assets/Preview1.png" alt="Landing" width=400>
+<img src="./src/assets/Preview2.png" alt="Login" width=400>
+<img src="./src/assets/Preview3.png" alt="Register" width=400>
+<img src="./src/assets/Preview4.png" alt="Dashboard" width=400>
+</center>
 
 ## Technologies Used
 
@@ -56,7 +67,8 @@ Simply run :
    ```
    Now you can re-run the server and this time it will run without any error.
    
-   >*Please note that you don’t need environment variables to run the project since no environment variables are currently being used in the codebase. The project contains only the frontend code and all the data has been hardcoaded. However, the requirement to install `dotenv` exists due to the boilerplate code present in the `vite.config.js`, which includes the `dotenv` configuration. Aside from this boilerplate setup, there is no practical need for `dotenv` in the project at the moment.*
+> [!NOTE]
+> *You don’t need environment variables to run the project since no environment variables are currently being used in the codebase. The project contains only the frontend code and all the data has been hardcoaded. However, the requirement to install `dotenv` exists due to the boilerplate code present in the `vite.config.js`, which includes the `dotenv` configuration. Aside from this boilerplate setup, there is no practical need for `dotenv` in the project at the moment.*
 
 
 ## Usage
@@ -79,8 +91,8 @@ This will start the development server and you can view the application in your 
   - **App.js**: The main App component.
   - **index.js**: The entry point of the application.
 
-
-> **Note**: Users are informed that they have the complete right to manipulate the sample data present in *sampleData.js*, as it is hardcoded. Any changes made will affect only your own codebase and will not impact others.
+> [!TIP]
+>  Users are informed that they have the complete right to manipulate the sample data present in *sampleData.js*, as it is hardcoded. Any changes made will affect only your own codebase and will not impact others.
 
 ### Routing
 
