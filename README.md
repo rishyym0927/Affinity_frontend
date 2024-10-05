@@ -38,10 +38,10 @@ The Affinity Frontend is a React-based application designed to deliver a smooth 
 
 
 <div align="center"><table><h2 id="preview">Preview</h2><tr><td>
-<img src="./src/assets/Preview1.png" alt="Landing"></td><td>
-<img src="./src/assets/Preview2.png" alt="Login"></td></tr><tr><td>
-<img src="./src/assets/Preview3.png" alt="Register"></td><td>
-<img src="./src/assets/Preview4.png" alt="Dashboard"></td></tr></table></div>
+<img src="./src/assets/Preview1.jpg" alt="Landing"></td><td>
+<img src="./src/assets/Preview2.jpg" alt="Login"></td></tr><tr><td>
+<img src="./src/assets/Preview3.jpg" alt="Register"></td><td>
+<img src="./src/assets/Preview4.jpg" alt="Dashboard"></td></tr></table></div>
 
 ## Technologies Used
 
@@ -95,8 +95,8 @@ This will start the development server and you can view the application in your 
   - **assets/**: Contains images, fonts, and other static assets.
   - **components/**: Contains reusable React components.
   - **pages/**: Contains React components for different pages.
-  - **App.js**: The main App component.
-  - **index.js**: The entry point of the application.
+  - **App.jsx**: The main App component.
+  - **main.jsx**: The entry point of the application.
 
 > [!TIP]
 > Users are informed that they have full control over the sample data present in *sampleData.js*, as it is hardcoded. Any modifications made will only affect your local codebase and will not impact other users.
