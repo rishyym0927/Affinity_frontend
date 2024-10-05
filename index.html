@@ -14,6 +14,43 @@
     <style>
       body {
         cursor: none; /* Hide the default cursor */
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+
+      body.light-mode {
+        background-color: rgb(255, 255, 255);
+        color: black;
+      }
+
+      body.dark-mode {
+        background-color: black;
+        color: white;
+      }
+
+      .circle {
+        position: fixed;
+        border-radius: 50%;
+        pointer-events: none;
+        width: 24px;
+        height: 24px;
+        transition: background-color 0.3s ease;
+      }
+
+      .toggle-button {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 10px 20px;
+        background-color: #0a231e;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        font-family: 'Poppins', sans-serif;
+      }
+
+      body.dark-mode .toggle-button {
+        background-color: #555555;
+        color: white;
       }
       .circle {
         position: fixed;
@@ -26,8 +63,11 @@
     </style>
   </head>
   <body>
+    <body class="light-mode"></body>
     <div id="cursor-trail"></div>
     <div id="root"></div>
+    <!-- Dark mode toggle button -->
+    <button class="toggle-button" id="dark-mode-toggle">🌙</button>
     <script type="module" src="/src/main.jsx"></script>
     <script>
       const coords = { x: 0, y: 0 };
@@ -86,6 +126,18 @@
       }
 
       animateCircles();
+
+      // Dark mode toggle logic
+      const toggleButton = document.getElementById('dark-mode-toggle');
+      toggleButton.addEventListener('click', function () {
+        const body = document.body;
+        body.classList.toggle('dark-mode');
+        if (body.classList.contains('dark-mode')) {
+          toggleButton.textContent = '☀️';
+        } else {
+          toggleButton.textContent = '🌙';
+        }
+      });
     </script>
   </body>
 </html>
