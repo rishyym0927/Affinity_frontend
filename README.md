@@ -1,5 +1,3 @@
-![registerss](https://github.com/user-attachments/assets/f778eb0c-3e02-4218-aa2c-a356d0671004)<div align="center" >
-    
 ![banner](https://github.com/user-attachments/assets/6df2da27-9fb2-4c0e-99c2-6e4cf56741af)
 
 <div align="center"><img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/rishyym0927/Affinity_frontend?style=for-the-badge"> <img alt="GitHub Repo stars" src="https://img.shields.io/github/contributors/rishyym0927/Affinity_frontend?style=for-the-badge"> <img alt="GitHub Repo stars" src="https://img.shields.io/github/issues/rishyym0927/Affinity_frontend?style=for-the-badge"> <img alt="GitHub Repo stars" src="https://img.shields.io/github/issues-pr/rishyym0927/Affinity_frontend?style=for-the-badge"> <img alt="GitHub Repo stars" src="https://img.shields.io/github/issues-closed/rishyym0927/Affinity_frontend?style=for-the-badge"> <img alt="GitHub Repo stars" src="https://img.shields.io/github/issues-pr-closed/rishyym0927/Affinity_frontend?style=for-the-badge"></div>
