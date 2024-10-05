@@ -1,4 +1,8 @@
 ![Affinity Frontend](./src/assets/AffinityBanner.png)
+
+<div align="center"><img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/rishyym0927/Affinity_frontend?style=for-the-badge"> <img alt="GitHub Repo stars" src="https://img.shields.io/github/contributors/rishyym0927/Affinity_frontend?style=for-the-badge"> <img alt="GitHub Repo stars" src="https://img.shields.io/github/issues/rishyym0927/Affinity_frontend?style=for-the-badge"> <img alt="GitHub Repo stars" src="https://img.shields.io/github/issues-pr/rishyym0927/Affinity_frontend?style=for-the-badge"> <img alt="GitHub Repo stars" src="https://img.shields.io/github/issues-closed/rishyym0927/Affinity_frontend?style=for-the-badge"> <img alt="GitHub Repo stars" src="https://img.shields.io/github/issues-pr-closed/rishyym0927/Affinity_frontend?style=for-the-badge"></div>
+
+</div>
 <br>
 
 Welcome to the **Affinity Frontend Repository**!
