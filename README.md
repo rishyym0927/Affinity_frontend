@@ -1,7 +1,7 @@
 # <i>Affinity Frontend</i>
 
 <mark>Welcome to the Affinity Frontend repository! This project is part of the broader Affinity platform, focusing exclusively on frontend development</mark>. Affinity is a web application designed to connect individuals with similar intellectual levels. The platform utilizes an AI-powered chatbot for matchmaking and includes various interactive games, such as coding rounds, to match users based on their skillset. Once matched, users can engage in meaningful conversations with one another, fostering intellectual connections.
-<img src="https://stadt-bremerhaven.de/wp-content/uploads/2020/03/Affinity-Suite.jpg" height="400px" width="700px">
+<hr>
 
 ### <i>Affinity's frontend is now open for open-source contributions as part of #Hacktoberfest.</i>
 
@@ -16,18 +16,18 @@ If you're interested in working on the backend of our project, please head over 
 - [Usage](#usage)
 - [Contributing](#contributing)
 - [Contact](#contact)
-
+<hr>
 ## <i>Introduction</i>
 <img src="https://tse4.mm.bing.net/th?id=OIP.rTIWX6QQXxjzI-2GqRzqFwHaEK&pid=Api&P=0&h=220" height="300px" width="400px">
 <mark>The Affinity Frontend is a React-based application designed to deliver a smooth and seamless user experience</mark>. This repository houses all the code related to the frontend portion of the Affinity project, and all contributions should be focused on this area. The frontend interacts with the backend through API calls to provide matchmaking services, games, and chat functionality for users.
-
+<hr>
 ## <i><del>Features</del> <mark>BETTER FEATURES<sup>2</sup></mark></i>
 <img src="https://i.ytimg.com/vi/XZNTeiiMm3w/maxresdefault.jpg" height="300px" width="400px">
 - User-friendly interface
 - Responsive design
 - Integration with backend APIs
 - Routing with React Router
-
+<hr>
 ## <i><mark>Technologies Used</mark></i>
 <img src="https://knowworld365.com/wp-content/uploads/2021/10/frontend.png" height="200px" width="300px">
 - React
@@ -37,6 +37,7 @@ If you're interested in working on the backend of our project, please head over 
 <img src="https://tse4.mm.bing.net/th?id=OIP.DfXj70PID4YvRZAjXCr4RgHaEK&pid=Api&P=0&h=220" height="200px" width="300px">
 - CSS Modules
 <img src="https://k2bindia.com/wp-content/uploads/2015/08/React.png" height="200px" width="300px">
+<hr>
 ## Installation
 <img src="https://tse4.mm.bing.net/th?id=OIP.oI98O_lbhPSFISB7ciN6tAHaDt&pid=Api&P=0&h=220" height="300px" width="400px">
 To get started with the project, follow these steps:
@@ -87,12 +88,12 @@ This will start the development server and you can view the application in your 
 
 
 > **Note**: Users are informed that they have the complete right to manipulate the sample data present in *sampleData.js*, as it is hardcoded. Any changes made will affect only your own codebase and will not impact others.
-
+> 
 ### <i><mark>Routing</mark></i>
 
 <p style="background-color:pink;">**Affinity** is still under development so it lacks <del>connectivity</del> between its various pages hence there is no button or something kind of that can direct you to other pages. But you can access them by using a */* followed by *page-route*.</p>
-
-<table align="center">
+<hr>
+    <table align="center">
   <tr>
     <th> <i>Page Name</i> </th>
     <th>Route</th>
@@ -142,7 +143,7 @@ This will start the development server and you can view the application in your 
     <td>/denied</td>
   </tr>
 </table>
-
+<hr>
 
 ## <b><i>Contributing</i></b>
 <img src="https://tse3.mm.bing.net/th?id=OIP.Hk30ycHrBD8nOdMmUyaxfgHaEK&pid=Api&P=0&h=220" height="300px" width="400px">
