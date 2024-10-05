@@ -151,6 +151,37 @@ This will start the development server and you can view the application in your 
 
 We welcome contributions from the community! Please read our [`CONTRIBUTING.md`](https://github.com/rishyym0927/Affinity_frontend/blob/main/CONTRIBUTING.md) file for detailed guidelines on how to contribute to this project.
 
+## Contributors
+
+<style>
+    div.imag{
+      margin: 5px;
+      border: 1px solid #ccc;
+      float:left;
+      width: 20%;
+      margin:100px ;
+
+    }
+
+    div.imag img {
+      width: 100%;
+    }
+
+    div.desc {
+      padding: 15px;
+      text-align: center;
+   }
+ </style>
+
+<div class="imag">
+    <img src="/src/assets/img1.jpg" alt="contributor1"  height="300px">
+    <div class="desc"> contributor 1</div> 
+</div>
+<div class="imag">
+    <img src="/src/assets/img2.jpg" alt="contributor2" height="300px">
+    <div class="desc"> contributor 2</div>
+</div>
+
 ### Hacktoberfest and GSSoC 24
 
 This repository is actively participating in Hacktoberfest and GSSoC 24. We welcome contributions, but please note that only frontend-related tasks are open for contribution. Any modifications or changes to the backend will not be considered. Feel free to raise issues and start working on assigned tasks.
