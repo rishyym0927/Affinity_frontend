@@ -1,11 +1,13 @@
-# Affinity Frontend
+![Affinity Frontend](./src/assets/AffinityBanner.png)
+<br>
 
-Welcome to the Affinity Frontend repository! This project is part of the broader Affinity platform, focusing exclusively on frontend development. Affinity is a web application designed to connect individuals with similar intellectual levels. The platform utilizes an AI-powered chatbot for matchmaking and includes various interactive games, such as coding rounds, to match users based on their skillset. Once matched, users can engage in meaningful conversations with one another, fostering intellectual connections.
+Welcome to the **Affinity Frontend Repository**!
+This project is part of the larger Affinity platform, focused specifically on frontend development. **Affinity** is a web application designed to connect individuals with similar intellectual levels. The platform leverages an AI-powered chatbot for matchmaking and features various interactive games, such as coding challenges, to match users based on their skill sets. Once matched, users can engage in meaningful conversations, fostering deep intellectual connections.
 
-If you're interested in working on the backend of our project, please head over to the following repository [Affinity Backend](https://github.com/Sidharth-Singh10/Affinity-backend).
+If you're interested in contributing to the backend of the project, please visit our *[Affinity Backend Repository](https://github.com/Sidharth-Singh10/Affinity-backend)*.
 
 
-<p align="center">
+<p align="center"><br><br>
 <a href="#introduction"><kbd><br>&emsp;Introduction&emsp;<br><br></kbd></a>&emsp;
 <a href="#features"><kbd><br>&emsp;Features&emsp;<br><br></kbd></a>&emsp;
 <a href="#preview"><kbd><br>&emsp;Preview&emsp;<br><br></kbd></a>&emsp;
@@ -14,7 +16,7 @@ If you're interested in working on the backend of our project, please head over 
 <a href="#usage"><kbd><br>&emsp;Usage&emsp;<br><br></kbd></a>&emsp;
 <a href="#contibutors"><kbd><br>&emsp;Contibutors&emsp;<br><br></kbd></a>&emsp;
 <a href="#contibuting"><kbd><br>&emsp;Contibuting&emsp;<br><br></kbd></a>&emsp;
-<a href="#contact"><kbd><br>&emsp;Contact&emsp;<br><br></kbd></a>&emsp;
+<a href="#contact"><kbd><br>&emsp;Contact&emsp;<br><br></kbd></a><br><br>
 </p>
 
 ## Introduction
@@ -30,10 +32,11 @@ The Affinity Frontend is a React-based application designed to deliver a smooth 
 
 ## Preview
 <center>
-<img src="./src/assets/Preview1.png" alt="Landing" width=400>
-<img src="./src/assets/Preview2.png" alt="Login" width=400>
-<img src="./src/assets/Preview3.png" alt="Register" width=400>
-<img src="./src/assets/Preview4.png" alt="Dashboard" width=400>
+<img src="./src/assets/Preview1.png" alt="Landing" width=360>
+<img src="./src/assets/Preview2.png" alt="Login" width=360>
+<br>
+<img src="./src/assets/Preview3.png" alt="Register" width=360>
+<img src="./src/assets/Preview4.png" alt="Dashboard" width=360>
 </center>
 
 ## Technologies Used
