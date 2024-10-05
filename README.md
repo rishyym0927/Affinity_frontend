@@ -1,6 +1,6 @@
 <div align="center" >
     
-![img](./src/assets/banner.png)
+![banner](https://github.com/user-attachments/assets/6df2da27-9fb2-4c0e-99c2-6e4cf56741af)
 
 <br> 
 
@@ -12,7 +12,8 @@ Welcome to the Affinity Frontend repository! This project is part of the broader
 
 <div align="center">
     
- ![homepage.gif](./src/assets/homepage.gif)
+ ![homepage](https://github.com/user-attachments/assets/0cec2b20-d084-4ce9-9396-218fd20cc8d4)
+
 </div>
 
 <br>
@@ -30,11 +31,12 @@ If you're interested in working on the backend of our project, please head over 
   <a href="#technologies-used"><kbd> <br> Technologies Used <br> </kbd></a>&ensp;&ensp;
   <a href="#installation"><kbd> <br> Installation <br> </kbd></a>&ensp;&ensp;
   <a href="#usage"><kbd> <br> Usage <br> </kbd></a>&ensp;&ensp;
-  <a href="#routing"><kbd> <br> Routing <br> </kbd></a>&ensp;&ensp;
+  <a href="#screenshots"><kbd> <br> Screenshots <br> </kbd></a>&ensp;&ensp;
+  <a href="#routing"><kbd> <br> Routing <br> </kbd></a>&ensp;&ensp; <br> <br>
   <a href="#directory-tree"><kbd> <br> Directory Tree <br> </kbd></a>&ensp;&ensp;
   <a href="#contributing"><kbd> <br> Contributing <br> </kbd></a>&ensp;&ensp;
   <a href="#contact"><kbd> <br> Contact <br> </kbd></a>&ensp;&ensp;
-  <a href="#contributor"><kbd> <br> Contributor <br> </kbd></a>&ensp;&ensp;
+  <a href="#contributors"><kbd> <br> Contributor <br> </kbd></a>&ensp;&ensp;
 
 <br><br> </div>
 
@@ -99,6 +101,8 @@ This will start the development server and you can view the application in your 
 > [!Important]
 >  Users are informed that they have the complete right to manipulate the sample data present in *sampleData.js*, as it is hardcoded. Any changes made will affect only your own codebase and will not impact others.
 
+
+## Screenshots
 
 <div align="center">
   <table>
@@ -181,10 +185,14 @@ This will start the development server and you can view the application in your 
 
 ## Directory tree
 
+
 <div align="center>
     
-  ![directory](./src/assets/directory-tree.png)
+  ![directory-tree](https://github.com/user-attachments/assets/094f1eaf-2d45-43ea-832d-fd12ba52dd30)
+
 </div>
+
+<br>
 
 - [**public/**](./public/): Contains the static files.
 - [**src/**](./src/): Contains the source code for the application.
