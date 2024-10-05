@@ -12,7 +12,9 @@ If you're interested in contributing to the backend of the project, please visit
 <a href="#features"><kbd><br>&emsp;Features&emsp;<br><br></kbd></a>&emsp;
 <a href="#preview"><kbd><br>&emsp;Preview&emsp;<br><br></kbd></a>&emsp;
 <a href="#technologies-used"><kbd><br>&emsp;Technologies Used&emsp;<br><br></kbd></a>&emsp;
-<a href="#installatiom"><kbd><br>&emsp;Installatiom&emsp;<br><br></kbd></a>&emsp;
+<a href="#installatiom"><kbd><br>&emsp;Installatiom&emsp;<br><br></kbd></a>
+<br>
+<br>
 <a href="#usage"><kbd><br>&emsp;Usage&emsp;<br><br></kbd></a>&emsp;
 <a href="#contibutors"><kbd><br>&emsp;Contibutors&emsp;<br><br></kbd></a>&emsp;
 <a href="#contibuting"><kbd><br>&emsp;Contibuting&emsp;<br><br></kbd></a>&emsp;
@@ -30,10 +32,12 @@ The Affinity Frontend is a React-based application designed to deliver a smooth 
 - Integration with backend APIs
 - Routing with React Router
 
-## Preview
-<center>
-<img src="./src/assets/Preview1.png" alt="Landing" width=360><img src="./src/assets/Preview2.png" alt="Login" width=360><br><img src="./src/assets/Preview3.png" alt="Register" width=360><img src="./src/assets/Preview4.png" alt="Dashboard" width=360>
-</center>
+
+<div align="center"><table><h2 id="preview">Preview</h2><tr><td>
+<img src="./src/assets/Preview1.png" alt="Landing"></td><td>
+<img src="./src/assets/Preview2.png" alt="Login"></td></tr><tr><td>
+<img src="./src/assets/Preview3.png" alt="Register"></td><td>
+<img src="./src/assets/Preview4.png" alt="Dashboard"></td></tr></table></div>
 
 ## Technologies Used
 
@@ -91,11 +95,11 @@ This will start the development server and you can view the application in your 
   - **index.js**: The entry point of the application.
 
 > [!TIP]
->  Users are informed that they have the complete right to manipulate the sample data present in *sampleData.js*, as it is hardcoded. Any changes made will affect only your own codebase and will not impact others.
+> Users are informed that they have full control over the sample data present in *sampleData.js*, as it is hardcoded. Any modifications made will only affect your local codebase and will not impact other users.
 
 ### Routing
 
-**Affinity** is still under development so it lacks connectivity between its various pages hence there is no button or something kind of that can direct you to other pages. But you can access them by using a */* followed by *page-route*.
+**Affinity** is currently under development, so navigation between pages is not yet fully implemented. As a result, there are no buttons or links to direct you to other sections of the platform. However, you can access different pages manually by appending the */* followed by respective *page-route* to the base URL.
 
 <table align="center">
   <tr>
