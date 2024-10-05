@@ -154,7 +154,10 @@ This will start the development server and you can view the application in your 
 
 
 ## Contibutors
-![Image of Contributors](https://contrib.rocks/image?repo=rishyym0927/Affinity_frontend)
+
+<a href = "https://github.com/Tanu-N-Prabhu/Python/graphs/contributors">
+  <img src = "https://contrib.rocks/image?repo=rishyym0927/Affinity_frontend"/>
+</a>
 
 ## Contributing
 
