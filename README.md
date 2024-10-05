@@ -1,11 +1,14 @@
-# Affinity Frontend
 
-Welcome to the Affinity Frontend repository! This project is part of the broader Affinity platform, focusing exclusively on frontend development. Affinity is a web application designed to connect individuals with similar intellectual levels. The platform utilizes an AI-powered chatbot for matchmaking and includes various interactive games, such as coding rounds, to match users based on their skillset. Once matched, users can engage in meaningful conversations with one another, fostering intellectual connections.
+# Affinity Frontend 
+
+<img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductScreenshot/55537202-b2b4-4a9a-bd56-2e2745594857.jpeg?auto=format&q=50" height="400px" width="600px" ><image>
+<h3>Welcome to the Affinity Frontend repository!</h3> <p>This project is part of the broader Affinity platform, focusing exclusively on frontend development. Affinity is a web application designed to connect individuals with similar intellectual levels. The platform utilizes an  AI-powered chatbot for matchmaking and includes various interactive games, such as coding rounds, to match users based on their skillset. Once matched, users can engage in meaningful conversations with one another, fostering intellectual connections.</p>
 
 If you're interested in working on the backend of our project, please head over to the following repository [Affinity Backend](https://github.com/Sidharth-Singh10/Affinity-backend).
 
-## Table of Contents
 
+
+## Table of Contents
 - [Introduction](#introduction)
 - [Features](#features)
 - [Technologies Used](#technologies-used)
@@ -13,12 +16,15 @@ If you're interested in working on the backend of our project, please head over 
 - [Usage](#usage)
 - [Contributing](#contributing)
 - [Contact](#contact)
-
+  
 ## Introduction
 
-The Affinity Frontend is a React-based application designed to deliver a smooth and seamless user experience. This repository houses all the code related to the frontend portion of the Affinity project, and all contributions should be focused on this area. The frontend interacts with the backend through API calls to provide matchmaking services, games, and chat functionality for users.
 
+The Affinity Frontend is a React-based application designed to deliver a smooth and seamless user experience. This repository houses all the code related to the frontend portion of the Affinity project, and all contributions should be focused on this area. The frontend interacts with the backend through API calls to provide matchmaking services, games, and chat functionality for users.
 ## Features
+<img src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/2e948896757753.5eb58c727d672.png" height="500px" width="1000px">
+
+
 
 - User-friendly interface
 - Responsive design
@@ -26,6 +32,9 @@ The Affinity Frontend is a React-based application designed to deliver a smooth 
 - Routing with React Router
 
 ## Technologies Used
+<img src="https://k2bindia.com/wp-content/uploads/2015/08/React.png" height="100px" width="200px">
+
+
 
 - React
 - React Router
@@ -33,7 +42,7 @@ The Affinity Frontend is a React-based application designed to deliver a smooth 
 - CSS Modules
 
 ## Installation
-
+<img src="https://cdn.textstudio.com/output/sample/normal/1/8/4/5/install-logo-941-15481.png" height="300px" width="600px">
 To get started with the project, follow these steps:
 
 1. Clone the repository:
@@ -127,6 +136,7 @@ This will start the development server and you can view the application in your 
     <td>Queue</td>
     <td>/queue</td>
   </tr>
+    
   <tr>
     <td>Chatbot</td>
     <td>/chatbot</td>
@@ -145,12 +155,10 @@ We welcome contributions from the community! Please read our [`CONTRIBUTING.md`]
 ### Hacktoberfest and GSSoC 24
 
 This repository is actively participating in Hacktoberfest and GSSoC 24. We welcome contributions, but please note that only frontend-related tasks are open for contribution. Any modifications or changes to the backend will not be considered. Feel free to raise issues and start working on assigned tasks.
-
-
+<img src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/12t9r8j7n9ynxbdzhs5p.png" height="300px" width="400px">
+<img src="https://iconape.com/wp-content/png_logo_vector/gsoc-logo.png" height="300px" width="400px">
 ## Contact
 
 If you have any questions or need further assistance, feel free to open an issue or contact the maintainers.
 
-Thank you for your contributions!
-
-
+Thank you for your contribution
