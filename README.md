@@ -188,7 +188,7 @@ This will start the development server and you can view the application in your 
 
 <div align="center>
     
-  ![directory-tree](https://github.com/user-attachments/assets/094f1eaf-2d45-43ea-832d-fd12ba52dd30)
+  ![directory-tree](https://github.com/user-attachments/assets/6628a379-880b-4182-bbe9-8ed86a93c6f6)
 
 </div>
 
