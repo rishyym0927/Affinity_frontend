@@ -101,47 +101,47 @@ This will start the development server and you can view the application in your 
     <th>Route</th>
   </tr>
   <tr>
-    <td>Landing</td>
+    <td><a href="https://github.com/rishyym0927/Affinity_frontend/blob/main/src/pages/Landing.jsx">Landing</a></td>
     <td>/</td>
   </tr>
   <tr>
-    <td>Login</td>
+    <td><a href="https://github.com/rishyym0927/Affinity_frontend/blob/main/src/pages/Login.jsx">Login</a></td>
     <td>/login</td>
   </tr>
   <tr>
-    <td>Register</td>
+    <td><a href="https://github.com/rishyym0927/Affinity_frontend/blob/main/src/pages/Register.jsx">Register</a></td>
     <td>/register</td>
   </tr>
   <tr>
-    <td>Room Page</td>
+    <td><a href="https://github.com/rishyym0927/Affinity_frontend/blob/main/src/pages/Room.jsx">Room Page</a></td>
     <td>/room/:roomId</td>
   </tr>
   <tr>
-    <td>Code Run</td>
+    <td><a href="https://github.com/rishyym0927/Affinity_frontend/blob/main/src/pages/CodeRun.jsx">Code Run</a></td>
     <td>/coderun</td>
   </tr>
   <tr>
-    <td>Dashboard</td>
+    <td><a href="https://github.com/rishyym0927/Affinity_frontend/blob/main/src/pages/Dashboard.jsx">Dashboard</a></td>
     <td>/dashboard</td>
   </tr>
   <tr>
-    <td>Matches</td>
+    <td><a href="https://github.com/rishyym0927/Affinity_frontend/blob/main/src/pages/Matches.jsx">Matches</a></td>
     <td>/matches</td>
   </tr>
   <tr>
-    <td>Requests</td>
+    <td><a href="https://github.com/rishyym0927/Affinity_frontend/blob/main/src/pages/Requests.jsx">Requests</a></td>
     <td>/request</td>
   </tr>
   <tr>
-    <td>Queue</td>
+    <td><a href="https://github.com/rishyym0927/Affinity_frontend/blob/main/src/pages/Queue.jsx">Queue</a></td>
     <td>/queue</td>
   </tr>
   <tr>
-    <td>Chatbot</td>
+    <td><a href="https://github.com/rishyym0927/Affinity_frontend/blob/main/src/pages/Chatbot.jsx">Chatbot</a></td>
     <td>/chatbot</td>
   </tr>
   <tr>
-    <td>Denied</td>
+    <td><a href="https://github.com/rishyym0927/Affinity_frontend/blob/main/src/pages/Denied.jsx">Denied</a></td>
     <td>/denied</td>
   </tr>
 </table>
