@@ -1,10 +1,10 @@
 
 # Affinity Frontend 
 
-<img src="https://gdm-catalog-fmapi-prod.imgix.net/ProductScreenshot/55537202-b2b4-4a9a-bd56-2e2745594857.jpeg?auto=format&q=50" height="400px" width="600px" ><image>
 <h3>Welcome to the Affinity Frontend repository!</h3> <p>This project is part of the broader Affinity platform, focusing exclusively on frontend development. Affinity is a web application designed to connect individuals with similar intellectual levels. The platform utilizes an  AI-powered chatbot for matchmaking and includes various interactive games, such as coding rounds, to match users based on their skillset. Once matched, users can engage in meaningful conversations with one another, fostering intellectual connections.</p>
 
 If you're interested in working on the backend of our project, please head over to the following repository [Affinity Backend](https://github.com/Sidharth-Singh10/Affinity-backend).
+<hr>
 
 
 
@@ -16,11 +16,12 @@ If you're interested in working on the backend of our project, please head over 
 - [Usage](#usage)
 - [Contributing](#contributing)
 - [Contact](#contact)
-  
+  <hr>
 ## Introduction
 
 
 The Affinity Frontend is a React-based application designed to deliver a smooth and seamless user experience. This repository houses all the code related to the frontend portion of the Affinity project, and all contributions should be focused on this area. The frontend interacts with the backend through API calls to provide matchmaking services, games, and chat functionality for users.
+<hr>
 ## Features
 <img src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/2e948896757753.5eb58c727d672.png" height="500px" width="1000px">
 
@@ -30,7 +31,7 @@ The Affinity Frontend is a React-based application designed to deliver a smooth 
 - Responsive design
 - Integration with backend APIs
 - Routing with React Router
-
+<hr>
 ## Technologies Used
 <img src="https://k2bindia.com/wp-content/uploads/2015/08/React.png" height="100px" width="200px">
 
