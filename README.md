@@ -154,6 +154,10 @@ This will start the development server and you can view the application in your 
     <td>Denied</td>
     <td><a href="./src/pages/Denied.jsx">/denied</a></td>
   </tr>
+  <tr>
+    <td>Denied</td>
+    <td>/denied</td>
+  </tr>
 </table>
 
 

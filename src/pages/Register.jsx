@@ -18,16 +18,15 @@ function Register() {
 
   return (
     <motion.div 
-      className="w-full flex flex-row h-screen justify-center items-center overflow-hidden"
+      className="w-full h-screen flex items-center justify-center overflow-hidden bg-gray-100 dark:bg-black text-black dark:text-gray-200"
       variants={backgroundVariants}
       animate="animate"
       style={{
-        backgroundImage: 'radial-gradient(circle, #1a1a1a 10%, transparent 10%)',
+        backgroundImage: 'radial-gradient(circle, #e5e5e5 10%, transparent 10%)',
         backgroundSize: '50px 50px',
-        backgroundColor: 'black'
       }}
     >
-      <div className="flex flex-row bg-neutral-900 rounded-[30px] w-[85rem] h-[40rem] p-7 relative ">
+      <div className="flex flex-row bg-white dark:bg-neutral-900 rounded-[30px] w-[85rem] h-[40rem] p-7 shadow-lg relative">
         <div className="w-3/5 h-full overflow-y-scroll">
           <MultiStepForm />
         </div>
@@ -53,6 +52,7 @@ function Register() {
           <path
             d="M50 90 C75 65, 95 33, 50 10 C5 33, 25 65, 50 90Z"
             fill="#ff0059"
+            className="dark:fill-[#ff0059]" 
           />
         </motion.svg>
       </div>

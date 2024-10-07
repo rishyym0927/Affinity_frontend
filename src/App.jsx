@@ -100,7 +100,6 @@ const App = () => {
                 )
               }
             />
-
             <Route
               path="/chatbot"
               element={
@@ -113,6 +112,8 @@ const App = () => {
                 )
               }
             />
+
+            <Route path="/denied" element={<Denied />} />
           </Routes>
         </ExtraContextProvider>
       </AIChatContextProvider>
