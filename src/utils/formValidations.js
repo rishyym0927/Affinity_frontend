@@ -36,10 +36,10 @@ export const validations = (name, value) => {
         regex: /^.{1,}$/, 
         message: '*Required',
       },
-      past_relationships: {
-        regex: /^(Yes|No)$/, 
-        message: '*Required',
-      },
+      // past_relationships: {
+      //   regex: /^(Yes|No)$/, 
+      //   message: '*Required',
+      // },
     };
   
     if (rules[name]) {
