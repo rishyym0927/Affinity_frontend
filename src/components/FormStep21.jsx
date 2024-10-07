@@ -1,18 +1,17 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useRef , useState } from "react";
 import { motion } from "framer-motion";
 import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
 import { validations } from "../utils/formValidations";
-
 const FormStep21 = ({ onNext, onBack }) => {
   const { updateRegisterInfo, registerInfo } = useContext(AuthContext);
   const interestsInputRef = useRef(null);
   const socialHabitsInputRef = useRef(null);
   const [errors, setErrors] = useState({});
 
-  const handleNext = () => {
-    const newErrors = {};
-    const fieldsToValidate = ["interests", "past_relationships"];
+  const handleNext = () =>{
+    const newErrors ={};
+    const fieldsToValidate = ['interests','past_relationships'] ;
 
     fieldsToValidate.forEach((field) => {
       const error = validations(field, registerInfo[field]);
@@ -25,10 +24,10 @@ const FormStep21 = ({ onNext, onBack }) => {
       setErrors(newErrors);
       return;
     }
-
+  
     setErrors({});
-    onNext();
-  };
+    onNext(); 
+  }
 
   async function onFileSelect(e) {
     try {

@@ -1,7 +1,9 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useState } from 'react';
 import { motion } from 'framer-motion';
 import { AuthContext } from '../context/AuthContext';
 import { Link } from 'react-router-dom';
+import { validations } from '../utils/formValidations'; 
+
 import { validations } from '../utils/formValidations'; 
 
 const FormStep1 = ({ onNext }) => {
@@ -28,6 +30,7 @@ const FormStep1 = ({ onNext }) => {
     setErrors({});
     onNext(); 
   };
+  
 
   return (
     <motion.div
@@ -90,7 +93,7 @@ const FormStep1 = ({ onNext }) => {
             onChange={(e) => updateRegisterInfo({ ...registerInfo, password: e.target.value })}
             className="mt-1 block w-full p-2 rounded-md bg-gray-200 border border-gray-300 outline-none text-black dark:bg-neutral-800 dark:text-white" 
           />
-          {errors.password && <p className="text-[#ff0059]">{errors.password}</p>}
+            {errors.password && <p className="text-[#ff0059]">{errors.password}</p>}
         </label>
       </form>
       <button 
