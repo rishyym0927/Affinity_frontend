@@ -32,7 +32,7 @@ const DarkModeToggle = () => {
         <div
         onClick={toggleTheme}
         className={`w-14 h-8 flex items-center bg-gray-300 dark:bg-gray-600 rounded-full p-1 cursor-pointer transition-colors duration-300 ${
-          theme === 'dark' ? 'bg-gray-700' : 'bg-yellow-400'
+          theme === 'dark' ? 'bg-gray-700' : 'bg-gray-400'
         }`}
       >
         {/* Circle inside the switch */}

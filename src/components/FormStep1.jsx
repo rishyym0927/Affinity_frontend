@@ -1,10 +1,9 @@
-import React, { useContext, useState, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { motion } from 'framer-motion';
 import { AuthContext } from '../context/AuthContext';
 import { Link } from 'react-router-dom';
 import { validations } from '../utils/formValidations'; 
 
-import { validations } from '../utils/formValidations'; 
 
 const FormStep1 = ({ onNext }) => {
   const { updateRegisterInfo, registerInfo } = useContext(AuthContext);

@@ -2,7 +2,6 @@ import React, { useContext,useState } from 'react';
 import { motion } from 'framer-motion';
 import { AuthContext } from '../context/AuthContext';
 import { validations } from '../utils/formValidations';
-import { validations } from '../utils/formValidations';
 
 const FormStep2 = ({ onNext, onBack }) => {
   const { updateRegisterInfo, registerInfo } = useContext(AuthContext);
@@ -66,7 +65,6 @@ const FormStep2 = ({ onNext, onBack }) => {
               ))}
             </div>
             {errors.gender && <p className="text-[#ff0059]">{errors.gender}</p>}
-            {errors.gender && <p className="text-[#ff0059]">{errors.gender}</p>}
           </label>
 
           <label className="w-1/3">
@@ -78,7 +76,6 @@ const FormStep2 = ({ onNext, onBack }) => {
               onChange={(e) => updateRegisterInfo({ ...registerInfo, age: e.target.value })}
               className="mt-1 block w-full p-2 rounded-md bg-gray-200 dark:bg-neutral-800 border border-gray-300 dark:border-gray-600 outline-none text-black dark:text-white"
             />
-            {errors.age && <p className="text-[#ff0059]">{errors.age}</p>}
             {errors.age && <p className="text-[#ff0059]">{errors.age}</p>}
           </label>
 
@@ -104,7 +101,6 @@ const FormStep2 = ({ onNext, onBack }) => {
             onChange={(e) => updateRegisterInfo({ ...registerInfo, location: e.target.value })}
             className="mt-1 block w-full p-2 rounded-md bg-gray-200 dark:bg-neutral-800 border border-gray-300 dark:border-gray-600 outline-none text-black dark:text-white"
           />
-          {errors.location && <p className="text-[#ff0059]">{errors.location}</p>}
           {errors.location && <p className="text-[#ff0059]">{errors.location}</p>}
         </label>
 
