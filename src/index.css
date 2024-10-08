@@ -21,13 +21,12 @@ body {
 }
 
 .parent {
-  position: relative; /* This makes the parent a positioning context */
-  /* Set a height for the parent div */
-  /* background-color: lightgray;  */
+  position: relative;
+
 }
 
 .child1 {
-  position: absolute; /* Absolute positioning */
+  position: absolute; 
   top: 40%;
   left: 40%;
   transform: translate(-50%, -50%);
@@ -35,14 +34,14 @@ body {
 }
 
 .child2 {
-  position: absolute; /* Absolute positioning */
+  position: absolute; 
   top: 60%;
   left: 60%;
   transform: translate(-50%, -50%);
   rotate: 12deg;
 }
 
-/* src/App.css */
+
 .App {
   display: flex;
   flex-direction: column;
@@ -58,20 +57,13 @@ body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* src/components/Card.css */
+
 .card {
   width: 100%;
   height: 100%;
 }
 
-/* .card-inner {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  transition: transform 0.6s;
-  transform-style: preserve-3d;
-  object-position: center;
-} */
+
 
 .card-front,
 .card-back {
@@ -93,7 +85,7 @@ body {
   transform: rotateY(180deg);
 }
 
-/* src/components/Carousel.css */
+
 .carousel-container {
   width: 100%;
   height: 100%;
@@ -143,68 +135,66 @@ body {
   background: #101010;
 }
 
-/* Input Field Background and Text Color */
+
 .tagify__input {
-  /* Dark background for the input */
-  color: #ffffff; /* White text color */
+  
+  color: #ffffff; 
 }
 
-/* Tag Background and Text Color */
+
 .tagify__tag {
-  background-color: #ff0059; /* Pink background for tags */
-  color: #ffffff; /* White text color for tags */
+  background-color: #ff0059; 
+  color: #ffffff; 
 }
 
-/* Tag Remove Button Color */
+
 .tagify__tag__removeBtn {
-  color: #ffffff; /* White remove button */
+  color: #ffffff; 
 }
 
-/* Tag Hover and Focus State */
 .tagify__tag--hover,
 .tagify__tag--focus {
-  background-color: #ff3366; /* Lighter pink on hover/focus */
+  background-color: #ff3366; 
 }
 
-/* Dropdown Suggestion Background and Text Color */
+
 .tagify__dropdown__item {
-  background-color: #444444; /* Dark background for suggestions */
-  color: #ffffff; /* White text color */
+  background-color: #444444;
+  color: #ffffff; 
 }
 
-/* Dropdown Suggestion Hover State */
 .tagify__dropdown__item--active {
-  background-color: #ff0059; /* Pink background on hover */
-  color: #ffffff; /* White text color */
+  background-color: #ff0059; 
+  color: #ffffff; 
 }
 
-/* For Webkit-based browsers (Chrome, Safari, etc.) */
+
 ::-webkit-scrollbar {
-  width: 0; /* Remove scrollbar width */
+  width: 0; 
   height: 0;
 }
 
-/* Hide scrollbar for Firefox */
+
 * {
-  scrollbar-width: none; /* Firefox */
+  scrollbar-width: none; 
 }
 
-/* Hide scrollbar for Edge, Internet Explorer, and others */
+
 *::-webkit-scrollbar {
-  display: none; /* Hides the scrollbar */
+  display: none;
 }
 
-/* Custom scrolling effect */
+
 .scrollable-content {
-  overflow-y: scroll; /* Enable vertical scrolling */
-  -webkit-overflow-scrolling: touch; /* Enable momentum scrolling on touch devices */
-  scroll-behavior: smooth; /* Smooth scrolling effect */
-  padding-right: 15px; /* Add padding to ensure content isn't hidden behind the hidden scrollbar */
+  overflow-y: scroll; 
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  padding-right: 15px; 
 }
 
-/* Prevent accidental horizontal scroll */
+
 .scrollable-content {
-  overflow-x: hidden; /* Disable horizontal scrolling */
+  overflow-x: hidden; 
 }
 
 .circle {
@@ -216,7 +206,7 @@ body {
   top: 0;
   left: 0;
   pointer-events: none;
-  z-index: 99999999; /* so that it stays on top of all other elements */
+  z-index: 99999999; 
 }
 
 body {

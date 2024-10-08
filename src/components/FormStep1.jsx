@@ -93,13 +93,16 @@ const FormStep1 = ({ onNext }) => {
 
         
       </form>
+      <div className='flex justify-center items-center'>
       <button 
           type="button" 
           onClick={handleNext} 
-          className="w-1/3 mt-14 mb-10 bg-[#ff0059] hover:bg-red-500 text-white py-4 rounded-md"
+          className="w-1/2  mt-14 mb-10 bg-[#ff0059] hover:bg-red-500 text-white py-4 rounded-md"
         >
           Lets Move to Next
         </button>
+
+      </div>
     </motion.div>
   );
 };

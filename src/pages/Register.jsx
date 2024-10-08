@@ -18,7 +18,7 @@ function Register() {
 
   return (
     <motion.div 
-      className="w-full flex flex-row h-screen justify-center items-center overflow-hidden"
+      className="w-full min-h-screen flex flex-col md:flex-row justify-center items-center overflow-hidden p-4"
       variants={backgroundVariants}
       animate="animate"
       style={{
@@ -27,18 +27,18 @@ function Register() {
         backgroundColor: 'black'
       }}
     >
-      <div className="flex flex-row bg-neutral-900 rounded-[30px] w-[85rem] h-[40rem] p-7 relative ">
-        <div className="w-3/5 h-full overflow-y-scroll">
+      <div className="flex flex-col md:flex-row bg-neutral-900 rounded-[30px] w-full max-w-7xl h-auto md:h-[40rem] p-4 md:p-7 relative overflow-hidden">
+        <div className="w-full md:w-3/5 h-full overflow-y-auto mb-4 md:mb-0">
           <MultiStepForm />
         </div>
-        <div className="w-2/5">
+        <div className="w-full md:w-2/5 h-64 md:h-full">
           <Carousel />
         </div>
         <motion.svg
-          width="100"
-          height="100"
+          width="50"
+          height="50"
           viewBox="0 0 100 100"
-          className="absolute -bottom-10 -right-10 opacity-20"
+          className="absolute -bottom-5 -right-5 md:-bottom-10 md:-right-10 opacity-20"
           initial={{ scale: 0 }}
           animate={{
             scale: [1, 1.2, 1],
