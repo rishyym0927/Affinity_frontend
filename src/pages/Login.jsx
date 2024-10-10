@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { motion } from 'framer-motion';
 import Carousel from '../components/Carousel';
-import clickSound from '../assets/login.mp3';
+// import clickSound from '../assets/login.mp3';
 import { Link } from 'react-router-dom';
 
 const Login = () => {
