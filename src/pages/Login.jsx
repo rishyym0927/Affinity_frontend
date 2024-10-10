@@ -2,7 +2,7 @@ import React, { useContext, useRef } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { motion } from 'framer-motion';
 import Carousel from '../components/Carousel';
-import clickSound from '../assets/login.mp3'; // Add this sound file to your assets
+// import clickSound from '../assets/login.mp3'; // Add this sound file to your assets
 
 const Login = () => {
     const { loginUser, loginError, loginInfo, updateLoginInfo, isLoginLoading } = useContext(AuthContext);
