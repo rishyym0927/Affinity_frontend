@@ -3,6 +3,7 @@ import { AuthContext } from '../context/AuthContext';
 import { motion } from 'framer-motion';
 import Carousel from '../components/Carousel';
 import clickSound from '../assets/login.mp3'; // Add this sound file to your assets
+import { Link } from 'react-router-dom';
 
 const Login = () => {
     const { loginUser, loginError, loginInfo, updateLoginInfo, isLoginLoading } = useContext(AuthContext);
@@ -50,6 +51,7 @@ const Login = () => {
                 >
                     <h2 className="text-4xl font-extrabold mb-2 text-[#ff0059]">Welcome Back</h2>
                     <p className="text-gray-400 mb-8">Log in to continue your journey</p>
+                    <p className='text-neutral-400 font-bold mb-14'>Not Registered Yet ? <span className='text-yellow-500'><Link to="/register">Register</Link></span></p>
                     <form onSubmit={handleSubmit} className="space-y-6">
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
