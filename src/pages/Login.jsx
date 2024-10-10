@@ -2,6 +2,8 @@ import React, { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { motion } from 'framer-motion';
 import Carousel from '../components/Carousel';
+import clickSound from '../assets/login.mp3';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
     const { loginUser, loginError, loginInfo, updateLoginInfo, isLoginLoading } = useContext(AuthContext);
@@ -34,12 +36,27 @@ const Login = () => {
                 backgroundColor: 'black'
             }}
         >
-            <div className="flex flex-col bg-neutral-900 rounded-[30px] w-full max-w-md h-auto p-4 md:p-7 relative overflow-hidden">
-                <div className="w-full mb-4">
-                    <h2 className="text-3xl font-extrabold mb-2 text-[#ff0059]">Welcome Back</h2>
-                    <p className="text-gray-400 mb-6">Log in to continue your journey</p>
-                    <form onSubmit={handleSubmit} className="space-y-4">
-                        <div>
+            <motion.div 
+                className="bg-neutral-900 p-8 rounded-2xl shadow-2xl h-auto max-h-[90vh] flex max-w-4xl w-full relative overflow-hidden"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5 }}
+            >
+                <motion.div
+                    className="w-1/2 pr-8 border-r border-gray-700"
+                    initial={{ opacity: 0, x: -50 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.8, ease: 'easeOut', delay: 0.2 }}
+                >
+                    <h2 className="text-4xl font-extrabold mb-2 text-[#ff0059]">Welcome Back</h2>
+                    <p className="text-gray-400 mb-8">Log in to continue your journey</p>
+                    <p className='text-neutral-400 font-bold mb-14'>Not Registered Yet ? <span className='text-yellow-500'><Link to="/register">Register</Link></span></p>
+                    <form onSubmit={handleSubmit} className="space-y-6">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.3 }}
+                        >
                             <label htmlFor="email" className="block text-sm font-medium text-gray-400 mb-1">Email</label>
                             <input
                                 id="email"
@@ -49,7 +66,7 @@ const Login = () => {
                                 onChange={(e) => updateLoginInfo({ ...loginInfo, email: e.target.value })}
                                 className="w-full px-3 py-2 rounded-md bg-neutral-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-[#ff0059] text-gray-200 transition duration-300"
                             />
-                        </div>
+                        </motion.div>
                         <div>
                             <label htmlFor="password" className="block text-sm font-medium text-gray-400 mb-1">Password</label>
                             <input
@@ -73,8 +90,8 @@ const Login = () => {
                             <p>{loginError?.message}</p>
                         </div>
                     )}
-                </div>
-                <div className="w-full h-64">
+                </motion.div>
+                <div className="w-1/2 h-64">
                     <Carousel />
                 </div>
                 <motion.svg
@@ -98,7 +115,7 @@ const Login = () => {
                         fill="#ff0059"
                     />
                 </motion.svg>
-            </div>
+            </motion.div>
         </motion.div>
     );
 };
