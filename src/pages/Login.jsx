@@ -1,16 +1,14 @@
-import React, { useContext, useRef } from 'react';
+import React, { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { motion } from 'framer-motion';
 import Carousel from '../components/Carousel';
-// import clickSound from '../assets/login.mp3'; // Add this sound file to your assets
+import { Link } from 'react-router-dom';
 
 const Login = () => {
     const { loginUser, loginError, loginInfo, updateLoginInfo, isLoginLoading } = useContext(AuthContext);
-    const audioRef = useRef(new Audio(clickSound));
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // audioRef.current.play();
         loginUser(e);
     };
 
@@ -28,7 +26,7 @@ const Login = () => {
 
     return (
         <motion.div 
-            className="bg-black text-gray-200 w-full h-screen flex items-center justify-center overflow-hidden"
+            className="bg-black text-gray-200 w-full min-h-screen flex items-center justify-center overflow-hidden p-4"
             variants={backgroundVariants}
             animate="animate"
             style={{
@@ -50,6 +48,7 @@ const Login = () => {
                 >
                     <h2 className="text-4xl font-extrabold mb-2 text-[#ff0059]">Welcome Back</h2>
                     <p className="text-gray-400 mb-8">Log in to continue your journey</p>
+                    <p className='text-neutral-400 font-bold mb-14'>Not Registered Yet? <span className='text-yellow-500'><Link to="/register">Register</Link></span></p>
                     <form onSubmit={handleSubmit} className="space-y-6">
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
