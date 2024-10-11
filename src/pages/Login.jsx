@@ -3,6 +3,7 @@ import { AuthContext } from '../context/AuthContext';
 import { motion } from 'framer-motion';
 import Carousel from '../components/Carousel';
 
+
 const Login = () => {
     const { loginUser, loginError, loginInfo, updateLoginInfo, isLoginLoading } = useContext(AuthContext);
 

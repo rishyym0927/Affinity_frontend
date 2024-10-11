@@ -1,18 +1,29 @@
-# Affinity Frontend
+![Affinity Frontend](./src/assets/AffinityBanner.png)
 
-Welcome to the Affinity Frontend repository! This project is part of the broader Affinity platform, focusing exclusively on frontend development. Affinity is a web application designed to connect individuals with similar intellectual levels. The platform utilizes an AI-powered chatbot for matchmaking and includes various interactive games, such as coding rounds, to match users based on their skillset. Once matched, users can engage in meaningful conversations with one another, fostering intellectual connections.
+<div align="center"><img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/rishyym0927/Affinity_frontend?style=for-the-badge"> <img alt="GitHub Repo stars" src="https://img.shields.io/github/contributors/rishyym0927/Affinity_frontend?style=for-the-badge"> <img alt="GitHub Repo stars" src="https://img.shields.io/github/issues/rishyym0927/Affinity_frontend?style=for-the-badge"> <img alt="GitHub Repo stars" src="https://img.shields.io/github/issues-pr/rishyym0927/Affinity_frontend?style=for-the-badge"> <img alt="GitHub Repo stars" src="https://img.shields.io/github/issues-closed/rishyym0927/Affinity_frontend?style=for-the-badge"> <img alt="GitHub Repo stars" src="https://img.shields.io/github/issues-pr-closed/rishyym0927/Affinity_frontend?style=for-the-badge"></div>
 
-If you're interested in working on the backend of our project, please head over to the following repository [Affinity Backend](https://github.com/Sidharth-Singh10/Affinity-backend).
+</div>
+<br>
 
-## Table of Contents
+Welcome to the **Affinity Frontend Repository**!
+This project is part of the larger Affinity platform, focused specifically on frontend development. **Affinity** is a web application designed to connect individuals with similar intellectual levels. The platform leverages an AI-powered chatbot for matchmaking and features various interactive games, such as coding challenges, to match users based on their skill sets. Once matched, users can engage in meaningful conversations, fostering deep intellectual connections.
 
-- [Introduction](#introduction)
-- [Features](#features)
-- [Technologies Used](#technologies-used)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [Contact](#contact)
+If you're interested in contributing to the backend of the project, please visit our *[Affinity Backend Repository](https://github.com/Sidharth-Singh10/Affinity-backend)*.
+
+
+<p align="center"><br><br>
+<a href="#introduction"><kbd><br>&emsp;Introduction&emsp;<br><br></kbd></a>&emsp;
+<a href="#features"><kbd><br>&emsp;Features&emsp;<br><br></kbd></a>&emsp;
+<a href="#preview"><kbd><br>&emsp;Preview&emsp;<br><br></kbd></a>&emsp;
+<a href="#technologies-used"><kbd><br>&emsp;Technologies Used&emsp;<br><br></kbd></a>&emsp;
+<a href="#installatiom"><kbd><br>&emsp;Installatiom&emsp;<br><br></kbd></a>
+<br>
+<br>
+<a href="#usage"><kbd><br>&emsp;Usage&emsp;<br><br></kbd></a>&emsp;
+<a href="#contibutors"><kbd><br>&emsp;Contibutors&emsp;<br><br></kbd></a>&emsp;
+<a href="#contibuting"><kbd><br>&emsp;Contibuting&emsp;<br><br></kbd></a>&emsp;
+<a href="#contact"><kbd><br>&emsp;Contact&emsp;<br><br></kbd></a><br><br>
+</p>
 
 ## Introduction
 
@@ -24,6 +35,13 @@ The Affinity Frontend is a React-based application designed to deliver a smooth 
 - Responsive design
 - Integration with backend APIs
 - Routing with React Router
+
+
+<div align="center"><table><h2 id="preview">Preview</h2><tr><td>
+<img src="./src/assets/Preview1.jpg" alt="Landing"></td><td>
+<img src="./src/assets/Preview2.jpg" alt="Login"></td></tr><tr><td>
+<img src="./src/assets/Preview3.jpg" alt="Register"></td><td>
+<img src="./src/assets/Preview4.jpg" alt="Dashboard"></td></tr></table></div>
 
 ## Technologies Used
 
@@ -56,7 +74,8 @@ Simply run :
    ```
    Now you can re-run the server and this time it will run without any error.
    
-   >*Please note that you don’t need environment variables to run the project since no environment variables are currently being used in the codebase. The project contains only the frontend code and all the data has been hardcoaded. However, the requirement to install `dotenv` exists due to the boilerplate code present in the `vite.config.js`, which includes the `dotenv` configuration. Aside from this boilerplate setup, there is no practical need for `dotenv` in the project at the moment.*
+> [!NOTE]
+> *You don’t need environment variables to run the project since no environment variables are currently being used in the codebase. The project contains only the frontend code and all the data has been hardcoaded. However, the requirement to install `dotenv` exists due to the boilerplate code present in the `vite.config.js`, which includes the `dotenv` configuration. Aside from this boilerplate setup, there is no practical need for `dotenv` in the project at the moment.*
 
 
 ## Usage
@@ -76,15 +95,15 @@ This will start the development server and you can view the application in your 
   - **assets/**: Contains images, fonts, and other static assets.
   - **components/**: Contains reusable React components.
   - **pages/**: Contains React components for different pages.
-  - **App.js**: The main App component.
-  - **index.js**: The entry point of the application.
+  - **App.jsx**: The main App component.
+  - **main.jsx**: The entry point of the application.
 
-
-> **Note**: Users are informed that they have the complete right to manipulate the sample data present in *sampleData.js*, as it is hardcoded. Any changes made will affect only your own codebase and will not impact others.
+> [!TIP]
+> Users are informed that they have full control over the sample data present in *sampleData.js*, as it is hardcoded. Any modifications made will only affect your local codebase and will not impact other users.
 
 ### Routing
 
-**Affinity** is still under development so it lacks connectivity between its various pages hence there is no button or something kind of that can direct you to other pages. But you can access them by using a */* followed by *page-route*.
+**Affinity** is currently under development, so navigation between pages is not yet fully implemented. As a result, there are no buttons or links to direct you to other sections of the platform. However, you can access different pages manually by appending the */* followed by respective *page-route* to the base URL.
 
 <table align="center">
   <tr>
@@ -93,50 +112,56 @@ This will start the development server and you can view the application in your 
   </tr>
   <tr>
     <td>Landing</td>
-    <td>/</td>
+    <td><a href="./src/pages/Landing.jsx">/</a></td>
   </tr>
   <tr>
     <td>Login</td>
-    <td>/login</td>
+    <td><a href="./src/pages/Login.jsx">/login</a></td>
   </tr>
   <tr>
     <td>Register</td>
-    <td>/register</td>
+    <td><a href="./src/pages/Register.jsx">/register</a></td>
   </tr>
   <tr>
     <td>Room Page</td>
-    <td>/room/:roomId</td>
+    <td><a href="./src/pages/Room.jsx">/room/:roomId</a></td>
   </tr>
   <tr>
     <td>Code Run</td>
-    <td>/coderun</td>
+    <td><a href="./src/pages/CodeRun.jsx">/coderun</a></td>
   </tr>
   <tr>
     <td>Dashboard</td>
-    <td>/dashboard</td>
+    <td><a href="./src/pages/Dashboard.jsx">/dashboard</a></td>
   </tr>
   <tr>
     <td>Matches</td>
-    <td>/matches</td>
+    <td><a href="./src/pages/Matches.jsx">/matches</a></td>
   </tr>
   <tr>
     <td>Requests</td>
-    <td>/request</td>
+    <td><a href="./src/pages/Requests.jsx">/request</a></td>
   </tr>
   <tr>
     <td>Queue</td>
-    <td>/queue</td>
+    <td><a href="./src/pages/Queue.jsx">/queue</a></td>
   </tr>
   <tr>
     <td>Chatbot</td>
-    <td>/chatbot</td>
+    <td><a href="./src/pages/Chatbot.jsx">/chatbot</a></td>
   </tr>
   <tr>
     <td>Denied</td>
-    <td>/denied</td>
+    <td><a href="./src/pages/Denied.jsx">/denied</a></td>
   </tr>
 </table>
 
+
+## Contibutors
+
+<a href = "https://github.com/Tanu-N-Prabhu/Python/graphs/contributors">
+  <img src = "https://contrib.rocks/image?repo=rishyym0927/Affinity_frontend"/>
+</a>
 
 ## Contributing
 
