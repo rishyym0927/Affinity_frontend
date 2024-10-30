@@ -126,6 +126,16 @@ export const AuthContextProvider = ({ children }) => {
     setLoginInfo(info);
   }, []);
 
+  const updateUser = useCallback((updatedUser) => {
+    setUser(updatedUser);
+    localStorage.setItem("User", JSON.stringify(updatedUser)); // Persist to localStorage
+    toast.success("Profile updated successfully!", {
+      theme: "dark",
+      position: "top-right",
+      autoClose: 3000,
+    });
+  }, []);
+
   // Registration state and functions
   const [registerError, setRegisterError] = useState(null);
   const [isRegisterLoading, setIsRegisterLoading] = useState(false);
@@ -209,6 +219,7 @@ export const AuthContextProvider = ({ children }) => {
         registerError,
         isRegisterLoading,
         setRegisterError,
+        updateUser
       }}
     >
       {children}
