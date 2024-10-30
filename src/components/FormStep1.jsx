@@ -3,10 +3,12 @@ import { motion } from 'framer-motion';
 import { AuthContext } from '../context/AuthContext';
 import { Link } from 'react-router-dom';
 import { validations } from '../utils/formValidations'; 
+import PasswordStrengthBar from 'react-password-strength-bar';
 
 const FormStep1 = ({ onNext }) => {
   const { updateRegisterInfo, registerInfo } = useContext(AuthContext);
   const [errors, setErrors] = useState({});
+  const [password, setPassword] = useState('')
 
   const handleNext = () => {
     const newErrors = {};
@@ -85,21 +87,26 @@ const FormStep1 = ({ onNext }) => {
             type="password" 
             name="password" 
             value={registerInfo.password}
-            onChange={(e) => updateRegisterInfo({ ...registerInfo, password: e.target.value })}
+            onChange={(e) => {
+              const newPassword = e.target.value;
+              setPassword(newPassword);
+              updateRegisterInfo({ ...registerInfo, password: newPassword });
+            }}
             className="mt-1 block w-full p-2 rounded-md bg-neutral-800 outline-none text-white border border-gray-600" 
           />
             {errors.password && <p className="text-[#ff0059]">{errors.password}</p>}
         </label>
+        <PasswordStrengthBar password={password} />
 
-        
-      </form>
-      <button 
+        <button 
           type="button" 
           onClick={handleNext} 
           className="w-1/3 mt-14 mb-10 bg-[#ff0059] hover:bg-red-500 text-white py-4 rounded-md"
         >
           Lets Move to Next
         </button>
+      </form>
+      
     </motion.div>
   );
 };
