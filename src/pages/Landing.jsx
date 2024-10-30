@@ -5,7 +5,7 @@ import img2 from "../assets/img2.jpg";
 import { motion } from "framer-motion";
 import { Typewriter } from "react-simple-typewriter";
 import { FaInstagram } from "react-icons/fa";
-import { FaTwitter } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 import { FaLinkedin } from "react-icons/fa";
 import { FaFacebook } from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -61,7 +61,7 @@ const Landing = () => {
 
           <div className="flex flex-row text-4xl opacity-70 gap-5  cursor-pointer absolute bottom-10">
           <FaInstagram />
-          <FaTwitter />
+          <FaXTwitter />
           <FaLinkedin />
           <FaFacebook />
           </div>
