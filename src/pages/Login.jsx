@@ -29,7 +29,7 @@ const Login = () => {
 
     return (
         <motion.div 
-            className="bg-black text-gray-200 w-full h-screen flex items-center justify-center overflow-hidden"
+            className="bg-black text-gray-200 w-full min-h-screen flex items-center justify-center overflow-hidden"
             variants={backgroundVariants}
             animate="animate"
             style={{
@@ -38,20 +38,20 @@ const Login = () => {
             }}
         >
             <motion.div 
-                className="bg-neutral-900 p-8 rounded-2xl shadow-2xl h-auto max-h-[90vh] flex max-w-4xl w-full relative overflow-hidden"
+                className="bg-neutral-900 p-8 rounded-2xl shadow-2xl h-auto flex md:flex-row flex-col-reverse max-w-4xl w-full relative overflow-hidden"
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5 }}
             >
                 <motion.div
-                    className="w-1/2 pr-8 border-r border-gray-700"
+                    className="md:w-1/2 w-full md:pr-8 md:border-r border-gray-700"
                     initial={{ opacity: 0, x: -50 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.8, ease: 'easeOut', delay: 0.2 }}
                 >
-                    <h2 className="text-4xl font-extrabold mb-2 text-[#ff0059]">Welcome Back</h2>
-                    <p className="text-gray-400 mb-8">Log in to continue your journey</p>
-                    <p className='text-neutral-400 font-bold mb-14'>Not Registered Yet ? <span className='text-yellow-500'><Link to="/register">Register</Link></span></p>
+                    <h2 className="text-4xl md:text-left text-center font-extrabold mb-2 text-[#ff0059]">Welcome Back</h2>
+                    <p className="text-gray-400 mb-8 md:text-left text-center">Log in to continue your journey</p>
+                    <p className='text-neutral-400 font-bold mb-14 md:text-left text-center'>Not Registered Yet ? <span className='text-yellow-500'><Link to="/register">Register</Link></span></p>
                     <form onSubmit={handleSubmit} className="space-y-6">
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
@@ -107,7 +107,7 @@ const Login = () => {
                     )}
                 </motion.div>
                 <motion.div
-                    className="w-1/2 pl-8"
+                    className="md:w-1/2 w-full md:pl-8"
                     initial={{ opacity: 0, x: 50 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.8, ease: 'easeOut', delay: 0.4 }}
