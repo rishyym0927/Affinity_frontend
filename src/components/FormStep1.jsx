@@ -41,11 +41,11 @@ const FormStep1 = ({ onNext }) => {
       className="p-6 rounded-lg shadow-lg h-full "
     >
       <h2 className="text-lg font-bold text-[#ff0059] text-neutral-700 mb-4">START FOR FREE</h2>
-      <h1 className='text-white text-5xl font-bold mb-6'>Create your account</h1>
+      <h1 className='text-white lg:text-5xl text-4xl font-bold mb-6'>Create your account</h1>
       <p className='text-neutral-400 font-bold mb-14'>Already a member ? <span className='text-yellow-500'><Link to="/login">Log in</Link></span></p>
       <form className="space-y-4">
-        <div className='flex flex-row gap-10'>
-        <label className="w-1/2">
+        <div className='flex md:flex-row flex-col md:gap-10 gap-5'>
+        <label className="md:w-1/2 w-full">
           <span className="text-gray-400">First Name:</span>
           <input 
             type="text" 
@@ -56,7 +56,7 @@ const FormStep1 = ({ onNext }) => {
           />
           {errors.first_name && <p className="text-[#ff0059]">{errors.first_name}</p>}
         </label>
-        <label className="w-1/2">
+        <label className="md:w-1/2 w-full">
           <span className="text-gray-400">Last Name:</span>
           <input 
             type="text" 
@@ -101,7 +101,7 @@ const FormStep1 = ({ onNext }) => {
         <button 
           type="button" 
           onClick={handleNext} 
-          className="w-1/3 mt-14 mb-10 bg-[#ff0059] hover:bg-red-500 text-white py-4 rounded-md"
+          className="md:w-1/3 w-full mt-14 mb-10 bg-[#ff0059] hover:bg-red-500 text-white py-4 rounded-md"
         >
           Lets Move to Next
         </button>

@@ -94,11 +94,9 @@ const Carousel = () => {
 
   return (
     <div
-      className="carousel-container mx-auto p-4 max-w-2xl"
-     
-     
+      className="carousel-container mx-auto p-4 md:min-h-none min-h-[20rem] max-w-2xl"
     >
-      <div className="carousel w-full h-full relative">
+      <div className="carousel w-full h-full md:min-h-none min-h-[20rem] relative">
         <AnimatePresence mode="wait">
           <motion.div
             key={cards[currentIndex].id}
