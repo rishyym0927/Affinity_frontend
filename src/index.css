@@ -24,6 +24,8 @@ body {
   position: relative; /* This makes the parent a positioning context */
   /* Set a height for the parent div */
   /* background-color: lightgray;  */
+  height: 32rem;
+  scale: 0.8;
 }
 
 .child1 {
@@ -40,6 +42,25 @@ body {
   left: 60%;
   transform: translate(-50%, -50%);
   rotate: 12deg;
+}
+
+@media (min-width: 1024px) {
+  .parent {
+    height: 100%;
+  }
+}
+@media (min-width: 1280px) {
+  .parent {
+    scale: 1;
+    height: 100%;
+  }
+}
+
+@media (max-width: 500px) {
+  .parent {
+    scale: 0.55;
+    height: 28rem;
+  }
 }
 
 /* src/App.css */
