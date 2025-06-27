@@ -18,7 +18,7 @@ export const useFetchRecipient = (chat, user) => {
 
     const getUser = async () => {
       try {
-        const response = await axios.post(`${RUST_MAIN_URL}getuser`, {
+        const response = await axios.post(`${RUST_MAIN_URL}/user/getuser`, {
           email: recipientId
         });
 

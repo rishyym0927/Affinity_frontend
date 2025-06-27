@@ -80,7 +80,7 @@ export const AuthContextProvider = ({ children }) => {
       setLoginError(null);
 
       try {
-        const response = await fetch(`${RUST_MAIN_URL}login`, {
+        const response = await fetch(`${RUST_MAIN_URL}/auth/login`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -94,8 +94,13 @@ export const AuthContextProvider = ({ children }) => {
         }
 
         const data = await response.json();
-        localStorage.setItem("User", JSON.stringify(data)); // Store user data in local storage
-        setUser(data); // Update state with user data
+        const flattenedUser = {
+          ...data.user,
+          ...data.user_details,
+          token: data.token,
+        };
+        localStorage.setItem("User", JSON.stringify(flattenedUser));
+        setUser(flattenedUser);
 
         // console.log("User successfully logged in:", data); // Log success message
         audioRef.current.play();
@@ -172,12 +177,17 @@ export const AuthContextProvider = ({ children }) => {
 
       try {
         const response = await axios.post(
-          `${RUST_MAIN_URL}signup`,
+          `${RUST_MAIN_URL}/auth/signup`,
           registerInfo
         );
 
-        localStorage.setItem("User", JSON.stringify(response.data)); // Store user data in local storage
-        setUser(response.data); // Update state with user data
+        const flattenedUser = {
+          ...response.data.user,
+          ...response.data.user_details,
+          token: response.data.token,
+        };
+        localStorage.setItem("User", JSON.stringify(flattenedUser));
+        setUser(flattenedUser);
 
         // console.log("User successfully registered:", response.data); // Log success message
         toast.success("Registration successful!", {
@@ -189,7 +199,7 @@ export const AuthContextProvider = ({ children }) => {
       } catch (error) {
         setRegisterError(error.response?.data?.message || error.message);
         // console.error("Registration error:", error.response?.data?.message || error.message); // Log error message
-        toast.error(`Registration failed: ${errorMessage}`, {
+        toast.error(`Registration failed: ${error.message}`, {
           theme: "dark",
           position: "top-right",
           autoClose: 3000,
@@ -219,7 +229,7 @@ export const AuthContextProvider = ({ children }) => {
         registerError,
         isRegisterLoading,
         setRegisterError,
-        updateUser
+        updateUser,
       }}
     >
       {children}

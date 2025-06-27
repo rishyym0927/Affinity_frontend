@@ -7,6 +7,8 @@ import { FiEdit, FiCheck, FiX, FiSearch, FiHeart, FiMessageCircle, FiSend, FiLis
 
 const Sidebar = () => {
   const { user, updateUser, logoutUser } = useContext(AuthContext);
+
+  console.log("User in Sidebar:", user);
   const location = useLocation();
   const [showProfileBox, setShowProfileBox] = useState(false);
   const [enableEdit, setEnableEdit] = useState(false);
@@ -134,7 +136,7 @@ const Sidebar = () => {
                 transition={{ duration: 0.2 }}
               >
                 <h3 className="text-xl font-bold text-white truncate">
-                  @{user?.user_name || "John Doe"}
+                  @{user?.username || "John Doe"}
                 </h3>
                 <p className="text-sm text-neutral-400 truncate">
                   {user?.location || "Location not set"}

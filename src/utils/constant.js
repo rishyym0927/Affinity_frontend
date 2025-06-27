@@ -1,10 +1,10 @@
-export const AI_CHATBOT_URL=import.meta.env.AI_CHATBOT_URL
-export const MACHINE_CHATBOT_URL= import.meta.env.MACHINE_CHATBOT_URL
-export const AI_MAIN_URL= import.meta.env.AI_MAIN_URL
-export const RUST_MAIN_URL = import.meta.env.RUST_MAIN_URL
-export const RUST_BACKEND_URL_SCORE= import.meta.env.RUST_BACKEND_URL_SCORE
-export const MAJOR_CHAT_SERVICE = import.meta.env.MAJOR_CHAT_SERVICE
-export const chatBaseURL = import.meta.env.CHAT_BASE_URL
+export const AI_CHATBOT_URL=import.meta.env.VITE_AI_CHATBOT_URL
+export const MACHINE_CHATBOT_URL= import.meta.env.VITE_MACHINE_CHATBOT_URL
+export const AI_MAIN_URL= import.meta.env.VITE_AI_MAIN_URL
+export const RUST_MAIN_URL = import.meta.env.VITE_RUST_MAIN_URL
+export const RUST_BACKEND_URL_SCORE= import.meta.env.VITE_RUST_BACKEND_URL_SCORE
+export const MAJOR_CHAT_SERVICE = import.meta.env.VITE_MAJOR_CHAT_SERVICE
+export const chatBaseURL = import.meta.env.VITE_CHAT_BASE_URL
 import axios from "axios";
 
 export const postRequest = async (url, body) => {
