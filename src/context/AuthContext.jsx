@@ -93,6 +93,8 @@ export const AuthContextProvider = ({ children }) => {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
 
+        console.log ("Login response status:", response);
+
         const data = await response.json();
         const flattenedUser = {
           ...data.user,

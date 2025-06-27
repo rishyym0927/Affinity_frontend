@@ -1,5 +1,5 @@
 // App.jsx
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
 import { Route, Routes } from "react-router-dom";
 import Landing from "./pages/Landing";
