@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { createContext, useCallback, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -10,6 +11,7 @@ export const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [isUserLoaded, setIsUserLoaded] = useState(false); // Track if user data has been loaded
   const [loginInfo, setLoginInfo] = useState({
     email: "",
     password: "",
@@ -25,9 +27,11 @@ export const AuthContextProvider = ({ children }) => {
     const storedUser = localStorage.getItem("User");
     if (storedUser) {
       try {
-        setUser(JSON.parse(storedUser)); // Safely parse the stored user
+        const parsedUser = JSON.parse(storedUser);
+        setUser(parsedUser); // Safely parse the stored user
       } catch (error) {
         console.error("Failed to parse stored user:", error);
+        localStorage.removeItem("User");
       }
     } else {
       //for development purpose only
@@ -58,6 +62,7 @@ export const AuthContextProvider = ({ children }) => {
         created_at: "2024-08-26T09:06:25.526627",
       });
     }
+    setIsUserLoaded(true); // Mark as loaded
   }, []); // Empty dependency array ensures this runs only once after initial render
 
   // Logout function
@@ -70,7 +75,7 @@ export const AuthContextProvider = ({ children }) => {
       autoClose: 3000,
     });
     navigate("/");
-  }, []);
+  }, [navigate]);
 
   // Login function
   const loginUser = useCallback(
@@ -93,7 +98,7 @@ export const AuthContextProvider = ({ children }) => {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
 
-        console.log ("Login response status:", response);
+        console.log("Login response status:", response);
 
         const data = await response.json();
         const flattenedUser = {
@@ -212,6 +217,11 @@ export const AuthContextProvider = ({ children }) => {
     },
     [registerInfo, navigate]
   );
+
+  // Don't render children until user data is loaded
+  if (!isUserLoaded) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <AuthContext.Provider

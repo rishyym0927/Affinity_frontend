@@ -1,11 +1,11 @@
+/* eslint-disable react/prop-types */
 import { useContext, useEffect, useState } from "react";
 import { ExtraContext } from "../../context/ExtraContext";
 import { motion } from "framer-motion";
 import { RUST_MAIN_URL } from "../../utils/constant";
 import axios from "axios";
 
-
-const UserChat = ({ chat, user }) => {
+const UserChat = ({ chat }) => {
   const { onlineUsers } = useContext(ExtraContext);
 
   // Get the other user's information from the chat object
@@ -32,7 +32,7 @@ const UserChat = ({ chat, user }) => {
 
       try {
         const response = await axios.get(
-          `${RUST_MAIN_URL}/user/getuseravatar?user_id=${otherUser.id}`
+          `${RUST_MAIN_URL}/user/getuseravatar?id=${otherUser.id}`
         );
         setAvatarUrl(response.data); // assuming it returns the avatar URL string
       } catch (error) {

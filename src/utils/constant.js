@@ -5,6 +5,7 @@ export const RUST_MAIN_URL = import.meta.env.VITE_RUST_MAIN_URL
 export const RUST_BACKEND_URL_SCORE= import.meta.env.VITE_RUST_BACKEND_URL_SCORE
 export const MAJOR_CHAT_SERVICE = import.meta.env.VITE_MAJOR_CHAT_SERVICE
 export const chatBaseURL = import.meta.env.VITE_CHAT_BASE_URL
+export const PEROXO_SOCKET_URL = import.meta.env.VITE_PEROXO_URL || "ws://localhost:4001"; 
 import axios from "axios";
 
 export const postRequest = async (url, body) => {

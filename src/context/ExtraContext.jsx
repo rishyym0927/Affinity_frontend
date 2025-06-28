@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { createContext, useCallback, useEffect, useRef, useState } from "react";
 import {
   chatBaseURL,
@@ -132,21 +133,21 @@ export const ExtraContextProvider = ({ children, user }) => {
     getUserChats(); // Call the async function inside useEffect
   }, [user]); // Adding user as a dependency
 
-  const createChat = useCallback(async (firstId, secondId) => {
-    const response = await postRequest(
-      `${chatBaseURL}/chats`,
-      JSON.stringify({
-        firstId,
-        secondId,
-      })
-    );
-    if (response.error) {
-      console.log("Error creating chat", response.error);
-      return;
-    }
-    // Add the new chat to the user's chats list
-    setUserChats((prev) => [...prev, response]);
-  }, []);
+  // const createChat = useCallback(async (firstId, secondId) => {
+  //   const response = await postRequest(
+  //     `${chatBaseURL}/chats`,
+  //     JSON.stringify({
+  //       firstId,
+  //       secondId,
+  //     })
+  //   );
+  //   if (response.error) {
+  //     console.log("Error creating chat", response.error);
+  //     return;
+  //   }
+  //   // Add the new chat to the user's chats list
+  //   setUserChats((prev) => [...prev, response]);
+  // }, []);
 
   //now for messages
   const [messages, setMessages] = useState(null);

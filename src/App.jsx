@@ -26,7 +26,6 @@ LANDING ELEMENT BY THE RESPECTIVE ONE
 
 const App = () => {
   const { user } = useContext(AuthContext);
-  // console.log(user);
 
   // If user is undefined, show a loading state until user is fetched
   if (!user) {
