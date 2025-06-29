@@ -1,9 +1,12 @@
+/* eslint-disable react/prop-types */
 import { useContext, useEffect, useState, useRef } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { ExtraContext } from "../../context/ExtraContext";
 import { useWebSocket } from "../../context/PeroxoSocket";
+import MessageBox from "./MessageBox";
+import ChatHeader from "./ChatHeader";
 
-const ChatBox2 = () => {
+const ChatBox = () => {
   const { user } = useContext(AuthContext);
   const { currentChat } = useContext(ExtraContext);
   const { sendMessage, addMessageHandler, isConnected } = useWebSocket();
@@ -36,6 +39,7 @@ const ChatBox2 = () => {
               to,
               content,
               incoming: from !== user.id,
+              timestamp: new Date(),
             },
           ]);
         }
@@ -56,24 +60,30 @@ const ChatBox2 = () => {
     e.preventDefault();
     if (!input.trim() || !currentChat || !isConnected) return;
 
+    const trimmed = input.trim();
+    const now = new Date();
+
     // Construct the ChatMessage shape expected by the backend
     const payload = {
       DirectMessage: {
         from: user.id,
         to: currentChat.otherUser.id,
-        content: input.trim(),
+        content: trimmed,
       },
     };
 
-    // Send via WebSocket and optimistically update UI
+    // Send via WebSocket
     sendMessage(payload);
+
+    // Optimistically update UI with timestamp
     setMessages((prev) => [
       ...prev,
       {
         from: user.id,
         to: currentChat.otherUser.id,
-        content: input.trim(),
+        content: trimmed,
         incoming: false,
+        timestamp: now,
       },
     ]);
     setInput("");
@@ -90,21 +100,14 @@ const ChatBox2 = () => {
   return (
     <div className="flex flex-col h-full p-4 bg-neutral-900 rounded-lg">
       <div className="flex-1 overflow-y-auto space-y-2">
+        <ChatHeader userInfo={currentChat.otherUser} />
         {messages.map((msg, idx) => (
-          <div
+          <MessageBox
             key={idx}
-            className={`flex ${msg.incoming ? "justify-start" : "justify-end"}`}
-          >
-            <div
-              className={`px-4 py-2 rounded-lg max-w-xs break-words ${
-                msg.incoming
-                  ? "bg-gray-800 text-white"
-                  : "bg-[#ff0059] text-white"
-              }`}
-            >
-              {msg.content}
-            </div>
-          </div>
+            content={msg.content}
+            incoming={msg.incoming}
+            timestamp={msg.timestamp}
+          />
         ))}
         <div ref={bottomRef} />
       </div>
@@ -128,4 +131,4 @@ const ChatBox2 = () => {
   );
 };
 
-export default ChatBox2;
+export default ChatBox;

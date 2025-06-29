@@ -1,5 +1,4 @@
 import { useContext } from "react";
-import ChatBox from "../components/chat/ChatBox";
 import UserChat from "../components/chat/UserChat";
 import { AuthContext } from "../context/AuthContext";
 import { ExtraContext } from "../context/ExtraContext";
