@@ -4,6 +4,7 @@ import { AuthContext } from "../context/AuthContext";
 import { ExtraContext } from "../context/ExtraContext";
 import { motion } from "framer-motion";
 import ChatBox2 from "../components/chat/ChatBox2";
+import SimplifiedChatBox from "../components/chat/SimplifiedChatBox";
 
 const Chat = () => {
   const { user } = useContext(AuthContext);
@@ -176,7 +177,7 @@ const Chat = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, type: "spring", stiffness: 120 }}
           >
-            <ChatBox2 />
+            <SimplifiedChatBox />
           </motion.div>
         </div>
       )}

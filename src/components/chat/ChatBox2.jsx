@@ -1,69 +1,79 @@
 /* eslint-disable react/prop-types */
-import { useContext, useEffect, useState, useRef } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { ExtraContext } from "../../context/ExtraContext";
 import { useWebSocket } from "../../context/PeroxoSocket";
-import MessageBox from "./MessageBox";
+import { useMessageCache } from "../../hooks/useMessageCache"; // Adjust path as needed
 import ChatHeader from "./ChatHeader";
+import MessageBox from "./MessageBox";
 
 const ChatBox = () => {
   const { user } = useContext(AuthContext);
   const { currentChat } = useContext(ExtraContext);
   const { sendMessage, addMessageHandler, isConnected } = useWebSocket();
 
-  const [messages, setMessages] = useState([]);
+  const chatId = currentChat?.chatId || currentChat?.id || null;
+  const {
+    allMessages,
+    addMessage,
+    updateMessageStatus,
+    retryMessage,
+    clearFromMemory,
+    isLoading,
+  } = useMessageCache(chatId);
+
   const [input, setInput] = useState("");
   const bottomRef = useRef(null);
 
-  // Clear messages when switching chats
+  // Clear cache memory when switching chats
   useEffect(() => {
-    setMessages([]);
-  }, [currentChat]);
+    return () => {
+      if (chatId) clearFromMemory();
+    };
+  }, [chatId, clearFromMemory]);
 
-  // Handle incoming WebSocket messages for this chat
+  // Listen to WebSocket messages
   useEffect(() => {
-    if (!currentChat) return;
+    if (!chatId || !currentChat) return;
 
     const unsubscribe = addMessageHandler((message) => {
       if (message.DirectMessage) {
-        const { from, to, content } = message.DirectMessage;
-        const otherId = currentChat.otherUser.id;
+        const { from, to, content, id, timestamp } = message.DirectMessage;
+
+        const otherUserId = currentChat.otherUser.id;
         const isRelevant =
-          (from === user.id && to === otherId) ||
-          (from === otherId && to === user.id);
+          (from === user.id && to === otherUserId) ||
+          (from === otherUserId && to === user.id);
+
         if (isRelevant) {
-          setMessages((prev) => [
-            ...prev,
-            {
-              from,
-              to,
-              content,
-              incoming: from !== user.id,
-              timestamp: new Date(),
-            },
-          ]);
+          addMessage({
+            id,
+            from,
+            to,
+            content,
+            incoming: from !== user.id,
+            timestamp: timestamp || new Date(),
+            status: "sent",
+          });
         }
       }
     });
 
-    return () => {
-      unsubscribe();
-    };
-  }, [addMessageHandler, currentChat, user.id]);
+    return () => unsubscribe();
+  }, [addMessageHandler, currentChat, chatId, user.id, addMessage]);
 
-  // Auto-scroll to bottom on new messages
+  // Auto-scroll on new messages
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+  }, [allMessages]);
 
   const handleSend = (e) => {
     e.preventDefault();
-    if (!input.trim() || !currentChat || !isConnected) return;
+    if (!input.trim() || !chatId || !currentChat || !isConnected) return;
 
     const trimmed = input.trim();
-    const now = new Date();
+    const tempId = `temp_${Date.now()}`;
 
-    // Construct the ChatMessage shape expected by the backend
     const payload = {
       DirectMessage: {
         from: user.id,
@@ -72,20 +82,26 @@ const ChatBox = () => {
       },
     };
 
-    // Send via WebSocket
-    sendMessage(payload);
+    // Add optimistically as pending
+    addMessage({
+      id: tempId,
+      from: user.id,
+      to: currentChat.otherUser.id,
+      content: trimmed,
+      incoming: false,
+      timestamp: new Date(),
+      status: "pending",
+    });
 
-    // Optimistically update UI with timestamp
-    setMessages((prev) => [
-      ...prev,
-      {
-        from: user.id,
-        to: currentChat.otherUser.id,
-        content: trimmed,
-        incoming: false,
-        timestamp: now,
-      },
-    ]);
+    try {
+      sendMessage(payload);
+
+      // Simulate confirmation immediately (in real app, wait for ack)
+      updateMessageStatus(tempId, "sent");
+    } catch (error) {
+      updateMessageStatus(tempId, "failed");
+    }
+
     setInput("");
   };
 
@@ -99,18 +115,25 @@ const ChatBox = () => {
 
   return (
     <div className="flex flex-col h-full p-4 bg-neutral-900 rounded-lg">
-      <div className="flex-1 overflow-y-auto space-y-2">
+      <div className="flex-1 overflow-y-auto space-y-2 pb-2">
         <ChatHeader userInfo={currentChat.otherUser} />
-        {messages.map((msg, idx) => (
-          <MessageBox
-            key={idx}
-            content={msg.content}
-            incoming={msg.incoming}
-            timestamp={msg.timestamp}
-          />
-        ))}
+        {isLoading ? (
+          <div className="text-gray-400 text-sm">Loading messages...</div>
+        ) : (
+          allMessages.map((msg) => (
+            <MessageBox
+              key={msg.id}
+              content={msg.content}
+              incoming={msg.incoming}
+              timestamp={msg.timestamp}
+              status={msg.status}
+              onRetry={() => retryMessage(msg.id)}
+            />
+          ))
+        )}
         <div ref={bottomRef} />
       </div>
+
       <form onSubmit={handleSend} className="mt-2 flex">
         <input
           type="text"
