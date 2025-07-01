@@ -1,6 +1,7 @@
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useRef,useContext } from "react";
 import { messageCache } from "../Chat/messageCache";
-
+import { useWebSocket } from "../context/PeroxoSocket";
+import { AuthContext } from "../context/AuthContext";
 export const useMessageCache = (chatId) => {
   const [messages, setMessages] = useState([]);
   const [pendingMessages, setPendingMessages] = useState([]);
@@ -10,6 +11,51 @@ export const useMessageCache = (chatId) => {
 
   const chatIdRef = useRef(chatId);
   const abortControllerRef = useRef(null);
+
+  const { addMessageHandler } = useWebSocket();
+  const { user } = useContext(AuthContext);
+  
+
+  useEffect(() => {
+  const unsubscribe = addMessageHandler((message) => {
+    const dm = message?.DirectMessage;
+    if (!dm) return;
+
+    const { from, to, content, message_id, timestamp } = dm;
+    const senderId = from;
+    const receiverId = to;
+
+    if (!message_id || (senderId !== user.id && receiverId !== user.id)) return;
+
+    const otherId = senderId === user.id ? receiverId : senderId;
+    const derivedChatId = `${Math.min(user.id, otherId)}_${Math.max(user.id, otherId)}`;
+
+    const time = timestamp ? new Date(timestamp) : new Date();
+
+    // Save message globally to cache
+    const isIncoming = senderId !== user.id;
+
+    const messageData = {
+      id: message_id,
+      from: senderId,
+      to: receiverId,
+      content,
+      incoming: isIncoming,
+      timestamp: time,
+      status: "sent",
+    };
+
+    // Add to global cache
+    messageCache.addMessage(derivedChatId, messageData);
+
+    // If this message is for the current chat, update the local state
+    if (derivedChatId === chatIdRef.current) {
+      setMessages((prev) => [...prev, messageData]);
+    }
+  });
+
+  return unsubscribe;
+}, [user.id, addMessageHandler]);
 
   // Update chatId ref when it changes
   useEffect(() => {

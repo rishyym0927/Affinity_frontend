@@ -10,7 +10,7 @@ import { v4 as uuidv4 } from "uuid";
 const ChatBox = () => {
   const { user } = useContext(AuthContext);
   const { currentChat } = useContext(ExtraContext);
-  const { sendMessage, addMessageHandler, isConnected } = useWebSocket();
+  const { sendMessage, isConnected } = useWebSocket();
 
   const chatId = currentChat
     ? `${Math.min(user.id, currentChat.otherUser.id)}_${Math.max(
@@ -42,52 +42,6 @@ const ChatBox = () => {
     }
     previousChatIdRef.current = chatId;
   }, [chatId, clearFromMemory]);
-
-  // Handle incoming messages & acks
-  useEffect(() => {
-    if (!currentChat || !chatId) return;
-
-    const unsubscribe = addMessageHandler((message) => {
-      const dm = message?.DirectMessage;
-      if (!dm) return;
-
-      const { from, to, content, message_id, timestamp } = dm;
-      const otherId = currentChat.otherUser.id;
-
-      const isRelevant =
-        (from === user.id && to === otherId) ||
-        (from === otherId && to === user.id);
-
-      if (!isRelevant || !message_id) return;
-
-      const time = timestamp ? new Date(timestamp) : new Date();
-
-      if (from !== user.id) {
-        // Incoming message
-        addMessage({
-          id: message_id,
-          from,
-          to,
-          content,
-          incoming: true,
-          timestamp: time,
-          status: "sent",
-        });
-      } else {
-        // Confirmation for our sent message
-        updateMessageStatus(message_id, "sent", { timestamp: time });
-      }
-    });
-
-    return unsubscribe;
-  }, [
-    addMessageHandler,
-    chatId,
-    currentChat,
-    user.id,
-    addMessage,
-    updateMessageStatus,
-  ]);
 
   // Scroll to bottom when messages change
   useEffect(() => {
