@@ -122,7 +122,7 @@ const FormStep21 = ({ onNext, onBack }) => {
                 value="Yes"
                 checked={registerInfo.past_relations === "Yes"}
                 onChange={() =>
-                  updateRegisterInfo({ ...registerInfo, past_relationships: "Yes" })
+                  updateRegisterInfo({ ...registerInfo, past_relations: "Yes" })
                 }
                 className="form-radio text-[#ff0059]"
               />
@@ -135,7 +135,7 @@ const FormStep21 = ({ onNext, onBack }) => {
                 value="No"
                 checked={registerInfo.past_relations === "No"}
                 onChange={() =>
-                  updateRegisterInfo({ ...registerInfo, past_relationships: "No" })
+                  updateRegisterInfo({ ...registerInfo, past_relations: "No" })
                 }
                 className="form-radio text-[#ff0059]"
               />
