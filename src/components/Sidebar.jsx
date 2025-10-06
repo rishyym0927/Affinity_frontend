@@ -200,32 +200,34 @@ const Sidebar = () => {
           {showProfileBox && (
             <>
               <motion.div
-                className="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-sm z-30"
+                className="fixed inset-0 bg-black/50 backdrop-blur-md z-30"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 onClick={() => setShowProfileBox(false)}
               />
               <motion.div
-                className="fixed left-1/2 translate-x-1/2 transform w-[90%] max-w-3xl max-h-[90vh] overflow-y-auto p-0 bg-neutral-900 rounded-2xl z-40 shadow-2xl"
+                className="fixed inset-0 flex items-center justify-center z-40 p-4"
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ type: "spring", damping: 25, stiffness: 300 }}
               >
-                {/* Profile Header */}
-                <div className="p-6 bg-gradient-to-r from-[#ff0059]/20 to-neutral-900 border-b border-neutral-800">
-                  <div className="flex justify-between items-center">
-                    <h2 className="text-3xl font-bold text-white">Profile Details</h2>
-                    <motion.button
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      onClick={() => setShowProfileBox(false)}
-                      className="text-neutral-400 hover:text-white"
-                    >
-                      <FiX size={24} />
-                    </motion.button>
+                <div className="w-full max-w-3xl max-h-[90vh] overflow-y-auto bg-neutral-900 rounded-2xl shadow-2xl border border-neutral-700">
+                  {/* Profile Header */}
+                  <div className="p-6 bg-gradient-to-r from-[#ff0059]/20 to-neutral-900 border-b border-neutral-800">
+                    <div className="flex justify-between items-center">
+                      <h2 className="text-3xl font-bold text-white">Profile Details</h2>
+                      <motion.button
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                        onClick={() => setShowProfileBox(false)}
+                        className="text-neutral-400 hover:text-white"
+                      >
+                        <FiX size={24} />
+                      </motion.button>
+                    </div>
                   </div>
-                </div>
 
                 {/* Profile Content */}
                 <div className="p-6 ">
@@ -359,6 +361,7 @@ const Sidebar = () => {
                       </motion.button>
                     </div>
                   )}
+                </div>
                 </div>
               </motion.div>
             </>
